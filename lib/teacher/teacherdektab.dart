@@ -1,3 +1,4 @@
+import 'package:a_learning/widgets/dashboardcontainer.dart';
 import 'package:flutter/material.dart';
 class Teacherdektab extends StatefulWidget {
   const Teacherdektab({super.key});
@@ -34,37 +35,7 @@ List<assign> a=[];
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-                padding:EdgeInsets.only(left: 24,right: 24),
-              child:Container(
-                width: double.infinity,
-                height: 200,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(75, 57, 239, 1), // Starting color
-                      Color.fromRGBO(57, 210, 192, 1), // Ending color
-                    ],
-                    begin: Alignment.topCenter, // Start point of the gradient
-                    end: Alignment.bottomCenter, // End point of the gradient
-                  ),
-                ),
-                child: Padding(padding: EdgeInsets.all(24),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text("Teacher Dashboard",style: TextStyle(fontSize: 28,fontWeight: FontWeight.bold,color: Colors.white),),
-                    Text("Manage your modules and student submissions",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Color.fromRGBO(224, 224, 224, 1)),)
-                  ],
-                  
-                ),
-                ),
-              ),
-
-
-            ),
+           dashboardcontainer(title:"Teacher Dashboard" , description: "Manage your modules and student submissions"),
             Padding(padding: EdgeInsets.all(24),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,

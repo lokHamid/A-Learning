@@ -240,29 +240,33 @@ class _TeachermobileState extends State<Teachermobile> {
                                             color: Color.fromRGBO(240, 240, 240, 1),
                                             borderRadius: BorderRadius.circular(8)
                                         ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Text(a[index].name,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600),),
-                                                Text(a[index].subject,style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400,color: Color.fromRGBO(87, 99, 108,1)),)
-
-                                              ],
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(12),
-                                                  color: containerColor
+                                        child: Padding(
+                                          
+                                          padding: EdgeInsets.all(12),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(a[index].name,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600),),
+                                                  Text(a[index].subject,style: TextStyle(fontSize: 12,fontWeight: FontWeight.w400,color: Color.fromRGBO(87, 99, 108,1)),)
+                                          
+                                                ],
                                               ),
-                                              child: Text(a[index].condition,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12,color: textcolor),),
-                                            )
-                                          ],
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                    color: containerColor
+                                                ),
+                                                child: Text(a[index].condition,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 12,color: textcolor),),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                       SizedBox(height: 12,)
