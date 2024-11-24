@@ -1,146 +1,148 @@
+import 'package:a_learning/teacher/pages/Teacherpages/dashboardpage.dart';
+import 'package:a_learning/teacher/pages/Teacherpages/teacherview.dart';
+import 'package:a_learning/teacher/teacher%20course/view.dart';
+import 'package:a_learning/teacher/teacher.dart';
+import 'package:a_learning/tr.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import 'flutter_flow/flutter_flow_util.dart';
-import 'index.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  GoRouter.optionURLReflectsImperativeAPIs = true;
-  usePathUrlStrategy();
-
-  await FlutterFlowTheme.initialize();
-
-  runApp(const MyApp());
+void main() {
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  State<MyApp> createState() => _MyAppState();
-
-  static _MyAppState of(BuildContext context) =>
-      context.findAncestorStateOfType<_MyAppState>()!;
-}
-
-class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
-
-  late AppStateNotifier _appStateNotifier;
-  late GoRouter _router;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _appStateNotifier = AppStateNotifier.instance;
-    _router = createRouter(_appStateNotifier);
-  }
-
-  void setThemeMode(ThemeMode mode) => safeSetState(() {
-        _themeMode = mode;
-        FlutterFlowTheme.saveThemeMode(mode);
-      });
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'A learning',
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [Locale('en', '')],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Translation Test Page',
       theme: ThemeData(
-        brightness: Brightness.light,
-        useMaterial3: false,
+        primarySwatch: Colors.blue,
       ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        useMaterial3: false,
-      ),
-      themeMode: _themeMode,
-      routerConfig: _router,
+      home: Teacherview(student: "John Doe", id: 10, course: "Intro to Programming PW1")
     );
   }
 }
 
-class NavBarPage extends StatefulWidget {
-  const NavBarPage({super.key, this.initialPage, this.page});
-
-  final String? initialPage;
-  final Widget? page;
-
+class TestTranslationPage extends StatefulWidget {
   @override
-  _NavBarPageState createState() => _NavBarPageState();
+  _TestTranslationPageState createState() => _TestTranslationPageState();
 }
 
-/// This is the private State class that goes with NavBarPage.
-class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'student_UI';
-  late Widget? _currentPage;
+class _TestTranslationPageState extends State<TestTranslationPage> {
+  final TranslationService _translationService = TranslationService();
+  String _selectedLanguage = 'en'; // Default to English
+
+  // Variables to hold translated text for UI elements
+  String _titleText = "Welcome to Our Translation Demo";
+  String _subtitleText = "Experience Multi-Language Support";
+  String _descriptionText = "Enter your details below and select a language to see live translation.";
+  String _nameLabelText = "Name";
+  String _emailLabelText = "Email";
+  String _buttonText = "Submit";
 
   @override
   void initState() {
     super.initState();
-    _currentPageName = widget.initialPage ?? _currentPageName;
-    _currentPage = widget.page;
+    _translateUI();  // Initial translation to default language
+  }
+
+  // Method to translate all UI text
+  Future<void> _translateUI() async {
+    final title = await _translationService.translate("Welcome to Our Translation Demo", _selectedLanguage);
+    final subtitle = await _translationService.translate("Experience Multi-Language Support", _selectedLanguage);
+    final description = await _translationService.translate("Enter your details below and select a language to see live translation.", _selectedLanguage);
+    final nameLabel = await _translationService.translate("Name", _selectedLanguage);
+    final emailLabel = await _translationService.translate("Email", _selectedLanguage);
+    final button = await _translationService.translate("Submit", _selectedLanguage);
+
+    setState(() {
+      _titleText = title;
+      _subtitleText = subtitle;
+      _descriptionText = description;
+      _nameLabelText = nameLabel;
+      _emailLabelText = emailLabel;
+      _buttonText = button;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final tabs = {
-      'student_UI': const StudentUIWidget(),
-      'profile': const ProfileWidget(),
-      'students_timeplate': const StudentsTimeplateWidget(),
-    };
-    final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
+    // Set textDirection based on selected language
+    TextDirection textDirection = _selectedLanguage == 'ar' ? TextDirection.rtl : TextDirection.ltr;
 
     return Scaffold(
-      body: _currentPage ?? tabs[_currentPageName],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (i) => safeSetState(() {
-          _currentPage = null;
-          _currentPageName = tabs.keys.toList()[i];
-        }),
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        selectedItemColor: FlutterFlowTheme.of(context).primary,
-        unselectedItemColor: FlutterFlowTheme.of(context).secondaryText,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.space_dashboard_rounded,
-              size: 40.0,
-            ),
-            label: 'Dashboard',
-            tooltip: '',
+      appBar: AppBar(
+        title: Text(_titleText),
+      ),
+      body: Directionality(
+        textDirection: textDirection,  // Apply text direction here
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _titleText,
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text(
+                _subtitleText,
+                style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+              ),
+              SizedBox(height: 20),
+              Text(
+                _descriptionText,
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 30),
+              Text(
+                _nameLabelText,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: _nameLabelText,
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                _emailLabelText,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: _emailLabelText,
+                ),
+              ),
+              SizedBox(height: 30),
+              DropdownButton<String>(
+                value: _selectedLanguage,
+                onChanged: (String? newLanguage) {
+                  setState(() {
+                    _selectedLanguage = newLanguage!;
+                  });
+                  _translateUI();
+                },
+                items: <String>['en', 'es', 'fr', 'de', 'ar']
+                    .map<DropdownMenuItem<String>>((String language) {
+                  return DropdownMenuItem<String>(
+                    value: language,
+                    child: Text(language.toUpperCase()),
+                  );
+                }).toList(),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  // Add your submit action here
+                },
+                child: Text(_buttonText),
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_rounded,
-              size: 40.0,
-            ),
-            label: 'Profile',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.calendar_today,
-              size: 40.0,
-            ),
-            label: 'Schedule',
-            tooltip: '',
-          )
-        ],
+        ),
       ),
     );
   }
