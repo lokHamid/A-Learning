@@ -3,4 +3,18 @@ GET https://examples.http-client.intellij.net/get
     ?generated-in=IntelliJ IDEA
 
 ###
-GET http://localhost:8080/student/all
+GET http://localhost:8080/users/all
+
+###
+POST http://localhost:8080/users/add
+Content-Type: application/json
+
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "age": 25,
+  "email": "john.doe@example.com",
+  "password": "mypassword",
+  "pass_salt": "randomsalt",
+  "role": "STUDENT"
+}

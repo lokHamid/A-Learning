@@ -1,30 +1,33 @@
 package com.example.A_Learning_Springboot.entities;
 
+import jakarta.persistence.*;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import org.springframework.data.annotation.Id;
-
+@Entity
+@Table(name = "users")
 public class User {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id_user;
     private String first_name;
     private String last_name;
     private int age;
     private String email;
     private String password;
+    private String pass_salt;
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     public User(){}
 
-    public User(int id,String first_name, String last_name, int age, String email, String password,Role role) {
-        this.id = id;
+    public User(int id,String first_name, String last_name, int age, String email, String password,String pass_salt,Role role) {
+        this.id_user = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.age = age;
         this.email = email;
         this.password = password;
+        this.pass_salt = pass_salt;
         this.role = role;
     }
 
@@ -63,11 +66,11 @@ public class User {
         this.password = password;
     }
 
-    public int getId() {
-        return id;
+    public int getId_user() {
+        return id_user;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setId_user(int id_user) {
+        this.id_user = id_user;
     }
 
     public Role getRole() {
@@ -75,5 +78,13 @@ public class User {
     }
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getPass_salt() {
+        return pass_salt;
+    }
+
+    public void setPass_salt(String pass_salt) {
+        this.pass_salt = pass_salt;
     }
 }
