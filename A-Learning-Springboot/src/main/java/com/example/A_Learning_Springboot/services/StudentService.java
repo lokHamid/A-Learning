@@ -9,14 +9,6 @@ import java.util.Optional;
 
 @Service
 public class StudentService extends UserService{
-//    @Autowired
-//    private UserRepository<Student> studentRepository;
-//
-//    public void saveStudent(Student student){
-//        saveUser(student);
-//        studentRepository.save(student);
-//
-//    }
 
     //define specific student stuff and operations here
 }

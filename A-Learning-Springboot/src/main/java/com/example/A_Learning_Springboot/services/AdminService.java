@@ -7,12 +7,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AdminService extends UserService{
-//    @Autowired
-//    private UserRepository<Admin> adminRepository;
-//
-//    public void saveAdmin(Admin admin){
-//        saveUser(admin);
-//        adminRepository.save(admin);
-//    }
     //define specific admin operations here
 }

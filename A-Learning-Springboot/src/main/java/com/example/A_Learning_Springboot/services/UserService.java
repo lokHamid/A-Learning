@@ -13,8 +13,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void saveUser(User user){
+    public User saveUser(User user){
         userRepository.save(user);
+        return user;
     }
 
     public List<User> findall(){
@@ -23,6 +24,14 @@ public class UserService {
 
     public Optional<User> findbyid(int id){
         return userRepository.findById(id);
+    }
+    
+    public void deletebyid(int id){
+        userRepository.deleteById(id);
+    }
+
+    public void delete(User user){
+        userRepository.delete(user);
     }
 
 }
