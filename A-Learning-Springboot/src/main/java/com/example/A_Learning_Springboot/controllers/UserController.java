@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
     @Autowired
     private final UserService userService;
@@ -35,8 +35,7 @@ public class UserController {
     //create
     @PostMapping("/add")
     public User addUser(@RequestBody User user) {
-        userService.saveUser(user);
-        return user;
+        return userService.saveUser(user);
     }
     //update
     @PutMapping("/update")

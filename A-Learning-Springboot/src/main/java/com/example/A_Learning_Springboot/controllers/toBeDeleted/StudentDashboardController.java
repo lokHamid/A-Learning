@@ -1,4 +1,4 @@
-package com.example.A_Learning_Springboot.controllers;
+package com.example.A_Learning_Springboot.controllers.toBeDeleted;
 
 import com.example.A_Learning_Springboot.entities.Course;
 import com.example.A_Learning_Springboot.repositories.CourseRepository;
