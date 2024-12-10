@@ -1,43 +1,44 @@
 package com.example.A_Learning_Springboot.entities;
 
-public class Course {
 
-    private String id;
-    private String name;
-    private String description;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="courses")
+public class Course {
+    @Id
+    private String id_course;
+    private int coefficient;
+    @Enumerated(EnumType.STRING)
+    private String level;
 
     public Course() {
     }
-
-    public Course(String id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
+    public Course(String id_course, int coefficient, String level) {
+        this.id_course = id_course;
+        this.coefficient = coefficient;
+        this.level = level;
+    }
+    public String getId_course() {
+        return id_course;
+    }
+    public void setId_course(String id_course) {
+        this.id_course = id_course;
     }
 
-    public String getId() {
-        return id;
+    public int getCoefficient() {
+        return coefficient;
     }
 
-    public String getName() {
-        return name;
+    public void setCoefficient(int coefficient) {
+        this.coefficient = coefficient;
     }
 
-    public String getDescription() {
-        return description;
+    public String getLevel() {
+        return level;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setLevel(String level) {
+        this.level = level;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
 }

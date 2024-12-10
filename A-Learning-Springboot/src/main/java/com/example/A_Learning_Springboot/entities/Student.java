@@ -11,8 +11,8 @@ public class Student extends User {
     @Enumerated(EnumType.STRING)
     private Level level;
 
-    public Student(int id_user,String first_name, String last_name, int age, String email, String password,String pass_salt,Role role,String group,String scholar_year,Level level) {
-        super(id_user,first_name,last_name,age,email,password,pass_salt,role);
+    public Student(String first_name, String last_name, int age, String email, String password,String pass_salt,Role role,String group,String scholar_year,Level level) {
+        super(first_name,last_name,age,email,password,pass_salt,role);
         this.group = group;
         this.scholar_year = scholar_year;
         this.level = level;
