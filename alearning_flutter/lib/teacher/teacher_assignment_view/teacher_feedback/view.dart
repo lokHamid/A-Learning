@@ -51,6 +51,9 @@ class _TeacherfeedbackviewState extends State<Teacherfeedbackview> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
+                    constraints: BoxConstraints(
+                      maxHeight: 150.0,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8)
@@ -62,16 +65,23 @@ class _TeacherfeedbackviewState extends State<Teacherfeedbackview> {
                       decoration: InputDecoration(
                         labelText: "Feedback",
                         labelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),
+
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(
+
                                 color: Color.fromRGBO(224, 224, 224, 1)
                             ),
 
                         ),
-
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color:  Color.fromRGBO(224, 224, 224, 1),
+                              )
+                            ),
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
+
                             borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(
                             color: Color.fromRGBO(224, 224, 224, 1)
