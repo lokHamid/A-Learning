@@ -21,16 +21,6 @@ public class User {
 
     public User(){}
 
-    public User(String first_name, String last_name, int age, String email, String password,String pass_salt,Role role) {
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.age = age;
-        this.email = email;
-        this.password = password;
-        this.pass_salt = pass_salt;
-        this.role = role;
-    }
-
     public String getFirst_name() {
         return first_name;
     }
