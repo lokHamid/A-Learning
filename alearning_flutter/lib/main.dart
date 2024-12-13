@@ -1,15 +1,24 @@
 import 'package:a_learning/teacher/pages/Teacherpages/dashboardpage.dart';
 import 'package:a_learning/teacher/pages/Teacherpages/teacherview.dart';
+import 'package:a_learning/teacher/pages/Teacherpages/teacherassignmentsm.dart';
 import 'package:a_learning/teacher/teacher%20course/view.dart';
 import 'package:a_learning/teacher/teacher.dart';
+import 'package:a_learning/teacher/teacherassignmantsmnage/viewmodel.dart';
 import 'package:a_learning/tr.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => teacherassignmanag()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -19,8 +28,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Teacherview(student: "John Doe", id: 10, course: "Intro to Programming PW1")
-    );
+      home: teacherassignm(module: 'Web Development Fundamentals', modid: 'm1',),
+       );
   }
 }
 
