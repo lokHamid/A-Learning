@@ -39,7 +39,27 @@ class Teacheraddassignment extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8)
                       ),
                       child: IconButton(onPressed: () async {
-                       picked=await showDatePicker(context: context,initialDate: DateTime.now(), firstDate:DateTime.now(), lastDate:DateTime(2100));
+                        picked=await showDatePicker(context: context,initialDate: DateTime.now(), firstDate:DateTime.now(), lastDate:DateTime(2100),
+                          builder: (BuildContext context, Widget? child) {
+                            return Theme(
+                              data: ThemeData.light().copyWith(
+                                colorScheme: ColorScheme.light(
+                                  primary: Color.fromRGBO(75, 57, 239, 1), // Header background color
+                                 onPrimary: Colors.white, // Header text and icon color
+                                  onSurface: Colors.black,
+                                  
+                                ),
+                                textButtonTheme: TextButtonThemeData(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: Color.fromRGBO(75, 57, 239, 1), // Button text color
+                                  ),
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
+                        );
+
 
                       },color: Color.fromRGBO(75, 57, 239,1), icon:Icon(Icons.edit_calendar_rounded,color: Colors.white,size: 24,),)),
 

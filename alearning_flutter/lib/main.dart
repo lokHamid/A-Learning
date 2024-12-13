@@ -1,6 +1,6 @@
 import 'package:a_learning/teacher/pages/Teacherpages/dashboardpage.dart';
 import 'package:a_learning/teacher/pages/Teacherpages/teacherview.dart';
-import 'package:a_learning/teacher/pages/teacherassignmentsm.dart';
+import 'package:a_learning/teacher/pages/Teacherpages/teacherassignmentsm.dart';
 import 'package:a_learning/teacher/teacher%20course/view.dart';
 import 'package:a_learning/teacher/teacher.dart';
 import 'package:a_learning/teacher/teacherassignmantsmnage/viewmodel.dart';
