@@ -35,21 +35,14 @@ public class Feedback {
     }
     @ManyToOne
     @JoinColumn(name = "id_solution", foreignKey = @ForeignKey(name = "feedbacks_id_solution_fkey"))
-    private Solution id_solution;
+    private Solution ref_solution;
 
-    public Solution getId_solution() {
-        return id_solution;
+    public Solution getRef_solution() {
+        return ref_solution;
     }
-
-    public void setId_solution(Solution id_solution) {
-        this.id_solution = id_solution;
+    public void setRef_solution(Solution ref_solution) {
+        this.ref_solution = ref_solution;
     }
 
     public Feedback(){}
-    public Feedback(String comment, int grade, Solution id_solution) {
-        this.comment = comment;
-        this.grade = grade;
-        this.id_solution = id_solution;
-    }
-
 }
