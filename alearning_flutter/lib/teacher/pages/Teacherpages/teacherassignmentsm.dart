@@ -31,6 +31,7 @@ class teacherassignm extends StatelessWidget {
                 Teacheraddassignment(),
                  SizedBox(height: 16,),
                 teachersassignui(),
+                SizedBox(height: 16,)
               ],
             ),
             ),

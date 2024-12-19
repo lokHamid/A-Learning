@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:a_learning/teacher/teacherassignmantsmnage/model.dart';
 import 'package:flutter/material.dart';
+
+import '../teachersassignments/viewmodel.dart';
 class teacherassignmanag extends ChangeNotifier{
 final TextEditingController t1=TextEditingController();
 final TextEditingController t2=TextEditingController();
@@ -18,7 +20,10 @@ void updateField3(String value) {
   t3.text = value;
   notifyListeners();
 }
-  Future<void> sendAssignment(assignment assignment) async {// URL to send the POST request to
+  Future<void> sendAssignment(assignment assignment,Teacherassignments tech) async {
+tech.assign.add(assignment);
+
+  // URL to send the POST request to
     final url = Uri.parse('https://your-api-endpoint.com/assignments');
 
     // Convert the assignment object to JSON

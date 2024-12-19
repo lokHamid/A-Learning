@@ -1,3 +1,5 @@
+import 'package:a_learning/Student/Pages/Assignments.dart';
+import 'package:a_learning/Student/Pages/dashboard.dart';
 import 'package:a_learning/teacher/pages/Teacherpages/dashboardpage.dart';
 import 'package:a_learning/teacher/pages/Teacherpages/teacherview.dart';
 import 'package:a_learning/teacher/pages/Teacherpages/teacherassignmentsm.dart';
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: teacherassignm(module: 'Web Development Fundamentals', modid: 'm1',),
+      home: Courseassignments(studentID: 'hgyhg',coursename: 'Introduction to Computer Science assignments',)
        );
   }
 }
