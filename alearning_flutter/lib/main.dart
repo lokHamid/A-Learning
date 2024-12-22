@@ -1,11 +1,16 @@
+import 'package:a_learning/Admin/Page/AdminPage.dart';
+import 'package:a_learning/Login/View.dart';
 import 'package:a_learning/Student/Pages/Assignments.dart';
+import 'package:a_learning/Student/Pages/Detailedassignments.dart';
 import 'package:a_learning/Student/Pages/dashboard.dart';
 import 'package:a_learning/teacher/pages/Teacherpages/dashboardpage.dart';
 import 'package:a_learning/teacher/pages/Teacherpages/teacherview.dart';
 import 'package:a_learning/teacher/pages/Teacherpages/teacherassignmentsm.dart';
-import 'package:a_learning/teacher/teacher%20course/view.dart';
 import 'package:a_learning/teacher/teacher.dart';
+import 'package:a_learning/teacher/teacher_assignment_view/Studentsolution/model.dart';
+import 'package:a_learning/teacher/teacherassignmantsmnage/model.dart';
 import 'package:a_learning/teacher/teacherassignmantsmnage/viewmodel.dart';
+import 'package:a_learning/test.dart';
 import 'package:a_learning/tr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,16 +27,22 @@ void main() {
   );
 }
 class MyApp extends StatelessWidget {
+
   @override
+
+
   Widget build(BuildContext context) {
+    List<files> f=[];
+    f.add(files(name: 'python', url:'https://www.youtube.com/watch?v=gs8qfL9PNac'));
+    f.add(files(name: 'java', url:'https://drive.google.com/file/d/16fg8BFsiy1lZNyTYVJI6eN40wNaGLTb4/view?usp=sharing'));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Translation Test Page',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Courseassignments(studentID: 'hgyhg',coursename: 'Introduction to Computer Science assignments',)
-       );
+      home:Loginpage()
+    );
   }
 }
 

@@ -3,7 +3,7 @@ import 'package:a_learning/teacher/teacher_assignment_view/teacher_feedback/mode
 class Techerfeedmv {
   late Feedbacka _feedback;
   void feedbacksave(String feed,double? grade){
-    _feedback=Feedbacka(grade,feed);
+    _feedback=Feedbacka( message: 'hello');
 
   }
 }

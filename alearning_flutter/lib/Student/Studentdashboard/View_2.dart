@@ -1,6 +1,10 @@
 import 'package:a_learning/Student/Studentdashboard/ViewModel.dart';
+import 'package:a_learning/teacher/teacher_assignment_view/Studentsolution/model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../teacher/teacherassignmantsmnage/model.dart';
+import '../Pages/Detailedassignments.dart';
 class Recent extends StatelessWidget {
   final String studentID;
   const Recent({super.key, required this.studentID});
@@ -76,7 +80,12 @@ class Recent extends StatelessWidget {
                       SizedBox(height: 12,),
                       assign.assigndeadline(assign.assignments[index].submissiondeadline),
                       SizedBox(height: 12,),
-                      ElevatedButton(onPressed: (){},
+                      ElevatedButton(onPressed: (){
+                        List<files> file=[];
+                        file.add(files(url:'https://www.youtube.com/watch?v=-t2CR9qZRj0' , name: 'youtube'));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailedassignments(assign: assignment(pwid: 'pw',submissiondeadline: DateTime.now() ,pwname: 'c++', steps: 'hello',pw: file,file: file),)));
+
+                      },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromRGBO(75, 57,239,1),
                             shape: RoundedRectangleBorder(

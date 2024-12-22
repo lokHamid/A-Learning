@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../Pages/Assignments.dart';
 import 'ViewModel.dart';
 class Studentdash extends StatelessWidget {
   final String studentID;
@@ -59,7 +60,7 @@ class Studentdash extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-
+                             Navigator.push(context,MaterialPageRoute(builder: (context)=>Courseassignments(coursename: 'Intro to Python', studentID: studentID,)));
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

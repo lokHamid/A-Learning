@@ -1,8 +1,10 @@
+import 'dart:io';
+
 class solution {
-  final String solution1;
-  final String studentname;
-  final int id;
-  final List<files> pdf;
+   String solution1;
+   String studentname;
+   int id;
+  List<files> pdf;
 
   solution({
     required this.solution1,
@@ -21,21 +23,39 @@ class solution {
       ),
     );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'solution': solution1,
+      'studentname': studentname,
+      'id': id,
+      'pdf': pdf.map((file) => file.toJson()).toList(),
+    };
+  }
 }
 
 class files {
   final String name;
   final String url;
-
+   File? file;
   files({
     required this.name,
     required this.url,
+    this.file
   });
 
   factory files.fromJson(Map<String, dynamic> json) {
     return files(
       name: json['name'],
       url: json['url'],
+      file: json['file'] != null ? File(json['file']) : null,
     );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'url': url,
+      'file': file?.path,
+    };
+  }
+
 }

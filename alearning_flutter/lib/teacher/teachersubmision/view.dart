@@ -1,6 +1,8 @@
 import 'package:a_learning/teacher/teachersubmision/viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../pages/Teacherpages/teacherview.dart';
 class Viewsubmit extends StatelessWidget {
   const Viewsubmit({super.key});
 
@@ -99,53 +101,58 @@ class Viewsubmit extends StatelessWidget {
                                   Colors.grey; // Default color if no match
                           }
 
-                          return Column(
-                            children: [
-                              Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: Color.fromRGBO(240, 240, 240, 1),
-                                    borderRadius: BorderRadius.circular(8)
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceBetween,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(teachersubvm.assigns[index].name, style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600),),
-                                        Text(teachersubvm.assigns[index].subject, style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color.fromRGBO(
-                                                87, 99, 108, 1)),)
+                          return GestureDetector(
+                            onTap: (){
+                              Navigator.push(context,MaterialPageRoute(builder: (context)=>Teacherview(student: 'ZENNAD AKRAM', id: 8789, course: 'Intro to python',)));
+                            },
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(240, 240, 240, 1),
+                                      borderRadius: BorderRadius.circular(8)
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceBetween,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment
+                                            .start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(teachersubvm.assigns[index].name, style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600),),
+                                          Text(teachersubvm.assigns[index].subject, style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color.fromRGBO(
+                                                  87, 99, 108, 1)),)
 
-                                      ],
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(12),
-                                          color: containerColor
+                                        ],
                                       ),
-                                      child: Text(teachersubvm.assigns[index].condition,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12,
-                                            color: textcolor),),
-                                    )
-                                  ],
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(12),
+                                            color: containerColor
+                                        ),
+                                        child: Text(teachersubvm.assigns[index].condition,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12,
+                                              color: textcolor),),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 12,)
-                            ],
+                                SizedBox(height: 12,)
+                              ],
+                            ),
                           );
                         },
 
