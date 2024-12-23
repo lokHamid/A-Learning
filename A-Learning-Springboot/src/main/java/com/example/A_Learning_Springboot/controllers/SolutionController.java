@@ -1,10 +1,57 @@
 package com.example.A_Learning_Springboot.controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.A_Learning_Springboot.entities.Pw;
+import com.example.A_Learning_Springboot.entities.Solution;
+import com.example.A_Learning_Springboot.services.SolutionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/solution")
 public class SolutionController {
-    //to be implemented later
+
+    @Autowired
+    private SolutionService solutionService;
+
+    public SolutionController(SolutionService solutionService) {
+        this.solutionService = solutionService;
+    }
+
+    //read:
+    @GetMapping("/all")
+    public List<Solution> getAllSolutions(){
+        return solutionService.getAllSolutions();
+    }
+
+    //read by id:
+    @GetMapping("/all/{id}")
+    public ResponseEntity<Solution> getSolutionById(@PathVariable int id){
+        Optional<Solution> solution = solutionService.getSolutionById(id);
+        return ResponseEntity.ok(solution.orElse(null));
+    }
+
+    //update
+    @PutMapping("/update")
+    public ResponseEntity<Solution> updateSolution(@RequestBody Solution solution){
+        Solution newSolution = solutionService.saveSolution(solution);
+        return new ResponseEntity<>(newSolution, org.springframework.http.HttpStatus.OK);
+    }
+
+    //create
+    @PostMapping("/add")
+    public Solution addSolution(@RequestBody Solution solution){
+        return solutionService.saveSolution(solution);
+    }
+
+    //delete
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteSolution(@RequestBody Solution solution){
+        solutionService.deleteSolution(solution);
+        return ResponseEntity.noContent().build();
+    }
+
 }
