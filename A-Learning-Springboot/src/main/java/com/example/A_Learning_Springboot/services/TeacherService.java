@@ -30,4 +30,8 @@ public class TeacherService extends UserService{
     public void deleteTeacher(Teacher teacher){
         delete(teacher);
     }
+
+    public void deleteTeacherById(int id) {
+        teacherRepository.deleteById(id);
+    }
 }

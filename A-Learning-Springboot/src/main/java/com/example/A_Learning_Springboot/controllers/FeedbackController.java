@@ -53,6 +53,12 @@ public class FeedbackController {
         return ResponseEntity.noContent().build();
     }
 
+    //delete by id
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteFeedbackById(@PathVariable int id){
+        feedbackService.deleteFeedbackById(id);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

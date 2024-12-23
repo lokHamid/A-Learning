@@ -52,4 +52,11 @@ public class AdminController {
         adminService.deleteAdmin(admin);
         return ResponseEntity.noContent().build();
     }
+
+    //delete by id
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteAdminById(@PathVariable int id){
+        adminService.deleteAdminById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -32,4 +32,7 @@ public class SolutionService {
         solutionRepository.delete(solution);
     }
 
+    public void deleteSolutionById(int id) {
+        solutionRepository.deleteById(id);
+    }
 }

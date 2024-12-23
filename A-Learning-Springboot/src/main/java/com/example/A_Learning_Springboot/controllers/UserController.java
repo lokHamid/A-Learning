@@ -58,10 +58,19 @@ public class UserController {
         User newUser = userService.saveUser(user);
         return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
+
     //delete
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteUser(@RequestBody User user) {
+        userService.delete(user);
+        return ResponseEntity.noContent().build();
+    }
+
+    //delete by id
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {
         userService.deletebyid(id);
         return ResponseEntity.noContent().build();
     }
+
 }

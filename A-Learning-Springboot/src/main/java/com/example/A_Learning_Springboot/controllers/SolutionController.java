@@ -54,4 +54,11 @@ public class SolutionController {
         return ResponseEntity.noContent().build();
     }
 
+    //delete by id
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteSolutionById(@PathVariable int id){
+        solutionService.deleteSolutionById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

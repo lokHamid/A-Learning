@@ -34,4 +34,7 @@ public class FeedbackService {
     }
 
 
+    public void deleteFeedbackById(int id) {
+        feedbackRepository.deleteById(id);
+    }
 }

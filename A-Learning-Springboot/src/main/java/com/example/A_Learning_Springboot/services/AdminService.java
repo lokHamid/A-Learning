@@ -34,4 +34,8 @@ public class AdminService extends UserService{
     public void deleteAdmin(Admin admin){
         delete(admin);
     }
+
+    public void deleteAdminById(int id) {
+        adminRepository.deleteById(id);
+    }
 }

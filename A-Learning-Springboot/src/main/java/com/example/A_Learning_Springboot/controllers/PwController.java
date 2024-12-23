@@ -53,5 +53,12 @@ public class PwController {
         return ResponseEntity.noContent().build();
     }
 
+    //delete by id
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deletePwById(@PathVariable int id){
+        pwService.deletePwById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

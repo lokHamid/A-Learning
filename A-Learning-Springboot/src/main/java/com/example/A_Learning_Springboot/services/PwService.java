@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Service
 public class PwService {
-    //too lazy too .( zino hadi ak nta dirha w dir multiple reference ana 3yit ;-;)
 
     private final PwRepository pwRepository;
 
@@ -35,4 +34,7 @@ public class PwService {
     }
 
 
+    public void deletePwById(int id) {
+        pwRepository.deleteById(id);
+    }
 }

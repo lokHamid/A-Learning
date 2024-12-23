@@ -28,4 +28,8 @@ public class FileClassService {
     public void delete(FileClass fileclass) {
         fileClassRepository.delete(fileclass);
     }
+
+    public void deleteById(int id) {
+        fileClassRepository.deleteById(id);
+    }
 }

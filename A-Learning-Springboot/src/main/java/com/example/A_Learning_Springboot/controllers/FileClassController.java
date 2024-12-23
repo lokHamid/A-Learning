@@ -63,4 +63,9 @@ public class FileClassController {
     public void deleteFile(@RequestBody FileClass fileclass) {
         fileClassService.delete(fileclass);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteFileById(@PathVariable int id) {
+        fileClassService.deleteById(id);
+    }
 }
