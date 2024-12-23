@@ -33,6 +33,12 @@ public class PwController {
         return ResponseEntity.ok(pw.orElse(null));
     }
 
+    //create
+    @PostMapping("/add")
+    public Pw addPw(@RequestBody Pw pw){
+        return pwService.savePw(pw);
+    }
+
     //update
     @PutMapping("/update")
     public ResponseEntity<Pw> updatePw(@RequestBody Pw pw){
@@ -40,10 +46,11 @@ public class PwController {
         return new ResponseEntity<>(newPw, org.springframework.http.HttpStatus.OK);
     }
 
-    //create
-    @PostMapping("/add")
-    public Pw addPw(@RequestBody Pw pw){
-        return pwService.savePw(pw);
+    //update by id
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Pw> updatePwById(@PathVariable int id, @RequestBody Pw pw){
+        Pw newPw = pwService.savePwById(id, pw);
+        return new ResponseEntity<>(newPw, org.springframework.http.HttpStatus.OK);
     }
 
     //delete

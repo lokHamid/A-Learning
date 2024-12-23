@@ -28,6 +28,20 @@ public class SolutionService {
         return solutionRepository.save(solution);
     }
 
+    public Solution saveSolutionById(int id, Solution solution) {
+        Optional<Solution> solutionOptional = solutionRepository.findById(id);
+        if(solutionOptional.isPresent()){
+            Solution newSolution = solutionOptional.get();
+            newSolution.setIdSolution(solution.getIdSolution());
+            newSolution.setSolution(solution.getSolution());
+            newSolution.setRefStudent(solution.getRefStudent());
+            newSolution.setRefPw(solution.getRefPw());
+            newSolution.setRefFeedback(solution.getRefFeedback());
+            return solutionRepository.save(newSolution);
+        }
+        return null;
+    }
+
     public void deleteSolution(Solution solution){
         solutionRepository.delete(solution);
     }

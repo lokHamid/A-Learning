@@ -32,6 +32,12 @@ public class StudentController{
         return student.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    //create
+    @PostMapping("/add")
+    public Student addStudent(@RequestBody Student student){
+        return studentService.saveStudent(student);
+    }
+
     //update
     @PutMapping("/update")
     public ResponseEntity<Student> updateStudent( @RequestBody Student student){
@@ -39,10 +45,11 @@ public class StudentController{
         return new ResponseEntity<>(newStud, org.springframework.http.HttpStatus.OK);
     }
 
-    //create
-    @PostMapping("/add")
-    public Student addStudent(@RequestBody Student student){
-        return studentService.saveStudent(student);
+    //update by id
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Student> updateStudentById(@PathVariable int id, @RequestBody Student student){
+        Student newStud = studentService.saveStudentById(id, student);
+        return new ResponseEntity<>(newStud, org.springframework.http.HttpStatus.OK);
     }
 
     //delete

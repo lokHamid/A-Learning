@@ -20,8 +20,6 @@ public class User {
 
     public User(){}
 
-
-
     public String getEmail() {
         return email;
     }
@@ -36,10 +34,10 @@ public class User {
         this.password = password;
     }
 
-    public int getId_user() {
+    public int getIdUser() {
         return id_user;
     }
-    public void setId_user(int id_user) {
+    public void setIdUser(int id_user) {
         this.id_user = id_user;
     }
 
@@ -50,31 +48,27 @@ public class User {
         this.role = role;
     }
 
-    public String getPass_salt() {
+    public String getPassSalt() {
         return pass_salt;
     }
 
-    public void setPass_salt(String pass_salt) {
+    public void setPassSalt(String pass_salt) {
         this.pass_salt = pass_salt;
     }
 
-
-
-
-
-    public String getLast_name() {
+    public String getLastName() {
         return last_name;
     }
 
-    public void setLast_name(String last_name) {
+    public void setLastName(String last_name) {
         this.last_name = last_name;
     }
 
-    public String getFirst_name() {
+    public String getFirstName() {
         return first_name;
     }
 
-    public void setFirst_name(String first_name) {
+    public void setFirstName(String first_name) {
         this.first_name = first_name;
     }
 }

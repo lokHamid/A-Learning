@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="practicalworks")
 public class Pw {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pw_id;
@@ -17,10 +18,10 @@ public class Pw {
 
     public Pw(){}
 
-    public int getPw_id() {
+    public int getPwId() {
         return pw_id;
     }
-    public void setPw_id(int pw_id) {
+    public void setPwId(int pw_id) {
         this.pw_id = pw_id;
     }
 
@@ -45,10 +46,11 @@ public class Pw {
         this.steps = steps;
     }
 
-    public Course getRef_course() {
+    public Course getRefCourse() {
         return ref_course;
     }
-    public void setRef_course(Course ref_course) {
+    public void setRefCourse(Course ref_course) {
         this.ref_course = ref_course;
     }
+
 }

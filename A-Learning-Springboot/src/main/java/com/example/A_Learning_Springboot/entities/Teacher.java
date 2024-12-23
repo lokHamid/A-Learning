@@ -5,5 +5,7 @@ import jakarta.persistence.*;
 @Table(name="teachers")
 @PrimaryKeyJoinColumn(name="id_teacher")
 public class Teacher extends User{
+
     public Teacher(){}
+
 }

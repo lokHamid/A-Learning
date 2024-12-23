@@ -52,10 +52,18 @@ public class UserController {
     public User addUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
+
     //update
     @PutMapping("/update")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         User newUser = userService.saveUser(user);
+        return new ResponseEntity<>(newUser, HttpStatus.OK);
+    }
+
+    //update by id
+    @PutMapping("/update/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
+        User newUser = userService.saveUserById(user);
         return new ResponseEntity<>(newUser, HttpStatus.OK);
     }
 

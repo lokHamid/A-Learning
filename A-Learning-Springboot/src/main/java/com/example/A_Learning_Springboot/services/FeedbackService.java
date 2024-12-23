@@ -16,15 +16,6 @@ public class FeedbackService {
         this.feedbackRepository = feedbackRepository;
     }
 
-    public void deleteFeedback(Feedback feedback){
-        feedbackRepository.delete(feedback);
-    }
-
-    public Feedback saveFeedback(Feedback feedback) {
-        feedbackRepository.save(feedback);
-        return feedback;
-    }
-
     public List<Feedback> getAllFeedbacks() {
         return feedbackRepository.findAll();
     }
@@ -33,8 +24,30 @@ public class FeedbackService {
         return feedbackRepository.findById(id);
     }
 
+    public Feedback saveFeedback(Feedback feedback) {
+        feedbackRepository.save(feedback);
+        return feedback;
+    }
+
+    public Feedback updateFeedbackById(int id, Feedback feedback) {
+        Optional<Feedback> feedbackOptional = feedbackRepository.findById(id);
+        if(feedbackOptional.isPresent()){
+            Feedback newFeedback = feedbackOptional.get();
+            newFeedback.setIdFeedback(feedback.getIdFeedback());
+            newFeedback.setComment(feedback.getComment());
+            newFeedback.setGrade(feedback.getGrade());
+            newFeedback.setRefSolution(feedback.getRefSolution());
+            feedbackRepository.save(newFeedback);
+        }
+        return null;
+    }
+
+    public void deleteFeedback(Feedback feedback){
+        feedbackRepository.delete(feedback);
+    }
 
     public void deleteFeedbackById(int id) {
         feedbackRepository.deleteById(id);
     }
+
 }

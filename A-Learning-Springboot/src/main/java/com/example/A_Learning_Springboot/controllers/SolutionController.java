@@ -34,6 +34,12 @@ public class SolutionController {
         return ResponseEntity.ok(solution.orElse(null));
     }
 
+    //create
+    @PostMapping("/add")
+    public Solution addSolution(@RequestBody Solution solution){
+        return solutionService.saveSolution(solution);
+    }
+
     //update
     @PutMapping("/update")
     public ResponseEntity<Solution> updateSolution(@RequestBody Solution solution){
@@ -41,10 +47,11 @@ public class SolutionController {
         return new ResponseEntity<>(newSolution, org.springframework.http.HttpStatus.OK);
     }
 
-    //create
-    @PostMapping("/add")
-    public Solution addSolution(@RequestBody Solution solution){
-        return solutionService.saveSolution(solution);
+    //update by id
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Solution> updateSolutionById(@PathVariable int id, @RequestBody Solution solution){
+        Solution newSolution = solutionService.saveSolutionById(id, solution);
+        return new ResponseEntity<>(newSolution, org.springframework.http.HttpStatus.OK);
     }
 
     //delete

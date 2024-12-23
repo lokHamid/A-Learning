@@ -16,15 +16,6 @@ public class PwService {
         this.pwRepository = pwRepository;
     }
 
-    public void deletePw(Pw pw){
-        pwRepository.delete(pw);
-    }
-
-    public Pw savePw(Pw pw) {
-        pwRepository.save(pw);
-        return pw;
-    }
-
     public List<Pw> getAllPws() {
         return pwRepository.findAll();
     }
@@ -33,8 +24,31 @@ public class PwService {
         return pwRepository.findById(id);
     }
 
+    public Pw savePw(Pw pw) {
+        pwRepository.save(pw);
+        return pw;
+    }
+
+    public Pw savePwById(int id, Pw pw) {
+        Optional<Pw> pwOptional = pwRepository.findById(id);
+        if (pwOptional.isPresent()) {
+            Pw newPw = pwOptional.get();
+            newPw.setPwId(pw.getPwId());
+            newPw.setObjectives(pw.getObjectives());
+            newPw.setMaterials(pw.getMaterials());
+            newPw.setSteps(pw.getSteps());
+            newPw.setRefCourse(pw.getRefCourse());
+            pwRepository.save(newPw);
+        }
+        return null;
+    }
+
+    public void deletePw(Pw pw){
+        pwRepository.delete(pw);
+    }
 
     public void deletePwById(int id) {
         pwRepository.deleteById(id);
     }
+
 }

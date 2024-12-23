@@ -6,6 +6,7 @@ import java.io.File;
 @Entity
 @Table(name="files")
 public class FileClass {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_file;
@@ -47,4 +48,5 @@ public class FileClass {
     public void setRef_pw(Pw ref_pw) {
         this.ref_pw = ref_pw;
     }
+
 }

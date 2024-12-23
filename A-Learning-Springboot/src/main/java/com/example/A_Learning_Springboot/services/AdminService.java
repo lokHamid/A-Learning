@@ -18,24 +18,38 @@ public class AdminService extends UserService{
     public AdminService(AdminRepository adminRepository){
         this.adminRepository = adminRepository;
     }
+
+    public List<Admin> getAllAdmins(){
+        return adminRepository.findAll();
+    }
+
+    public Optional<Admin> getAdminsById(int id){
+        return adminRepository.findById(id);
+    }
     public Admin saveAdmin(Admin admin){
         saveUser(admin);
         adminRepository.save(admin);
         return admin;
     }
 
-    public List<Admin> getAllAdmins(){
-        return adminRepository.findAll();
+    public Admin saveAdminById(int id, Admin admin) {
+        Optional<Admin> adminOptional = adminRepository.findById(id);
+        if(adminOptional.isPresent()){
+            Admin newAdmin = adminOptional.get();
+            newAdmin.setFirstName(admin.getFirstName());
+            newAdmin.setLastName(admin.getLastName());
+            newAdmin.setEmail(admin.getEmail());
+            newAdmin.setPassword(admin.getPassword());
+            newAdmin.setRole(admin.getRole());
+            adminRepository.save(newAdmin);
+            return newAdmin;
+        }
+        return null;
     }
-
-    public Optional<Admin> getAdminById(int id){
-        return adminRepository.findById(id);
+    public void deleteAdmin(Admin admin){delete(admin);
     }
-    public void deleteAdmin(Admin admin){
-        delete(admin);
-    }
-
     public void deleteAdminById(int id) {
         adminRepository.deleteById(id);
     }
+
 }

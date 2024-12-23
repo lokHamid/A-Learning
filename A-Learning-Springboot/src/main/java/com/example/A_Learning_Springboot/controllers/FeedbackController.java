@@ -33,6 +33,12 @@ public class FeedbackController {
         return ResponseEntity.ok(feedback.orElse(null));
     }
 
+    //create
+    @PostMapping("/add")
+    public Feedback addFeedback(@RequestBody Feedback feedback){
+        return feedbackService.saveFeedback(feedback);
+    }
+
     //update
     @PutMapping("/update")
     public ResponseEntity<Feedback> updateFeedback(@RequestBody Feedback feedback){
@@ -40,10 +46,11 @@ public class FeedbackController {
         return new ResponseEntity<>(newFeedback, org.springframework.http.HttpStatus.OK);
     }
 
-    //create
-    @PostMapping("/add")
-    public Feedback addFeedback(@RequestBody Feedback feedback){
-        return feedbackService.saveFeedback(feedback);
+    //update by id
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Feedback> updateFeedbackById(@PathVariable int id, @RequestBody Feedback feedback){
+        Feedback newFeedback = feedbackService.updateFeedbackById(id, feedback);
+        return new ResponseEntity<>(newFeedback, org.springframework.http.HttpStatus.OK);
     }
 
     //delete

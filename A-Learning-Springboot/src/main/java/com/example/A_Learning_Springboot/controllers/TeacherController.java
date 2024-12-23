@@ -45,6 +45,13 @@ public class TeacherController {
         return new ResponseEntity<>(newTeacher, org.springframework.http.HttpStatus.OK);
     }
 
+    //update by id:
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Teacher> updateTeacherById(@PathVariable int id, @RequestBody Teacher teacher){
+        Teacher newTeacher = teacherService.saveTeacherById(id, teacher);
+        return new ResponseEntity<>(newTeacher, org.springframework.http.HttpStatus.OK);
+    }
+
     //delete:
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteTeacher(@RequestBody Teacher teacher){

@@ -28,6 +28,23 @@ public class StudentService extends UserService{
         studentRepository.save(student);
         return student;
     }
+
+    public Student saveStudentById(int id, Student student) {
+        Optional<Student> studentOptional = studentRepository.findById(id);
+        if(studentOptional.isPresent()){
+            Student newStudent = studentOptional.get();
+            newStudent.setFirstName(student.getFirstName());
+            newStudent.setLastName(student.getLastName());
+            newStudent.setEmail(student.getEmail());
+            newStudent.setPassword(student.getPassword());
+            newStudent.setRole(student.getRole());
+            studentRepository.save(newStudent);
+            return newStudent;
+        }
+        return null;
+
+    }
+
     public void deleteStudent(Student student){
         delete(student);
     }

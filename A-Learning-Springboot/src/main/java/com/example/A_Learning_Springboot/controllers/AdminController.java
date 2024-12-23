@@ -14,6 +14,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
+
     @Autowired
     private final AdminService adminService;
 
@@ -26,11 +27,18 @@ public class AdminController {
     public List<Admin> getAllAdmins(){
         return adminService.getAllAdmins();
     }
+
     //read by id:
     @GetMapping("/all/{id}")
     public ResponseEntity<Admin> getAdminById(@PathVariable int id){
-        Optional<Admin> admin = adminService.getAdminById(id);
+        Optional<Admin> admin = adminService.getAdminsById(id);
         return admin.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    //create
+    @PostMapping("/add")
+    public Admin addAdmin(@RequestBody Admin admin){
+        return adminService.saveAdmin(admin);
     }
 
     //update
@@ -40,10 +48,11 @@ public class AdminController {
         return new ResponseEntity<>(newAdmin, org.springframework.http.HttpStatus.OK);
     }
 
-    //create
-    @PostMapping("/add")
-    public Admin addAdmin(@RequestBody Admin admin){
-        return adminService.saveAdmin(admin);
+    //update by id
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Admin> updateAdminById(@PathVariable int id, @RequestBody Admin admin){
+        Admin newAdmin = adminService.saveAdminById(id, admin);
+        return new ResponseEntity<>(newAdmin, org.springframework.http.HttpStatus.OK);
     }
 
     //delete

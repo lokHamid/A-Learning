@@ -22,11 +22,28 @@ public class TeacherService extends UserService{
     public Optional<Teacher> getTeacherById(int id){
         return teacherRepository.findById(id);
     }
+
     public Teacher saveTeacher(Teacher teacher){
         saveUser(teacher);
         teacherRepository.save(teacher);
         return teacher;
     }
+
+    public Teacher saveTeacherById(int id, Teacher teacher) {
+        Optional<Teacher> teacherOptional = teacherRepository.findById(id);
+        if(teacherOptional.isPresent()){
+            Teacher newTeacher = teacherOptional.get();
+            newTeacher.setFirstName(teacher.getFirstName());
+            newTeacher.setLastName(teacher.getLastName());
+            newTeacher.setEmail(teacher.getEmail());
+            newTeacher.setPassword(teacher.getPassword());
+            newTeacher.setRole(teacher.getRole());
+            teacherRepository.save(newTeacher);
+            return newTeacher;
+        }
+        return null;
+    }
+
     public void deleteTeacher(Teacher teacher){
         delete(teacher);
     }

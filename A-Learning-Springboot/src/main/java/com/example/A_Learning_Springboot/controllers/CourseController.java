@@ -34,6 +34,12 @@ public class CourseController {
         return ResponseEntity.ok(course.orElse(null));
     }
 
+    //create
+    @PostMapping("/add")
+    public Course addCourse(@RequestBody Course course){
+        return courseService.saveCourse(course);
+    }
+
     //update
     @PutMapping("/update")
     public ResponseEntity<Course> updateCourse(@RequestBody Course course){
@@ -41,10 +47,11 @@ public class CourseController {
         return new ResponseEntity<>(newCourse, HttpStatus.OK);
     }
 
-    //create
-    @PostMapping("/add")
-    public Course addCourse(@RequestBody Course course){
-        return courseService.saveCourse(course);
+    //update by id
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Course> updateCourseById(@PathVariable int id, @RequestBody Course course){
+        Course newCourse = courseService.saveCourse(course);
+        return new ResponseEntity<>(newCourse, HttpStatus.OK);
     }
 
     //delete

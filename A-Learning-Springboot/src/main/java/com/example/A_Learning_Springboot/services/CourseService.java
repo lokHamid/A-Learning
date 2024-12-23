@@ -16,8 +16,12 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    public void deleteCourse(Course course){
-        courseRepository.delete(course);
+    public List<Course> getAllCourses() {
+        return courseRepository.findAll();
+    }
+
+    public Optional<Course> getCourseById(int id) {
+        return courseRepository.findById(id);
     }
 
     public Course saveCourse(Course course) {
@@ -25,15 +29,24 @@ public class CourseService {
         return course;
     }
 
-    public Optional<Course> getCourseById(int id) {
-        return courseRepository.findById(id);
+    public Course saveCourseById(int id, Course course) {
+        Optional<Course> courseOptional = courseRepository.findById(id);
+        if (courseOptional.isPresent()) {
+            Course newCourse = courseOptional.get();
+            newCourse.setCourseName(course.getCourseName());
+            newCourse.setCourseName(course.getCourseName());
+            newCourse.setCoefficient(course.getCoefficient());
+            newCourse.setLevel(course.getLevel());
+            courseRepository.save(newCourse);
+        }
+        return null;
     }
-
-    public List<Course> getAllCourses() {
-        return courseRepository.findAll();
+    public void deleteCourse(Course course){
+        courseRepository.delete(course);
     }
 
     public void deleteCourseById(int id) {
         courseRepository.deleteById(id);
     }
+
 }

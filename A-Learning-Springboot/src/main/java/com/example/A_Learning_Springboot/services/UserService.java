@@ -14,17 +14,34 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User saveUser(User user){
-        userRepository.save(user);
-        return user;
-    }
-
     public List<User> findall(){
         return userRepository.findAll();
     }
 
     public Optional<User> findbyid(int id){
         return userRepository.findById(id);
+    }
+
+    public User saveUser(User user){
+        userRepository.save(user);
+        return user;
+    }
+
+    public User saveUserById(User user) {
+        Optional<User> userOptional = userRepository.findById(user.getIdUser());
+        if (userOptional.isPresent()) {
+            User newUser = userOptional.get();
+            newUser.setEmail(user.getEmail());
+            newUser.setRole(user.getRole());
+            newUser.setLastName(user.getLastName());
+            newUser.setFirstName(user.getFirstName());
+            newUser.setPassword(user.getPassword());
+            newUser.setPassSalt(user.getPassSalt());
+            userRepository.save(newUser);
+            return newUser;
+        } else {
+            return null;
+        }
     }
     
     public void deletebyid(int id){
@@ -37,5 +54,4 @@ public class UserService {
     public int Studentcount(){
         return userRepository.countByRole(Role.STUDENT);
     }
-
 }

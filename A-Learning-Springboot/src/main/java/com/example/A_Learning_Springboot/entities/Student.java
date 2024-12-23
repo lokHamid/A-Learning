@@ -13,11 +13,11 @@ public class Student extends User {
 
     public Student() {}
 
-    public String getScholar_year() {
+    public String getScholarYear() {
         return scholar_year;
     }
 
-    public void setScholar_year(String scholar_year) {
+    public void setScholarYear(String scholar_year) {
         this.scholar_year = scholar_year;
     }
 

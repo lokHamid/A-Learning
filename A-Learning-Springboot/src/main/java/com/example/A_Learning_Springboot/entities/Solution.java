@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "solutions")
 public class Solution {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_solution;
@@ -25,6 +26,46 @@ public class Solution {
         this.solution = solution;
         this.ref_student = ref_student;
         this.ref_pw = ref_pw;
+        this.ref_feedback = ref_feedback;
+    }
+
+    public int getIdSolution() {
+        return id_solution;
+    }
+
+    public void setIdSolution(int id_solution) {
+        this.id_solution = id_solution;
+    }
+
+    public String getSolution() {
+        return solution;
+    }
+
+    public void setSolution(String solution) {
+        this.solution = solution;
+    }
+
+    public Student getRefStudent() {
+        return ref_student;
+    }
+
+    public void setRefStudent(Student ref_student) {
+        this.ref_student = ref_student;
+    }
+
+    public Pw getRefPw() {
+        return ref_pw;
+    }
+
+    public void setRefPw(Pw ref_pw) {
+        this.ref_pw = ref_pw;
+    }
+
+    public Feedback getRefFeedback() {
+        return ref_feedback;
+    }
+
+    public void setRefFeedback(Feedback ref_feedback) {
         this.ref_feedback = ref_feedback;
     }
 }
