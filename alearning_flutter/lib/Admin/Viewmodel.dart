@@ -10,29 +10,28 @@ class Adminmanager extends ChangeNotifier {
   int? studentsnumber;
   int? feedn;
   int? sub;
-  TextEditingController t1=TextEditingController();
-  TextEditingController t2=TextEditingController();
-  TextEditingController t3=TextEditingController();
-  TextEditingController t4=TextEditingController();
+  TextEditingController t1 = TextEditingController();
+  TextEditingController t2 = TextEditingController();
+  TextEditingController t3 = TextEditingController();
+  TextEditingController t4 = TextEditingController();
 
   bool isloadingn = true;
   bool isloadingf = true;
   bool isloadings = true;
-  bool islodingu=true;
-  List<User> felters=[];
-  final List<String> roles = ['Teacher', 'Student'];
-  final List<String> Assigns = ['Teacher', 'Student','Admin'];
-Fetch(){
-  studentsnumber=154;
-  feedn=108;
-  sub=57;
-  users.add(User(fullname: 'akram', email: 'zennadakram@gmail.com', password: '16639', role: Role.Student, userid: 105,last_name: 'jdcdn' ));
-  users.add(User(fullname: 'abdo', email: 'gvvfhdsg', password: '16639', role: Role.Teacher , userid: 105,last_name: 'jlnkds' ));
-  users.add(User(fullname: 'akram', email: 'dxshgqwgj,', password: '16639', role: Role.Student, userid: 105,last_name: 'jfkhh' ));
-  felters=users;
-  notifyListeners();
+  bool islodingu = true;
+  List<User> felters = [];
+  final List<String> roles = ['TEACHER', 'STUDENT'];
+  final List<String> Assigns = ['TEACHER', 'STUDENT', 'ADMIN'];
 
-}
+  Fetch() async{
+   await Studentnum();
+    feedn = 108;
+    sub = 57;
+    await Fetchuser();
+
+    notifyListeners();
+  }
+
   void filteru(List<Choice> choice) {
     // Start by resetting the users to the full list of felters
     users = List.from(felters);
@@ -41,81 +40,82 @@ Fetch(){
       if (choice[i].selected == 1) {
         // Filter users based on role
         users = users.where((user) {
-          return user.role.toString().split('.').last == choice[i].choice;
+          return user.role
+              .toString()
+              .split('.')
+              .last == choice[i].choice;
         }).toList();
       }
     }
     notifyListeners(); // Trigger rebuild of UI
   }
 
-  TextEditingController search=TextEditingController();
-Widget determinrole(String role){
-  if(role=='Teacher'){
-    return Padding(padding: EdgeInsets.only(
-      right: 4,left: 4,
-      top: 8,bottom: 8
-    ),
-    child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Color.fromRGBO(232, 245, 233,1)
-      ),
-      child: Padding(padding: EdgeInsets.all(12),
-      child: Text('Teacher',style: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-          color: Color.fromRGBO(46, 125,50,1)
-      ),),
-      ),
-    ),
-    );
-  }else{
+  TextEditingController search = TextEditingController();
 
+  Widget determinrole(String role) {
+    if (role == 'TEACHER') {
       return Padding(padding: EdgeInsets.only(
-          right: 4,left: 4,
-          top: 8,bottom: 8
+          right: 4, left: 4,
+          top: 8, bottom: 8
       ),
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: Color.fromRGBO(227, 242, 253,1)
+              color: Color.fromRGBO(232, 245, 233, 1)
           ),
           child: Padding(padding: EdgeInsets.all(12),
-            child: Text('Student',style: TextStyle(
+            child: Text('Teacher', style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
-                color: Color.fromRGBO(21, 101,192,1)
+                color: Color.fromRGBO(46, 125, 50, 1)
+            ),),
+          ),
+        ),
+      );
+    } else {
+      return Padding(padding: EdgeInsets.only(
+          right: 4, left: 4,
+          top: 8, bottom: 8
+      ),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Color.fromRGBO(227, 242, 253, 1)
+          ),
+          child: Padding(padding: EdgeInsets.all(12),
+            child: Text('Student', style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: Color.fromRGBO(21, 101, 192, 1)
             ),),
           ),
         ),
       );
     }
+  }
 
-}
   Future<void> Studentnum() async {
-    final url = Uri.parse('http://localhost/8080');
+    final url = Uri.parse('http://localhost:8080/api/user/studentnumber');
     try {
-      final status = await http.get(url,
-          headers: {
-            'Accept': 'application/json'
-          }
-      );
+      final status = await http.get(url, headers: {'Accept': 'application/json'});
+
       if (status.statusCode == 200) {
-        final data = jsonDecode(status.body);
-        studentsnumber = data['studentsNumber'];
+        // Directly parse the response body to an integer
+        studentsnumber = int.parse(status.body); // Parse directly as an integer
         isloadingn = false;
         notifyListeners();
       } else {
-        print('failed');
+        print('Failed with status: ${status.statusCode}');
         isloadingn = false;
         notifyListeners();
       }
     } catch (e) {
       isloadingn = false;
-      print('error');
+      print('Error: $e');
       notifyListeners();
     }
   }
+
 
   Future<void> feed() async {
     final url = Uri.parse('http://localhost/8080');
@@ -168,39 +168,64 @@ Widget determinrole(String role){
   }
 
   Future<void> Fetchuser() async {
-    final url = Uri.parse('http://localhost/8080/api/user/all');
+    final url = Uri.parse('http://localhost:8080/api/user/all');
     try {
-      final status = await http.get(url,
-          headers: {
-            'Accept': 'application/json'
-          }
-      );
+      final status = await http.get(url, headers: {'Accept': 'application/json'});
+
       if (status.statusCode == 200) {
-        final data = jsonDecode(status.body);
-        users=(data as List).map((toElement)=>User.fromJson(toElement)).toList();
-        felters=users;
-       islodingu=false;
-        notifyListeners();
+        final List data = jsonDecode(status.body); // Decoding response as List
+        users = data.map((toElement) => User.fromJson(toElement)).toList(); // Mapping JSON to User objects
+        felters = List.from(users);  // Ensure `felters` is initialized from `users`
+        islodingu = false;
       } else {
-        print('failed');
-        islodingu=false;
-        notifyListeners();
+        print('Failed with status: ${status.statusCode}');
+        islodingu = false;
       }
+      notifyListeners();
     } catch (e) {
-      islodingu=false;
-      print('error');
+      islodingu = false;
+      print('Error: $e');
       notifyListeners();
     }
   }
-Future<void> delete(int i)async {
-  users.removeAt(i);
-  notifyListeners();
-}
-  void filter(String value){
+
+
+
+
+  Future<void> delete(int i, int id) async {
+    final url = Uri.parse('http://localhost:8080/api/user/delete/$id'); // Correct URL format
+    try {
+      final response = await http.delete(
+        url,
+        headers: {
+
+          'Content-Type': 'application/json', // Example header
+        },
+      );
+
+      if (response.statusCode == 204) {
+        // Handle success: Remove the user from the list if the deletion is successful
+        users.removeAt(i);
+        felters.removeAt(i);
+        Fetch();
+        notifyListeners();
+      } else {
+
+       print('faild'+response.statusCode.toString()); // Handle failure: You can show an error message based on response.statusCode
+        throw Exception('Failed to delete user. Status Code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle error, e.g. show a message or log the error
+      print('Error deleting user: $e');
+    }
+  }
+
+
+  void filter(String value) {
     users.clear();
-    if(value.isEmpty){
-      users=felters;
-    }else {
+    if (value.isEmpty) {
+      users = felters;
+    } else {
       for (int i = 0; i < felters.length; i++) {
         if (felters[i].fullname.contains(value)) {
           users.add(felters[i]);
@@ -209,21 +234,29 @@ Future<void> delete(int i)async {
     }
     notifyListeners();
   }
-  
-  Future<void> addUser() async{
-  final url=Uri.parse('http://localhost:8080/api/user/add');
-  final status= await http.post(url,
-  headers: {
-    'Content_type':'application/json'
 
-  },
-  body:jsonEncode(newuser.toJson()),
-  );
-  if(status.statusCode==200){
-    print('success for new user');
+  Future<void> addUser() async {
+    final url = Uri.parse('http://localhost:8080/api/user/add');
 
-  }else{
-    print('failed');
-  }
+    try {
+      final status = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(newuser.toJson()),
+      );
+
+      if (status.statusCode == 200) {
+        Fetch();
+        studentsnumber=(studentsnumber!+1);
+        print('Success for new user');
+      } else {
+        print('Failed with status code: ${status.statusCode}');
+        print('Response body: ${status.body}');
+      }
+    } catch (e) {
+      print('Error occurred: $e');
+    }
   }
 }

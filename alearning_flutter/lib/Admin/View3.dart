@@ -216,8 +216,8 @@ class Adduser extends StatelessWidget {
                       Consumer<Chipchoicemanager>(
                         builder: (BuildContext context, choce, Widget? child) {
 
-                         return ElevatedButton(onPressed: (){
-                           Role role=Role.None;
+                         return ElevatedButton(onPressed: () async {
+                           Role role=Role.NONE;
                            for(int i=0;i<choce.Choices.length;i++){
                              if(choce.Choices[i].selected==1){
                                 role = Role.values.firstWhere((e) => e.toString().split('.').last == choce.Choices[i].choice);
@@ -225,7 +225,7 @@ class Adduser extends StatelessWidget {
                              }
                            }
                           user.newuser=User(fullname: user.t1.text, email: user.t3.text, password: user.t4.text, role:role, userid: 5, last_name: user.t2.text);
-                           user.addUser();
+                           await  user.addUser();
                           }, child:Text('Save User',style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,

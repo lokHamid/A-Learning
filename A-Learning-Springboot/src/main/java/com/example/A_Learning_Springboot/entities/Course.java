@@ -10,11 +10,11 @@ public class Course {
     private String id_course;
     private int coefficient;
     @Enumerated(EnumType.STRING)
-    private String level;
+    private Level level;
 
     public Course() {
     }
-    public Course(String id_course, int coefficient, String level) {
+    public Course(String id_course, int coefficient, Level level) {
         this.id_course = id_course;
         this.coefficient = coefficient;
         this.level = level;
@@ -34,11 +34,11 @@ public class Course {
         this.coefficient = coefficient;
     }
 
-    public String getLevel() {
+    public Level getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Level level) {
         this.level = level;
     }
 }

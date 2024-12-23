@@ -31,16 +31,15 @@ public class UserController {
 
     @GetMapping("/all")
     public List<User> getAllUsers() {
-        List<User> use=new ArrayList<>();
-
-        for(User u:userService.findall()){
-            if(!u.getRole().equals(Role.ADMIN)){
+        List<User> use = new ArrayList<>();
+        for (User u : userService.findall()) {
+            if (!u.getRole().equals(Role.ADMIN)) {  // Exclude admins if needed
                 use.add(u);
             }
-
         }
         return use;
     }
+
     //read by id
     @GetMapping("/all/{id}")
     public ResponseEntity<User> getUserById(@PathVariable int id) {

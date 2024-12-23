@@ -188,7 +188,7 @@ class ManageUsers extends StatelessWidget {
                                       ),
                                       SizedBox(width: 8,),
                                       IconButton(onPressed: (){
-                                        users.delete(index);
+                                        users.delete(index,users.users[index].userid);
                                       }, icon:Icon(Icons.delete,size: 20,
                                         color: Color.fromRGBO(198, 40,40,1),
                                       ),
