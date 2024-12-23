@@ -1,6 +1,7 @@
 package com.example.A_Learning_Springboot.controllers;
 
 
+import com.example.A_Learning_Springboot.entities.Role;
 import com.example.A_Learning_Springboot.entities.User;
 import com.example.A_Learning_Springboot.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +24,22 @@ public class UserController {
         this.userService = userService;
     }
     //read
+    @GetMapping("/studentnumber")
+    public int getStudentNumber() {
+        return  userService.Studentcount();
+    }
+
     @GetMapping("/all")
     public List<User> getAllUsers() {
-        return userService.findall();
+        List<User> use=new ArrayList<>();
+
+        for(User u:userService.findall()){
+            if(!u.getRole().equals(Role.ADMIN)){
+                use.add(u);
+            }
+
+        }
+        return use;
     }
     //read by id
     @GetMapping("/all/{id}")

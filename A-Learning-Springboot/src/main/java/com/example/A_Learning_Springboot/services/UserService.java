@@ -1,5 +1,6 @@
 package com.example.A_Learning_Springboot.services;
 
+import com.example.A_Learning_Springboot.entities.Role;
 import com.example.A_Learning_Springboot.entities.User;
 import com.example.A_Learning_Springboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class UserService {
 
     public void delete(User user){
         userRepository.delete(user);
+    }
+    public int Studentcount(){
+        return userRepository.countByRole(Role.STUDENT);
     }
 
 }

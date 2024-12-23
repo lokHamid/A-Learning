@@ -6,9 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 class Adminmanager extends ChangeNotifier {
   List<User> users = [];
+  late User newuser;
   int? studentsnumber;
   int? feedn;
   int? sub;
+  TextEditingController t1=TextEditingController();
+  TextEditingController t2=TextEditingController();
+  TextEditingController t3=TextEditingController();
+  TextEditingController t4=TextEditingController();
+
   bool isloadingn = true;
   bool isloadingf = true;
   bool isloadings = true;
@@ -20,9 +26,9 @@ Fetch(){
   studentsnumber=154;
   feedn=108;
   sub=57;
-  users.add(User(fullname: 'akram', email: 'zennadakram@gmail.com', password: '16639', role: Role.Student, userid: 105, username:'Krimo'));
-  users.add(User(fullname: 'abdo', email: 'gvvfhdsg', password: '16639', role: Role.Teacher , userid: 105, username:'Krimo'));
-  users.add(User(fullname: 'akram', email: 'dxshgqwgj,', password: '16639', role: Role.Student, userid: 105, username:'Krimo'));
+  users.add(User(fullname: 'akram', email: 'zennadakram@gmail.com', password: '16639', role: Role.Student, userid: 105,last_name: 'jdcdn' ));
+  users.add(User(fullname: 'abdo', email: 'gvvfhdsg', password: '16639', role: Role.Teacher , userid: 105,last_name: 'jlnkds' ));
+  users.add(User(fullname: 'akram', email: 'dxshgqwgj,', password: '16639', role: Role.Student, userid: 105,last_name: 'jfkhh' ));
   felters=users;
   notifyListeners();
 
@@ -162,7 +168,7 @@ Widget determinrole(String role){
   }
 
   Future<void> Fetchuser() async {
-    final url = Uri.parse('http://localhost/8080');
+    final url = Uri.parse('http://localhost/8080/api/user/all');
     try {
       final status = await http.get(url,
           headers: {
@@ -202,5 +208,22 @@ Future<void> delete(int i)async {
       }
     }
     notifyListeners();
+  }
+  
+  Future<void> addUser() async{
+  final url=Uri.parse('http://localhost:8080/api/user/add');
+  final status= await http.post(url,
+  headers: {
+    'Content_type':'application/json'
+
+  },
+  body:jsonEncode(newuser.toJson()),
+  );
+  if(status.statusCode==200){
+    print('success for new user');
+
+  }else{
+    print('failed');
+  }
   }
 }

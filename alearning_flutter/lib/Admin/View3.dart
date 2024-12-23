@@ -1,8 +1,11 @@
 import 'package:a_learning/Admin/Viewmodel.dart';
+import 'package:a_learning/User.dart';
 import 'package:a_learning/widgets/Chipchoice/View.dart';
 import 'package:a_learning/widgets/Chipchoice/Viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../User.dart';
 class Adduser extends StatelessWidget {
   const Adduser({super.key});
 
@@ -65,16 +68,17 @@ class Adduser extends StatelessWidget {
                               )
                           ),
                           fillColor: Color.fromRGBO(255, 255,255,1),
-                          labelText: 'Fullname',
+                          labelText: 'Firstname',
                           labelStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400
                           )
                         ),
-        
+                          controller:user.t1 ,
                       )),
                       SizedBox(width: 20,),
                       Expanded(child: TextField(
+                        controller:user.t2,
                         decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
@@ -95,7 +99,7 @@ class Adduser extends StatelessWidget {
                                 )
                             ),
                             fillColor: Color.fromRGBO(255, 255,255,1),
-                            labelText: 'Username',
+                            labelText: 'Last name',
                             labelStyle: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400
@@ -112,6 +116,7 @@ class Adduser extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(child: TextField(
+                        controller:user.t3 ,
                         decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
@@ -142,6 +147,7 @@ class Adduser extends StatelessWidget {
                       )),
                       SizedBox(width: 20,),
                       Expanded(child: TextField(
+                        controller:user.t4 ,
                         decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
@@ -207,14 +213,33 @@ class Adduser extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      ElevatedButton(onPressed: (){}, child:Text('Save User',style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Color.fromRGBO(255,255,255,1),
-                      ),),
-                      style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(75, 57, 239,1),
-                      
-                      ),
+                      Consumer<Chipchoicemanager>(
+                        builder: (BuildContext context, choce, Widget? child) {
+
+                         return ElevatedButton(onPressed: (){
+                           Role role=Role.None;
+                           for(int i=0;i<choce.Choices.length;i++){
+                             if(choce.Choices[i].selected==1){
+                                role = Role.values.firstWhere((e) => e.toString().split('.').last == choce.Choices[i].choice);
+
+                             }
+                           }
+                          user.newuser=User(fullname: user.t1.text, email: user.t3.text, password: user.t4.text, role:role, userid: 5, last_name: user.t2.text);
+                           user.addUser();
+                          }, child:Text('Save User',style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color.fromRGBO(255,255,255,1),
+                          ),),
+                          style: ElevatedButton.styleFrom(backgroundColor: Color.fromRGBO(75, 57, 239,1
+                          )
+                          ,
+
+                          )
+                          ,
+                          );
+
+                        }
                       )
                     ],
                   )

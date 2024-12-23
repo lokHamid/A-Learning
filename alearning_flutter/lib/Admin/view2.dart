@@ -82,6 +82,9 @@ class ManageUsers extends StatelessWidget {
                      users.filteru(choic.Choices);
                    });
                     return Container(
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(255, 255, 255,1)
+                      ),
                       width: 200,
                      child: Chips(), // Make sure Chips widget is constrained
                                      );
