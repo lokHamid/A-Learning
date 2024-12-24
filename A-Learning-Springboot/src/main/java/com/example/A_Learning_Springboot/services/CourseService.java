@@ -1,6 +1,7 @@
 package com.example.A_Learning_Springboot.services;
 
 import com.example.A_Learning_Springboot.entities.Course;
+import com.example.A_Learning_Springboot.entities.Level;
 import com.example.A_Learning_Springboot.repositories.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,18 +30,7 @@ public class CourseService {
         return course;
     }
 
-    public Course saveCourseById(int id, Course course) {
-        Optional<Course> courseOptional = courseRepository.findById(id);
-        if (courseOptional.isPresent()) {
-            Course newCourse = courseOptional.get();
-            newCourse.setCourseName(course.getCourseName());
-            newCourse.setCourseName(course.getCourseName());
-            newCourse.setCoefficient(course.getCoefficient());
-            newCourse.setLevel(course.getLevel());
-            courseRepository.save(newCourse);
-        }
-        return null;
-    }
+
     public void deleteCourse(Course course){
         courseRepository.delete(course);
     }
@@ -48,5 +38,8 @@ public class CourseService {
     public void deleteCourseById(int id) {
         courseRepository.deleteById(id);
     }
-
+public List<Course> getCoursesByLevel(Level level) {
+      return  courseRepository.findByLevel(level);
 }
+}
+

@@ -17,7 +17,8 @@ public class User {
     private String pass_salt;
     @Enumerated(EnumType.STRING)
     private Role role;
-
+    @Enumerated(EnumType.STRING)
+    private Level level;
     public User(){}
 
     public String getEmail() {
@@ -70,5 +71,13 @@ public class User {
 
     public void setFirstName(String first_name) {
         this.first_name = first_name;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 }

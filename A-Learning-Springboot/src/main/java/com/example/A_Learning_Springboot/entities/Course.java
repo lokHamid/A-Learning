@@ -9,16 +9,18 @@ public class Course {
 
     @Id
     private String id_course;
-    private String description;
+    private String course_name;
+    private String teacher_name;
     private int coefficient;
     @Enumerated(EnumType.STRING)
     private Level level;
+
+    private int teacherID;
 
     public Course() {
     }
     public Course(String id_course, String course_name, int coefficient, Level level) {
         this.id_course = id_course;
-        this.description = course_name;
         this.coefficient = coefficient;
         this.level = level;
     }
@@ -30,13 +32,9 @@ public class Course {
         this.id_course = id_course;
     }
 
-    public String getCourseName() {
-        return description;
-    }
 
-    public void setCourseName(String course_name) {
-        this.description = course_name;
-    }
+
+
 
     public int getCoefficient() {
         return coefficient;
@@ -54,4 +52,27 @@ public class Course {
         this.level = level;
     }
 
+    public int getTeacherID() {
+        return teacherID;
+    }
+
+    public void setTeacherID(int teacherID) {
+        this.teacherID = teacherID;
+    }
+
+    public String getCourse_name() {
+        return course_name;
+    }
+
+    public void setCourse_name(String course_name) {
+        this.course_name = course_name;
+    }
+
+    public String getTeacher_name() {
+        return teacher_name;
+    }
+
+    public void setTeacher_name(String teacher_name) {
+        this.teacher_name = teacher_name;
+    }
 }

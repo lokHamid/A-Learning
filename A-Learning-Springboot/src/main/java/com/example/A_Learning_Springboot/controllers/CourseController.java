@@ -1,6 +1,7 @@
 package com.example.A_Learning_Springboot.controllers;
 
 import com.example.A_Learning_Springboot.entities.Course;
+import com.example.A_Learning_Springboot.entities.Level;
 import com.example.A_Learning_Springboot.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,11 @@ public class CourseController {
     public List<Course> getAllCourses(){
         return courseService.getAllCourses();
     }
-
+@GetMapping("/student_courses/{level}")
+public List<Course> getStudentCoursesLevel(@PathVariable Level level){
+    System.out.println("Level received: " + level);
+        return courseService.getCoursesByLevel(level);
+}
     //read by id:
     @GetMapping("/all/{id}")
     public ResponseEntity<Course> getCourseById(@PathVariable int id){
