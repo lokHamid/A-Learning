@@ -210,9 +210,15 @@ class Loginpage extends StatelessWidget {
                                                       :Color.fromRGBO(255, 89,99,1)
 
                                               ),
-                                            suffixIcon: Icon(Icons.visibility_off),
+
+                                            suffixIcon: IconButton(onPressed: (){
+                                              manage.visible();
+                                            }, icon:manage.isvisible?Icon(Icons.visibility):Icon(Icons.visibility_off)),
+
 
                                           ),
+                                          obscureText: !manage.isvisible,
+                                          style: TextStyle(fontSize: 18),
                                         ),
 
                                       ),

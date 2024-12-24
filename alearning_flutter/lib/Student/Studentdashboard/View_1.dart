@@ -9,7 +9,7 @@ class Studentdash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (_)=>Studentdashboard()..Fetch()
+    return ChangeNotifierProvider(create: (_)=>Studentdashboard()..Fetchcourses()
     ,child: Material(
         elevation: 2,
         borderRadius: BorderRadius.circular(16),

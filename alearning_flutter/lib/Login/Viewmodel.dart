@@ -13,9 +13,15 @@ class Loginmanager extends ChangeNotifier {
   bool isLoading=true;
   User? login;
  bool iscorect=true;
-  Future<void> check() async {
-
-  }
+ bool isvisible=false;
+ void visible(){
+   if(isvisible){
+     isvisible=false;
+   }else{
+     isvisible=true;
+   }
+   notifyListeners();
+ }
 
   void checktest(BuildContext context) {
     if (login!=null) {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:a_learning/Student/Studentdashboard/course.dart';
+import 'package:a_learning/User.dart';
 import 'package:a_learning/teacher/teacherassignmantsmnage/model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -10,33 +11,36 @@ class Studentdashboard extends ChangeNotifier{
   List<assignment> assignments=[];
   bool isloadingass=true;
   bool isloading=true;
-  final url =Uri.parse("http://localhost:8080/aleraning/student");
+
   final urla =Uri.parse("http://localhost:8080/aleraning/student");
-  Future<void> Fetchcourses() async{
-    try{
-      final status=await http.get(
+  Future<void> Fetchcourses() async {
+    final url = Uri.parse("http://localhost:8080/api/course/student_courses/${Level.ING1.toString().split('.').last}");
+
+    try {
+      final status = await http.get(  // Change from post() to get()
         url,
         headers: {
-          'Accept':'application/json'
-        }
-
+          "Content-Type": "application/json",
+        },
       );
-      if(status.statusCode==200){
-       final data=jsonDecode(status.body);
-       courses = (data as List).map((course) => Course.fromJson(course)).toList();
-       isloading=false;
-       notifyListeners();
-      }else{
-        isloading=false;
+
+      if (status.statusCode == 200) {
+        final data = jsonDecode(status.body);
+        print(data);
+        courses = (data as List).map((course) => Course.fromJson(course)).toList();
+        isloading = false;
+        notifyListeners();
+      } else {
+        isloading = false;
         notifyListeners();
       }
-    }catch(e){
-      isloading=false;
-      print('error for request'+e.toString());
+    } catch (e) {
+      isloading = false;
+      print('error for request: ' + e.toString());
       notifyListeners();
-
     }
   }
+
   Future<void> Fetchassign() async{
     try{
       final status=await http.get(urla,
@@ -46,6 +50,7 @@ class Studentdashboard extends ChangeNotifier{
       );
       if (status.statusCode==200) {
         final data=jsonDecode(status.body);
+        print("succsess: $data");
         assignments=(data as List).map((assignmen)=>assignment.fromJson(assignmen)).toList();
         isloadingass=false;
         notifyListeners();
@@ -95,12 +100,12 @@ if(t==null) {
 }
   }
 void Fetch(){
-    courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:"ING2", teacher: 'Draa'));
-    courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:"ING2", teacher: 'Draa'));
-    courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:"ING2", teacher: 'Draa'));
-    courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:"ING2", teacher: 'Draa'));
-    courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:"ING2", teacher: 'Draa'));
-    courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:"ING2", teacher: 'Draa'));
+    courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:Level.ING1, teacher: 'Draa',teacherID: 1));
+    courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:Level.ING1, teacher: 'Draa',teacherID: 1));
+    courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:Level.ING1, teacher: 'Draa',teacherID: 1));
+    courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:Level.ING1, teacher: 'Draa',teacherID: 1));
+    courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:Level.ING1, teacher: 'Draa',teacherID: 1));
+    courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:Level.ING1, teacher: 'Draa',teacherID: 1));
     assignments.add(assignment(pwid: '1785', pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',submissiondeadline: DateTime.now().add(Duration(days: 0))));
     assignments.add(assignment(pwid: '1785', pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',submissiondeadline: DateTime.now().add(Duration(days: 2))));
     assignments.add(assignment(pwid: '1785', pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',submissiondeadline: DateTime.now().add(Duration(days: 5))));

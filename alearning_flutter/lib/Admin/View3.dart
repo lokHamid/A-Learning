@@ -224,7 +224,7 @@ class Adduser extends StatelessWidget {
 
                              }
                            }
-                          user.newuser=User(fullname: user.t1.text, email: user.t3.text, password: user.t4.text, role:role, userid: 5, last_name: user.t2.text);
+                          user.newuser=User(fullname: user.t1.text, email: user.t3.text, password: user.t4.text, role:role, userid: 5, last_name: user.t2.text, level: Level.ING1);
                            await  user.addUser();
                           }, child:Text('Save User',style: TextStyle(
                           fontSize: 16,

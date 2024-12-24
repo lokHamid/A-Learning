@@ -1,5 +1,7 @@
 enum Role { TEACHER, STUDENT, ADMIN, NONE }
-
+enum Level {
+  NONE,ING1,ING2,ING3GL,ING3SEC,ING4GL,ING4SEC,ING5GL,ING5SEC,DEFAULT
+}
 class User {
   int userid;
   String fullname;
@@ -8,7 +10,7 @@ class User {
   Role role;
   String? pass_salt;
   String last_name;
-
+Level level;
   User({
     required this.fullname,
     required this.email,
@@ -17,6 +19,7 @@ class User {
     required this.userid,
     this.pass_salt,
     required this.last_name,
+    required this.level
   });
 
   // JSON -> User conversion
@@ -32,6 +35,10 @@ class User {
             (e) => e.toString() == 'Role.' + json['role'],
         orElse: () => Role.NONE, // Default to NONE if role is unknown
       ),
+      level:  Level.values.firstWhere(
+            (e) => e.toString() == 'Level.' + json['level'],
+        orElse: () => Level.NONE, // Default to NONE if role is unknown
+      ),
     );
   }
   // User -> JSON conversion
@@ -44,6 +51,7 @@ class User {
       'idUser': userid,
       'passSalt': pass_salt,
       'lastName': last_name,
+      'level':level.toString().split('.').last,
     };
   }
 
