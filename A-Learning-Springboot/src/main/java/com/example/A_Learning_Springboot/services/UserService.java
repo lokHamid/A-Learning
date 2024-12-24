@@ -13,7 +13,18 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
-
+    public Optional<User> validateCredentials(String email, String password) {
+        // Find user by email
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            // Compare provided password with stored password directly
+            if (password.equals(user.getPassword())) {
+                return Optional.of(user);  // Return user if passwords match
+            }
+        }
+        return Optional.empty();  // Return empty if user not found or passwords don't match
+    }
     public List<User> findall(){
         return userRepository.findAll();
     }

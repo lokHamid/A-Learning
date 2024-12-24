@@ -22,12 +22,12 @@ class User {
   // JSON -> User conversion
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      userid: json['id_user'],
-      fullname: json['first_name'],
-      last_name: json['last_name'],
-      email: json['email'],
-      password: json['password'],
-      pass_salt: json['pass_salt'],
+      userid: json['idUser'],
+      fullname: json['firstName'],
+      last_name: json['lastName'] ,
+      email: json['email'] ,
+      password: json['password'] ,  // Default to empty string if null
+      pass_salt: json['passSalt'],
       role: Role.values.firstWhere(
             (e) => e.toString() == 'Role.' + json['role'],
         orElse: () => Role.NONE, // Default to NONE if role is unknown
@@ -37,13 +37,13 @@ class User {
   // User -> JSON conversion
   Map<String, dynamic> toJson() {
     return {
-      'first_name': fullname,
+      'firstName': fullname,
       'email': email,
       'password': password,
       'role': role.toString().split('.').last,  // Ensure the role is sent as a string
-      'id_user': userid,
-      'pass_salt': pass_salt,
-      'last_name': last_name,
+      'idUser': userid,
+      'passSalt': pass_salt,
+      'lastName': last_name,
     };
   }
 

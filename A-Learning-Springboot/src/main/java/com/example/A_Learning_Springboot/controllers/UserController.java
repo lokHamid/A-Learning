@@ -28,7 +28,16 @@ public class UserController {
     public int getStudentNumber() {
         return  userService.Studentcount();
     }
-
+    @PostMapping("/login")
+    public ResponseEntity<User> loginUser(@RequestBody User loginRequest) {
+        Optional<User> userOptional = userService.validateCredentials(loginRequest.getEmail(), loginRequest.getPassword());
+        if (userOptional.isPresent()) {
+            System.out.println("Login response: " + userOptional.get()); // Log response
+            return ResponseEntity.ok(userOptional.get());
+        } else {
+            return ResponseEntity.status(401).build();
+        }
+    }
     @GetMapping("/all")
     public List<User> getAllUsers() {
         List<User> use = new ArrayList<>();
