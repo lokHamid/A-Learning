@@ -1,10 +1,12 @@
 import 'package:a_learning/Student/Studentdashboard/View_1.dart';
 import 'package:a_learning/Student/Studentdashboard/View_2.dart';
+import 'package:a_learning/User.dart';
 import 'package:a_learning/widgets/dashboardcontainer.dart';
 import 'package:flutter/material.dart';
 class Dashboards extends StatelessWidget {
-  final String studentID;
-  const Dashboards({super.key, required this.studentID});
+  final int studentID;
+  final Level level;
+  const Dashboards({super.key, required this.studentID, required this.level});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class Dashboards extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Studentdash(studentID:studentID),
+                Studentdash(studentID:studentID,level: level,),
                 SizedBox(height: 24,),
                 Recent(studentID: studentID,)
               ],

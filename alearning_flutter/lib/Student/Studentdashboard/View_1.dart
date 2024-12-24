@@ -1,15 +1,17 @@
+import 'package:a_learning/User.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Pages/Assignments.dart';
 import 'ViewModel.dart';
 class Studentdash extends StatelessWidget {
-  final String studentID;
-  const Studentdash({super.key,required this.studentID});
+  final int studentID;
+  final Level level;
+  const Studentdash({super.key,required this.studentID, required this.level});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (_)=>Studentdashboard()..Fetchcourses()
+    return ChangeNotifierProvider(create: (_)=>Studentdashboard()..Fetchcourses(level)
     ,child: Material(
         elevation: 2,
         borderRadius: BorderRadius.circular(16),

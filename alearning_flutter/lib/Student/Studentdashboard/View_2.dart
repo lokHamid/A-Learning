@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../teacher/teacherassignmantsmnage/model.dart';
 import '../Pages/Detailedassignments.dart';
 class Recent extends StatelessWidget {
-  final String studentID;
+  final int studentID;
   const Recent({super.key, required this.studentID});
 
   @override

@@ -16,7 +16,7 @@ public class Pw {
     private String materials;
     private String steps;
     private String pwname;
-
+    private int course_id;
     @Temporal(TemporalType.TIMESTAMP)
     private Date submissiondeadline;
 
@@ -92,5 +92,13 @@ public class Pw {
 
     public void setPw(List<FileClass> pw) {
         this.pw = pw;
+    }
+
+    public int getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(int course_id) {
+        this.course_id = course_id;
     }
 }

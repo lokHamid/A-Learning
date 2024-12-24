@@ -3,7 +3,7 @@ import 'package:a_learning/widgets/dashboardcontainer.dart';
 import 'package:flutter/material.dart';
 class Courseassignments extends StatelessWidget {
   final String coursename;
-  final String studentID;
+  final int studentID;
   const Courseassignments({super.key, required this.coursename, required this.studentID});
 
   @override
@@ -26,7 +26,7 @@ class Courseassignments extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Studentassi(studentID: studentID),
+                Studentassi(studentID: studentID.toString()),
 
                 SizedBox(height: 20,)
               ],

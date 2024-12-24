@@ -13,8 +13,8 @@ class Studentdashboard extends ChangeNotifier{
   bool isloading=true;
 
   final urla =Uri.parse("http://localhost:8080/aleraning/student");
-  Future<void> Fetchcourses() async {
-    final url = Uri.parse("http://localhost:8080/api/course/student_courses/${Level.ING1.toString().split('.').last}");
+  Future<void> Fetchcourses(Level level) async {
+    final url = Uri.parse("http://localhost:8080/api/course/student_courses/${level.toString().split('.').last}");
 
     try {
       final status = await http.get(  // Change from post() to get()

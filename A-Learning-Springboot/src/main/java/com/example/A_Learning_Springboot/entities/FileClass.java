@@ -9,7 +9,7 @@ public class FileClass {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_file;
-
+    private String filename;
     @Column(name = "url_file")
     private String url_file;
 
@@ -55,5 +55,13 @@ public class FileClass {
 
     public void setRef_pw(Pw ref_pw) {
         this.ref_pw = ref_pw;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }
