@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class FileClassService {
+
     @Autowired
     private FileClassRepository fileClassRepository;
 
@@ -22,11 +23,11 @@ public class FileClassService {
     }
 
     public Optional<FileClass> findById(int id) {
-        return fileClassRepository.findById(id).isPresent() ? Optional.of(fileClassRepository.findById(id).get()) : Optional.empty();
+        return fileClassRepository.findById(id); // Return the Optional directly
     }
 
-    public void delete(FileClass fileclass) {
-        fileClassRepository.delete(fileclass);
+    public void delete(FileClass fileClass) {
+        fileClassRepository.delete(fileClass);
     }
 
     public void deleteById(int id) {
