@@ -46,13 +46,6 @@ public class FeedbackController {
         return new ResponseEntity<>(newFeedback, org.springframework.http.HttpStatus.OK);
     }
 
-    //update by id
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Feedback> updateFeedbackById(@PathVariable int id, @RequestBody Feedback feedback){
-        Feedback newFeedback = feedbackService.updateFeedbackById(id, feedback);
-        return new ResponseEntity<>(newFeedback, org.springframework.http.HttpStatus.OK);
-    }
-
     //delete
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteFeedback(@RequestBody Feedback feedback){

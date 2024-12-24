@@ -68,5 +68,37 @@ public class Solution {
     public void setRefFeedback(Feedback ref_feedback) {
         this.ref_feedback = ref_feedback;
     }
+
+    public int getId_solution() {
+        return id_solution;
+    }
+
+    public void setId_solution(int id_solution) {
+        this.id_solution = id_solution;
+    }
+
+    public Student getRef_student() {
+        return ref_student;
+    }
+
+    public void setRef_student(Student ref_student) {
+        this.ref_student = ref_student;
+    }
+
+    public Pw getRef_pw() {
+        return ref_pw;
+    }
+
+    public void setRef_pw(Pw ref_pw) {
+        this.ref_pw = ref_pw;
+    }
+
+    public Feedback getRef_feedback() {
+        return ref_feedback;
+    }
+
+    public void setRef_feedback(Feedback ref_feedback) {
+        this.ref_feedback = ref_feedback;
+    }
 }
 

@@ -1,5 +1,6 @@
 package com.example.A_Learning_Springboot.services;
 
+import com.example.A_Learning_Springboot.entities.CustomMultipartFile;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Objects;
 
 @Service
 public class SupabaseStorageService {
@@ -113,5 +115,38 @@ public class SupabaseStorageService {
         );
 
         return response;
+    }
+    public String extractFileName(String filePathOrUrl) {
+        if (filePathOrUrl == null || filePathOrUrl.isEmpty()) {
+            throw new IllegalArgumentException("The file path or URL cannot be null or empty");
+        }
+        return filePathOrUrl.substring(filePathOrUrl.lastIndexOf('/') + 1);
+    }
+
+    public MultipartFile getFile(String url) throws IOException {
+        String filePath = extractFilePath(url);
+        String apiEndpoint = supabaseUrl + "/storage/v1/object/" + filePath;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + supabaseKey);
+        HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<byte[]> response = restTemplate.exchange(
+                apiEndpoint,
+                HttpMethod.GET,
+                entity,
+                byte[].class
+        );
+
+        if(response.getStatusCode() == HttpStatus.OK){
+            byte[] fileBytes = response.getBody();
+            String fileName = extractFileName(url);
+            String contentType = Objects.requireNonNull(response.getHeaders().getContentType()).toString();
+
+            return new CustomMultipartFile(fileBytes,fileName,contentType);
+        } else {
+            throw new IOException("Failed to retrieve file , status:" + response.getStatusCode());
+        }
     }
 }

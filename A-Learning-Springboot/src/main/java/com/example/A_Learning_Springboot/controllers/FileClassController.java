@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,11 +40,17 @@ public class FileClassController {
         return ResponseEntity.ok(fileclass.orElse(null));
     }
 
+    @GetMapping("/retrieveFile")
+    public MultipartFile retrieveFile(@RequestBody FileClass fileClass) throws IOException {
+        String url = fileClass.getUrl_file();
+        return supabaseStorageService.getFile(url);
+    }
+
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
             String fileUrl = supabaseStorageService.uploadFile(file);
-            return ResponseEntity.ok("File uploaded successfully. URL: " + fileUrl);
+            return ResponseEntity.ok(fileUrl);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
         }
@@ -52,7 +59,7 @@ public class FileClassController {
     @PutMapping("/update")
     public ResponseEntity<String> updateFile(@RequestParam("file") MultipartFile file, @RequestParam String url) {
         try {
-            ResponseEntity<String> respone = supabaseStorageService.updateFile(url,file);
+            ResponseEntity<String> response = supabaseStorageService.updateFile(url,file);
             return ResponseEntity.ok("File updated successfully. URL: " + url);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());

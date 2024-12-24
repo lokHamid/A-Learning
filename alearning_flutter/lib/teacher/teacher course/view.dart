@@ -87,7 +87,7 @@ class Viewt extends StatelessWidget {
                                                 CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    courseview.courses[index].course,
+                                                    courseview.courses[index].id_course,
                                                     style: const TextStyle(
                                                       fontWeight: FontWeight.w600,
                                                       fontSize: 16,

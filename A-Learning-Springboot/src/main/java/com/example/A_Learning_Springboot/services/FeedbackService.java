@@ -28,20 +28,6 @@ public class FeedbackService {
         feedbackRepository.save(feedback);
         return feedback;
     }
-
-    public Feedback updateFeedbackById(int id, Feedback feedback) {
-        Optional<Feedback> feedbackOptional = feedbackRepository.findById(id);
-        if(feedbackOptional.isPresent()){
-            Feedback newFeedback = feedbackOptional.get();
-            newFeedback.setIdFeedback(feedback.getIdFeedback());
-            newFeedback.setComment(feedback.getComment());
-            newFeedback.setGrade(feedback.getGrade());
-            newFeedback.setRefSolution(feedback.getRefSolution());
-            feedbackRepository.save(newFeedback);
-        }
-        return null;
-    }
-
     public void deleteFeedback(Feedback feedback){
         feedbackRepository.delete(feedback);
     }

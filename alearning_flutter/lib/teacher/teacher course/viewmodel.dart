@@ -5,9 +5,9 @@ List<Teachercourse> _courses=[];
 List<Teachercourse> get courses=>_courses;
 void Fetchdata(){
   _courses = [
-  Teachercourse("Software Engineering2", "ING3",28,i:Icon(Icons.computer)  ),
-    Teachercourse("Analysis3", "ING2",35,i:Icon(Icons.calculate) ),
-    Teachercourse("Computer Architecture", "ING1",38,i:Icon(Icons.architecture_outlined) )
+  Teachercourse("SE2", "Software Engineering 2",28, 4 , "ING3" , i:Icon(Icons.computer)  ),
+    Teachercourse("Ana3", "Analysis 3",35, 6 , "ING2" , i:Icon(Icons.calculate) ),
+    Teachercourse("CA", "Computer Architecture",38, 5 , "ING1" , i:Icon(Icons.architecture_outlined) )
   ];
   notifyListeners();
 }

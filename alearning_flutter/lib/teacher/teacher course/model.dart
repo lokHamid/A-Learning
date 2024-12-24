@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 class Teachercourse{
-  String course;
-  String description;
+  String id_course; // springboot
+  String description; // springboot
   int studentsnumber;
+  int coefficient;  // springboot
+  String level; // springboot
   Icon i;
-  Teachercourse(this.course,this.description,this.studentsnumber,{required this.i});
+  Teachercourse(this.id_course,this.description,this.studentsnumber,this.coefficient,this.level,{required this.i});
 
 }
