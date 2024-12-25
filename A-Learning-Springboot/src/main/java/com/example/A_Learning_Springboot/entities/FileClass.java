@@ -10,6 +10,7 @@ public class FileClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_file;
     private String filename;
+    private String Role;
     @Column(name = "url_file")
     private String url_file;
 

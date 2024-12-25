@@ -80,7 +80,7 @@ class Studentassi extends StatelessWidget {
                                         ElevatedButton(onPressed: (){
                                           List<files> file=[];
                                           file.add(files(url:'https://www.youtube.com/watch?v=-t2CR9qZRj0' , name: 'youtube'));
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailedassignments(assign: assignment(pwid: 'pw',submissiondeadline: DateTime.now() ,pwname: 'c++', steps: 'hello',pw: file,file: file),)));
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailedassignments(assign: assignment(pwid: 'pw',submissiondeadline: DateTime.now() ,pwname: 'c++', steps: 'hello',pw: file,file: file,course_id: 1),)));
                                         },
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor: Color.fromRGBO(75, 57,239,1),
