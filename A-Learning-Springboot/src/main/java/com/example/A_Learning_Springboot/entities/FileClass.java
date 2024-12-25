@@ -10,11 +10,10 @@ public class FileClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_file;
     private String filename;
+    @Column(name = "Role")
     private String Role;
     @Column(name = "url_file")
     private String url_file;
-
-
     @ManyToOne
     @JoinColumn(name = "id_solution", foreignKey = @ForeignKey(name = "files_id_solution_fkey"))
     private Solution ref_solution;  // Link the file to the solution

@@ -23,34 +23,39 @@ public class SupabaseStorageService {
     @Value("${supabase.bucket}")
     private String supabaseBucket;
     public String uploadFile(MultipartFile multipartFile) throws IOException {
-
-        File tempFile = File.createTempFile("upload", multipartFile.getOriginalFilename());
-        multipartFile.transferTo(tempFile);
+        System.out.println(multipartFile.getOriginalFilename() + " , this is the file name from uploadFile method in SupabaseStorageService");
 
         String apiEndpoint = supabaseUrl + "/storage/v1/object/" + supabaseBucket + "/" + multipartFile.getOriginalFilename();
 
-        RestTemplate restTemplate = new RestTemplate();
+        // Get file bytes directly from the multipart file
+        byte[] fileBytes = multipartFile.getBytes();
 
+        // Setup headers
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + supabaseKey);
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 
-        byte[] fileBytes = Files.readAllBytes(tempFile.toPath());
+        // Create HTTP entity with file bytes
         HttpEntity<byte[]> entity = new HttpEntity<>(fileBytes, headers);
 
+        // Send request to Supabase
+        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(
                 apiEndpoint,
-                HttpMethod.PUT,
+                HttpMethod.POST,
                 entity,
                 String.class
         );
 
+        // Check for success status
         if (response.getStatusCode() == HttpStatus.OK || response.getStatusCode() == HttpStatus.CREATED) {
             return supabaseUrl + "/storage/v1/object/public/" + supabaseBucket + "/" + multipartFile.getOriginalFilename();
         } else {
-            throw new IOException("Failed to upload file to Supabase. Status: " + response.getStatusCode());
+            // Log the response body for better error insight
+            throw new IOException("Failed to upload file to Supabase. Status: " + response.getStatusCode() + ", Response: " + response.getBody());
         }
     }
+
 
     public ResponseEntity<String> updateFile(String fileUrl, MultipartFile newFileContent) throws IOException {
         String filePath = fileUrl.replace(supabaseUrl + "/storage/v1/object/", "");

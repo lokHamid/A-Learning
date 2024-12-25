@@ -11,7 +11,6 @@ public class Pw {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pw_id;
-
     private String objectives;
     private String materials;
     private String steps;
