@@ -10,8 +10,8 @@ public class FileClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_file;
     private String filename;
-    @Column(name = "Role")
-    private String Role;
+    @Column(name = "role")
+    private String role;
     @Column(name = "url_file")
     private String url_file;
     @ManyToOne

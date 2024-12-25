@@ -34,7 +34,7 @@ public List<Course> getStudentCoursesLevel(@PathVariable Level level){
 }
     //read by id:
     @GetMapping("/all/{id}")
-    public ResponseEntity<Course> getCourseById(@PathVariable int id){
+    public ResponseEntity<Course> getCourseById(@PathVariable String id){
         Optional<Course> course = courseService.getCourseById(id);
         return ResponseEntity.ok(course.orElse(null));
     }
@@ -68,7 +68,7 @@ public List<Course> getStudentCoursesLevel(@PathVariable Level level){
 
     //delete by id
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteCourseById(@PathVariable int id){
+    public ResponseEntity<Void> deleteCourseById(@PathVariable String id){
         courseService.deleteCourseById(id);
         return ResponseEntity.noContent().build();
     }

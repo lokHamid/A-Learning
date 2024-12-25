@@ -15,6 +15,7 @@ public class Course {
     @Enumerated(EnumType.STRING)
     private Level level;
 
+    // change to foreign key relation after:
     private int teacherID;
 
     public Course() {
