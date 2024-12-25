@@ -14,16 +14,16 @@ public class FileClassService {
     @Autowired
     private FileClassRepository fileClassRepository;
 
-    public FileClass save(FileClass fileClass) {
-        return fileClassRepository.save(fileClass);
+    public void save(FileClass fileClass) {
+        fileClassRepository.save(fileClass);
     }
 
     public List<FileClass> findAll() {
         return fileClassRepository.findAll();
     }
 
-    public Optional<FileClass> findById(int id) {
-        return fileClassRepository.findById(id); // Return the Optional directly
+    public List<FileClass> findByPwId(int pwId) {
+        return fileClassRepository.findByIdPw(pwId);
     }
 
     public void delete(FileClass fileClass) {

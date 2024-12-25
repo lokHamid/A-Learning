@@ -10,23 +10,26 @@ public class Pw {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pwid")
     private int pw_id;
 
     private String objectives;
     private String materials;
     private String steps;
     private String pwname;
-    private int course_id;
+    @ManyToOne
+    @JoinColumn(name = "course_id", referencedColumnName = "id_course")
+    private String course_id;
     @Temporal(TemporalType.TIMESTAMP)
     private Date submissiondeadline;
 
     // List of files related to the practical work
     @OneToMany(mappedBy = "ref_pw", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FileClass> files;  // Associated files
+    private List<FileClass> files;
 
     // Additional files related to practical work
     @OneToMany(mappedBy = "ref_pw", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FileClass> pw;  // Associated files
+    private List<FileClass> pw;
 
     public Pw() {}
 
@@ -94,11 +97,11 @@ public class Pw {
         this.pw = pw;
     }
 
-    public int getCourse_id() {
+    public String getCourse_id() {
         return course_id;
     }
 
-    public void setCourse_id(int course_id) {
+    public void setCourse_id(String course_id) {
         this.course_id = course_id;
     }
 }

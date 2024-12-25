@@ -28,7 +28,7 @@ public class PwController {
 
     //read by id:
     @GetMapping("/all/{id}")
-    public ResponseEntity<Pw> getPwById(@PathVariable int id){
+    public ResponseEntity<Pw> getPwById(@PathVariable String id){
         Optional<Pw> pw = pwService.getPwById(id);
         return ResponseEntity.ok(pw.orElse(null));
     }

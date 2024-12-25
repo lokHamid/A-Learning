@@ -26,8 +26,18 @@ public class PwService {
         return pwRepository.findAll();
     }
 
-    public Optional<Pw> getPwById(int id) {
-        return pwRepository.findById(id);
+    public Optional<Pw> getPwById(String id) {
+        Optional<Pw> pwOptional = pwRepository.findByCourse_IdCourse(id);
+        if (pwOptional.isPresent()) {
+            Pw pw = pwOptional.get();
+
+
+            List<FileClass> files = fileClassService.findByPwId(pw.getPwId());
+            pw.setFiles(files);
+
+            return Optional.of(pw);
+        }
+        return Optional.empty();
     }
 
     @Transactional

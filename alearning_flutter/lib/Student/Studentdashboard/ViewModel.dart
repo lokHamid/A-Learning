@@ -17,7 +17,7 @@ class Studentdashboard extends ChangeNotifier{
     final url = Uri.parse("http://localhost:8080/api/course/student_courses/${level.toString().split('.').last}");
 
     try {
-      final status = await http.get(  // Change from post() to get()
+      final status = await http.get(
         url,
         headers: {
           "Content-Type": "application/json",

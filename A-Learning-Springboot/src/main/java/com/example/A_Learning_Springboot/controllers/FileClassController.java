@@ -34,11 +34,7 @@ public class FileClassController {
         return fileClassService.findAll();
     }
 
-    @GetMapping("/all/{id}")
-    public ResponseEntity<FileClass> getById(@PathVariable int id) {
-        Optional<FileClass> fileclass = fileClassService.findById(id);
-        return ResponseEntity.ok(fileclass.orElse(null));
-    }
+
 
     @GetMapping("/retrieveFile")
     public MultipartFile retrieveFile(@RequestBody FileClass fileClass) throws IOException {
