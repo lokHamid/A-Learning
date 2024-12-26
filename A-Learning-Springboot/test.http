@@ -30,4 +30,7 @@ Content-Type: text/plain
 < /home/lokmanhamidi/testfile.txt
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
+###
+GET http://localhost:8080/api/pw/ITP
+
 

@@ -26,15 +26,21 @@ public class PwService {
         return pwRepository.findAll();
     }
 
-    public Optional<Pw> getPwById(String id) {
-        List<Pw> pwList = pwRepository.findByCourse_id(id);
+    public List<Pw> getPwById(String id) {
+        List<Pw> pwList = pwRepository.findByCourse_IdCourse(id);
+
+        System.out.println(pwList.size());
         if (!pwList.isEmpty()) {
-            Pw pw = pwList.get(0); // Assuming you want the first one, if there are multiple
-            List<FileClass> files = fileClassService.findByPwId(pw.getPwId());
-            pw.setFiles(files);
-            return Optional.of(pw);
+            for(Pw pw : pwList) {
+                List<FileClass> files = fileClassService.findByPwId(pw.getPwId());
+                System.out.println( "list of files for pw " + pw.getPwname() + " :  \n" + files.size());
+                pw.setFiles(files);
+            }
+
+            return pwList;
+        }else{
+            return null;
         }
-        return Optional.empty();
     }
 
     @Transactional

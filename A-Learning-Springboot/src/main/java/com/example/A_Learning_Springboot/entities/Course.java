@@ -8,7 +8,8 @@ import jakarta.persistence.*;
 public class Course {
 
     @Id
-    private String id_course;
+    @Column(name = "id_course")
+    private String idCourse;
     private String course_name;
     private String teacher_name;
     private int coefficient;
@@ -21,21 +22,17 @@ public class Course {
     public Course() {
     }
     public Course(String id_course, String course_name, int coefficient, Level level) {
-        this.id_course = id_course;
+        this.idCourse = id_course;
         this.coefficient = coefficient;
         this.level = level;
     }
 
     public String getIdCourse() {
-        return id_course;
+        return idCourse;
     }
     public void setIdCourse(String id_course) {
-        this.id_course = id_course;
+        this.idCourse = id_course;
     }
-
-
-
-
 
     public int getCoefficient() {
         return coefficient;

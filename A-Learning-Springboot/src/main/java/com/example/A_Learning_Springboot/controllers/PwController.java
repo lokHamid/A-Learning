@@ -27,10 +27,15 @@ public class PwController {
     }
 
     //read by id:
-    @GetMapping("/all/{id}")
-    public ResponseEntity<Pw> getPwById(@PathVariable String id){
-        Optional<Pw> pw = pwService.getPwById(id);
-        return ResponseEntity.ok(pw.orElse(null));
+    @GetMapping("/{courseId}")
+    public ResponseEntity<?> getPwsByCourseId(@PathVariable String courseId) {
+        List<Pw> pws = pwService.getPwById(courseId);
+        if (pws.isEmpty()) {
+            return ResponseEntity
+                    .notFound()
+                    .build();
+        }
+        return ResponseEntity.ok(pws);
     }
 
     //create

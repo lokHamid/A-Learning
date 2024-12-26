@@ -17,8 +17,9 @@ public class Pw {
     private String steps;
     private String pwname;
 
+    @ManyToOne
     @JoinColumn(name = "course_id", referencedColumnName = "id_course")
-    private String course_id;
+    private Course course;
     @Temporal(TemporalType.TIMESTAMP)
     private Date submissiondeadline;
 
@@ -96,11 +97,11 @@ public class Pw {
         this.pw = pw;
     }
 
-    public String getCourse_id() {
-        return course_id;
+    public Course getCourse_id() {
+        return course;
     }
 
-    public void setCourse_id(String course_id) {
-        this.course_id = course_id;
+    public void setCourse_id(Course course_id) {
+        this.course = course_id;
     }
 }
