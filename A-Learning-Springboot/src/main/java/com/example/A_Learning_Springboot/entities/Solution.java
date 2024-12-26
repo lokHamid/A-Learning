@@ -2,6 +2,8 @@ package com.example.A_Learning_Springboot.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "solutions")
 public class Solution {
@@ -11,18 +13,20 @@ public class Solution {
     private int id_solution;
     private String solution;
     @ManyToOne
-    @JoinColumn(name = "id_student", foreignKey = @ForeignKey(name = "pwsolutions_id_student_fkey"))
-    private Student ref_student;
+    @JoinColumn(name = "id_user", foreignKey = @ForeignKey(name = "solutions_id_student_fkey"))
+    private User ref_student;
     @ManyToOne
     @JoinColumn(name = "id_pw", foreignKey = @ForeignKey(name = "pwsolutions_id_pw_fkey"))
     private Pw ref_pw;
     @ManyToOne
     @JoinColumn(name = "id_feedback", foreignKey = @ForeignKey(name = "pwsolutions_id_feedback_fkey"))
     private Feedback ref_feedback;
+    @OneToMany(mappedBy = "ref_solution", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<FileClass> files;
 
     public Solution(){}
 
-    public Solution(String solution, Student ref_student, Pw ref_pw, Feedback ref_feedback) {
+    public Solution(String solution, User ref_student, Pw ref_pw, Feedback ref_feedback) {
         this.solution = solution;
         this.ref_student = ref_student;
         this.ref_pw = ref_pw;
@@ -45,11 +49,11 @@ public class Solution {
         this.solution = solution;
     }
 
-    public Student getRefStudent() {
+    public User getRefStudent() {
         return ref_student;
     }
 
-    public void setRefStudent(Student ref_student) {
+    public void setRefStudent(User ref_student) {
         this.ref_student = ref_student;
     }
 
@@ -77,11 +81,11 @@ public class Solution {
         this.id_solution = id_solution;
     }
 
-    public Student getRef_student() {
+    public User getRef_student() {
         return ref_student;
     }
 
-    public void setRef_student(Student ref_student) {
+    public void setRef_student(User ref_student) {
         this.ref_student = ref_student;
     }
 

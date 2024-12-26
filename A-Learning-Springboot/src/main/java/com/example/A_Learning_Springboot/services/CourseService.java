@@ -21,7 +21,7 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
-    public Optional<Course> getCourseById(int id) {
+    public Optional<Course> getCourseById(String id) {
         return courseRepository.findById(id);
     }
 
@@ -35,7 +35,7 @@ public class CourseService {
         courseRepository.delete(course);
     }
 
-    public void deleteCourseById(int id) {
+    public void deleteCourseById(String id) {
         courseRepository.deleteById(id);
     }
 public List<Course> getCoursesByLevel(Level level) {

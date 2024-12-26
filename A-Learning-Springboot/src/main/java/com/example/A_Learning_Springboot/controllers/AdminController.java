@@ -1,9 +1,7 @@
 package com.example.A_Learning_Springboot.controllers;
 
 import com.example.A_Learning_Springboot.entities.Admin;
-import com.example.A_Learning_Springboot.entities.Student;
 import com.example.A_Learning_Springboot.services.AdminService;
-import com.example.A_Learning_Springboot.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -113,8 +113,9 @@ class AssignmentDetails2 extends StatelessWidget {
                     SizedBox(width: 10,),
                     ElevatedButton(onPressed: (){
                       detail.s1?.solution1=detail.t1.text;
-                      detail.s1?.studentname='akram';
-                      detail.s1?.id=145;
+                      detail.s1?.ref_student=9;
+                      detail.s1?.id_solution=145;
+                      //assign other values too here . missing!
                       detail.sendsolution();
                     },
                         style: ElevatedButton.styleFrom(
