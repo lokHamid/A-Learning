@@ -16,7 +16,7 @@ public class Pw {
     private String materials;
     private String steps;
     private String pwname;
-    @ManyToOne
+
     @JoinColumn(name = "course_id", referencedColumnName = "id_course")
     private String course_id;
     @Temporal(TemporalType.TIMESTAMP)

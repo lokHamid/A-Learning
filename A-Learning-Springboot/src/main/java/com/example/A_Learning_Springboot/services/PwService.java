@@ -27,14 +27,11 @@ public class PwService {
     }
 
     public Optional<Pw> getPwById(String id) {
-        Optional<Pw> pwOptional = pwRepository.findByCourse_IdCourse(id);
-        if (pwOptional.isPresent()) {
-            Pw pw = pwOptional.get();
-
-
+        List<Pw> pwList = pwRepository.findByCourse_id(id);
+        if (!pwList.isEmpty()) {
+            Pw pw = pwList.get(0); // Assuming you want the first one, if there are multiple
             List<FileClass> files = fileClassService.findByPwId(pw.getPwId());
             pw.setFiles(files);
-
             return Optional.of(pw);
         }
         return Optional.empty();
