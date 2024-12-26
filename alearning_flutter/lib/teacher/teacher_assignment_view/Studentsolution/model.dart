@@ -2,22 +2,28 @@ import 'dart:io';
 
 class solution {
    String solution1;
-   String studentname;
-   int id;
-  List<files> pdf;
+   int ref_student;
+   int ref_pw;
+   int? ref_feedback;
+   int id_solution;
+   List<files> pdf;
 
   solution({
     required this.solution1,
-    required this.studentname,
-    required this.id,
+    required this.ref_student,
+    required this.ref_pw,
+    required this.id_solution,
     required this.pdf,
+    this.ref_feedback,
   });
 
   factory solution.fromJson(Map<String, dynamic> json) {
     return solution(
       solution1: json['solution'],
-      studentname: json['studentname'],
-      id: json['id'],
+      ref_student: json['ref_student'],
+      id_solution: json['id_solution'],
+      ref_feedback: json['ref_feedback'],
+      ref_pw: json['ref_pw'],
       pdf: List<files>.from(
         json['pdf'].map((x) => files.fromJson(x)),
       ),
@@ -26,8 +32,10 @@ class solution {
   Map<String, dynamic> toJson() {
     return {
       'solution': solution1,
-      'studentname': studentname,
-      'id': id,
+      'ref_student': ref_student,
+      'id_solution': id_solution,
+      'ref_feedback': ref_feedback,
+      'ref_pw': ref_pw,
       'pdf': pdf.map((file) => file.toJson()).toList(),
     };
   }

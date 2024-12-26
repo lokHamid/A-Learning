@@ -67,6 +67,4 @@ public class PwController {
         pwService.deletePwById(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }

@@ -15,7 +15,7 @@ public class Pw {
     private String materials;
     private String steps;
     private String pwname;
-    private int course_id;
+    private String course_id;
     @Temporal(TemporalType.TIMESTAMP)
     private Date submissiondeadline;
 
@@ -93,11 +93,11 @@ public class Pw {
         this.pw = pw;
     }
 
-    public int getCourse_id() {
+    public String getCourse_id() {
         return course_id;
     }
 
-    public void setCourse_id(int course_id) {
+    public void setCourse_id(String course_id) {
         this.course_id = course_id;
     }
 }
