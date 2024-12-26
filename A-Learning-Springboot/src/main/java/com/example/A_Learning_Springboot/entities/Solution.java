@@ -2,6 +2,8 @@ package com.example.A_Learning_Springboot.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "solutions")
 public class Solution {
@@ -19,6 +21,8 @@ public class Solution {
     @ManyToOne
     @JoinColumn(name = "id_feedback", foreignKey = @ForeignKey(name = "pwsolutions_id_feedback_fkey"))
     private Feedback ref_feedback;
+    @OneToMany(mappedBy = "ref_solution", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<FileClass> files;
 
     public Solution(){}
 
