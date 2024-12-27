@@ -31,6 +31,6 @@ Content-Type: text/plain
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###
-GET http://localhost:8080/api/pw/ITPs
+GET http://localhost:8080/api/pw/ITP
 
 

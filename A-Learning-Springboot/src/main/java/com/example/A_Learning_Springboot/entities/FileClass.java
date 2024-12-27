@@ -12,7 +12,7 @@ public class FileClass {
     private int id_file;
     private String filename;
 
-    @Column(name = "role")
+
     private String role;
 
     @Column(name = "url_file")
@@ -91,5 +91,13 @@ public class FileClass {
 
     public void setId_solution(int id_solution) {
         this.ref_solution.setId_solution(id_solution);
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
