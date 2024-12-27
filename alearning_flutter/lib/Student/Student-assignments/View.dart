@@ -7,11 +7,12 @@ import 'package:provider/provider.dart';
 import '../Pages/Detailedassignments.dart';
 class Studentassi extends StatelessWidget {
   final String studentID;
-  const Studentassi({super.key, required this.studentID});
+  final String courseid;
+  const Studentassi({super.key, required this.studentID, required this.courseid});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (_)=>Studentassign()..Fetch(),
+    return ChangeNotifierProvider(create: (_)=>Studentassign()..Fetchassign(courseid),
       child: Material(
         elevation: 2,
         borderRadius: BorderRadius.circular(16),
@@ -78,9 +79,7 @@ class Studentassi extends StatelessWidget {
                                         assign.assigndeadline(assign.assignments[index].submissiondeadline),
                                         SizedBox(height: 12,),
                                         ElevatedButton(onPressed: (){
-                                          List<files> file=[];
-                                          file.add(files(url:'https://www.youtube.com/watch?v=-t2CR9qZRj0' , name: 'youtube', idfile: 1));
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailedassignments(assign: assignment(pwid: 1,submissiondeadline: DateTime.now() ,pwname: 'c++', steps: 'hello',file: file),)));
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailedassignments(assign:assign.assignments[index],)));
                                         },
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor: Color.fromRGBO(75, 57,239,1),

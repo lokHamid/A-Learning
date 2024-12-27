@@ -62,7 +62,7 @@ class Studentdash extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                             Navigator.push(context,MaterialPageRoute(builder: (context)=>Courseassignments(coursename: 'Intro to Python', studentID: studentID,)));
+                             Navigator.push(context,MaterialPageRoute(builder: (context)=>Courseassignments(coursename: 'Intro to Python', studentID: studentID,courseid: course.courses[index].courseID,)));
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

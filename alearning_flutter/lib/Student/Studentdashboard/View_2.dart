@@ -81,9 +81,7 @@ class Recent extends StatelessWidget {
                       assign.assigndeadline(assign.assignments[index].submissiondeadline),
                       SizedBox(height: 12,),
                       ElevatedButton(onPressed: (){
-                        List<files> file=[];
-                        file.add(files(url:'https://www.youtube.com/watch?v=-t2CR9qZRj0' , name: 'youtube', idfile: 1));
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailedassignments(assign: assignment(pwid: 1,submissiondeadline: DateTime.now() ,pwname: 'c++', steps: 'hello',file: file,),)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailedassignments(assign:assign.assignments[index],)));
 
                       },
                           style: ElevatedButton.styleFrom(

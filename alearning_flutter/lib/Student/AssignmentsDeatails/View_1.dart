@@ -83,7 +83,7 @@ class AssignmentsDetails1 extends StatelessWidget {
                     ],
                   )
                :SizedBox.shrink(),
-
+               asign1.steps.isNotEmpty?
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -115,7 +115,43 @@ class AssignmentsDetails1 extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
+              )
+                   :SizedBox.shrink(),
+              SizedBox(height: 16,),
+              asign1.materials != null && asign1.materials!.isNotEmpty?
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(241, 244, 248, 1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Materials:',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      Text(asign1.materials?? '',style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          color: Color.fromRGBO(87,99,108,1)
+                      ),),
+                      SizedBox(height: 16,),
+
+                    ],
+                  ),
+                ),
+              )
+                  :SizedBox.shrink(),
               SizedBox(height: 16,),
               Assignmentsfiles(),
               SizedBox(height: 16,),

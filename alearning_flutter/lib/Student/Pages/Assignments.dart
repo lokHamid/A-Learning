@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class Courseassignments extends StatelessWidget {
   final String coursename;
   final int studentID;
-  const Courseassignments({super.key, required this.coursename, required this.studentID});
+  final String courseid;
+  const Courseassignments({super.key, required this.coursename, required this.studentID, required this.courseid});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class Courseassignments extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Studentassi(studentID: studentID.toString()),
+                Studentassi(studentID: studentID.toString(),courseid: courseid,),
 
                 SizedBox(height: 20,)
               ],

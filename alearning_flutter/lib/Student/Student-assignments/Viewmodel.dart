@@ -6,8 +6,10 @@ import '../../teacher/teacherassignmantsmnage/model.dart';
 class Studentassign extends ChangeNotifier{
   List<assignment> assignments=[];
   bool isloadingass=true;
-  final urla =Uri.parse("http://localhost:8080/aleraning/student");
-  Future<void> Fetchassign() async{
+
+  Future<void> Fetchassign(String courseid) async{
+    final urla =Uri.parse("http://localhost:8080/api/pw/$courseid");
+
     try{
       final status=await http.get(urla,
           headers: {
@@ -16,6 +18,7 @@ class Studentassign extends ChangeNotifier{
       );
       if (status.statusCode==200) {
         final data=jsonDecode(status.body);
+        print("succsess: $data");
         assignments=(data as List).map((assignmen)=>assignment.fromJson(assignmen)).toList();
         isloadingass=false;
         notifyListeners();
@@ -24,7 +27,7 @@ class Studentassign extends ChangeNotifier{
         notifyListeners();
       }
     }catch(e){
-      print("error"+e.toString());
+      print("1error"+e.toString());
       isloadingass=false;
       notifyListeners();
     }
