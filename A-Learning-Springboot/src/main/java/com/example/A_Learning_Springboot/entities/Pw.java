@@ -1,5 +1,7 @@
 package com.example.A_Learning_Springboot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -17,19 +19,20 @@ public class Pw {
     private String steps;
     private String pwname;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "id_course")
+    @JoinColumn(name = "course_id", referencedColumnName = "id_course", insertable = false, updatable = false)
     private Course course;
     @Temporal(TemporalType.TIMESTAMP)
     private Date submissiondeadline;
 
     // List of files related to the practical work
     @OneToMany(mappedBy = "ref_pw", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<FileClass> files;
 
     // Additional files related to practical work
-    @OneToMany(mappedBy = "ref_pw", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FileClass> pw;
+
 
     public Pw() {}
 
@@ -89,14 +92,8 @@ public class Pw {
         this.files = files;
     }
 
-    public List<FileClass> getPw() {
-        return pw;
-    }
 
-    public void setPw(List<FileClass> pw) {
-        this.pw = pw;
-    }
-
+    @JsonIgnore
     public Course getCourse_id() {
         return course;
     }

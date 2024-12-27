@@ -48,20 +48,12 @@ public class PwService {
         // Save the Pw entity first
         Pw savedPw = pwRepository.save(pw);
 
-        // Handle files and assignments separately, as per the requirements
+        // Handle files separately
         if (pw.getFiles() != null) {
             for (FileClass file : pw.getFiles()) {
                 // Assign this file to the current Pw object
                 file.setRef_pw(savedPw);
                 fileClassService.save(file); // Save the file
-            }
-        }
-
-        if (pw.getPw() != null) {
-            for (FileClass assignmentFile : pw.getPw()) {
-                // Assign this assignment file to the current Pw object
-                assignmentFile.setRef_pw(savedPw);
-                fileClassService.save(assignmentFile); // Save the assignment file
             }
         }
 
@@ -79,7 +71,7 @@ public class PwService {
             existingPw.setPwname(pw.getPwname());
             existingPw.setSubmissiondeadline(pw.getSubmissiondeadline());
 
-            // Update the existing Pw entity and link files
+            // Update the existing Pw entity
             Pw updatedPw = pwRepository.save(existingPw);
 
             // Handle files
@@ -87,14 +79,6 @@ public class PwService {
                 for (FileClass file : pw.getFiles()) {
                     file.setRef_pw(updatedPw); // Link to updated Pw
                     fileClassService.save(file); // Save the file
-                }
-            }
-
-            // Handle assignment files (if any)
-            if (pw.getPw() != null) {
-                for (FileClass assignmentFile : pw.getPw()) {
-                    assignmentFile.setRef_pw(updatedPw); // Link to updated Pw
-                    fileClassService.save(assignmentFile); // Save the assignment file
                 }
             }
 

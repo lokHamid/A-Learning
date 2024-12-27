@@ -1,5 +1,6 @@
 package com.example.A_Learning_Springboot.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,15 +21,16 @@ public class FileClass {
     @Column(name = "id_pw")  // Map to the correct column in your database
     private int idPw;
 
-    // Relationship to the Solution entity, representing the solution for the file
+    // Relationship to the Solution entity
     @ManyToOne
     @JoinColumn(name = "id_solution", foreignKey = @ForeignKey(name = "files_id_solution_fkey"))
-    private Solution ref_solution;  // Link the file to the solution
+    private Solution ref_solution;
 
-    // Relationship to the Pw entity, representing the practical work
+    // Relationship to the Pw entity
     @ManyToOne
     @JoinColumn(name = "id_pw", referencedColumnName = "pwid", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "files_id_pw_fkey"))
-    private Pw ref_pw;  // Link the file to the practical work (Pw)
+    @JsonBackReference // Prevent infinite recursion
+    private Pw ref_pw;
 
     // Constructors, getters, and setters
 
@@ -83,8 +85,9 @@ public class FileClass {
     }
 
     public int getId_solution() {
-        return ref_solution.getId_solution();
+        return ref_solution != null ? ref_solution.getId_solution() : -1;  // Return -1 or some default value if ref_solution is null
     }
+
 
     public void setId_solution(int id_solution) {
         this.ref_solution.setId_solution(id_solution);
