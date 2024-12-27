@@ -251,7 +251,7 @@ class teachersassignui extends StatelessWidget {
 
                                               ),
                                               child: ElevatedButton(onPressed: (){
-                                                teachass.changes(teachass.assign[index].pwid, index);
+                                                teachass.changes(teachass.assign[index].pwid.toString(), index);
                                                 Navigator.of(context).pop();
                                               }, child:Text("Save Changes",style:
                                                 TextStyle(fontSize: 16,fontWeight: FontWeight.w600,color: Colors.white),)
@@ -278,7 +278,7 @@ class teachersassignui extends StatelessWidget {
                               SizedBox(width: 10,),
                               ElevatedButton(
                                 onPressed: () {
-                                  teachass.Removedata(teachass.assign[index].pwid, index);
+                                  teachass.Removedata(teachass.assign[index].pwid.toString(), index);
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color.fromRGBO(255, 89, 99, 1),

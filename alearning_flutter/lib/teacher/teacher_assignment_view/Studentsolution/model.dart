@@ -43,12 +43,14 @@ class solution {
 
 class files {
   int? id_pw;
+  int idfile;
   int? id_solution;
   final String name;
   String? Role;
   final String url;
    File? file;
   files({
+    required this.idfile,
     required this.name,
     required this.url,
     this.file,
@@ -59,22 +61,22 @@ class files {
 
   factory files.fromJson(Map<String, dynamic> json) {
     return files(
-      name: json['name'],
-      url: json['url'],
-      Role: json['Role'],
-      id_pw: json['id_pw'],
+      idfile: json['id_file'],
+      name: json['filename'],
+      url: json['url_file'],
+      Role: json['role']?? '',
+      id_pw: json['idPw'],
       id_solution: json['id_solution'],
-      file: json['file'] != null ? File(json['file']) : null,
+
     );
   }
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'url': url,
-      'file': file?.path,
-      'id_pw':id_pw,
+      'filename': name,
+      'url_file': url,
+      'idPw':id_pw,
       'id_solution':id_solution,
-      'Role':Role
+      'role':Role
     };
   }
 

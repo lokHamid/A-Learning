@@ -12,7 +12,6 @@ class Studentdashboard extends ChangeNotifier{
   bool isloadingass=true;
   bool isloading=true;
 
-  final urla =Uri.parse("http://localhost:8080/aleraning/student");
   Future<void> Fetchcourses(Level level) async {
     final url = Uri.parse("http://localhost:8080/api/course/student_courses/${level.toString().split('.').last}");
 
@@ -42,6 +41,8 @@ class Studentdashboard extends ChangeNotifier{
   }
 
   Future<void> Fetchassign() async{
+    final urla =Uri.parse("http://localhost:8080/api/pw/ITP");
+
     try{
       final status=await http.get(urla,
       headers: {
@@ -106,9 +107,9 @@ void Fetch(){
     courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:Level.ING1, teacher: 'Draa',teacherID: 1));
     courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:Level.ING1, teacher: 'Draa',teacherID: 1));
     courses.add(Course(coursename: "POO", courseID: 'asd', coef:6, level:Level.ING1, teacher: 'Draa',teacherID: 1));
-    assignments.add(assignment(pwid: '1785', pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',course_id: 1,submissiondeadline: DateTime.now().add(Duration(days: 0))));
-    assignments.add(assignment(pwid: '1785', pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',course_id: 1,submissiondeadline: DateTime.now().add(Duration(days: 2))));
-    assignments.add(assignment(pwid: '1785', pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',course_id: 1,submissiondeadline: DateTime.now().add(Duration(days: 5))));
+    assignments.add(assignment(pwid: 1785, pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',submissiondeadline: DateTime.now().add(Duration(days: 0))));
+    assignments.add(assignment(pwid: 1785, pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',submissiondeadline: DateTime.now().add(Duration(days: 2))));
+    assignments.add(assignment(pwid: 1785, pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',submissiondeadline: DateTime.now().add(Duration(days: 5))));
     isloading=false;
     isloadingass=false;
     notifyListeners();

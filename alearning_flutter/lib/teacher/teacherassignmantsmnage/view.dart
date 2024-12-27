@@ -207,7 +207,7 @@ class Teacheraddassignment extends StatelessWidget {
                             print(viewmodel.t2.text);
                             print(viewmodel.t3.text);
 
-                            viewmodel.sendAssignment(assignment(pwid: '1521', pwname: viewmodel.t1.text, steps:viewmodel.t3.text ,objectives: viewmodel.t3.text,course_id: 1),techass);
+                            viewmodel.sendAssignment(assignment(pwid: 1521, pwname: viewmodel.t1.text, steps:viewmodel.t3.text ,objectives: viewmodel.t3.text),techass);
                           }, child:Text("Publish",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14,color: Colors.white),),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color.fromRGBO(75, 57, 239, 1),

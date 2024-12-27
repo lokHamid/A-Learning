@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
 
   Widget build(BuildContext context) {
     List<files> f=[];
-    f.add(files(name: 'python', url:'https://www.youtube.com/watch?v=gs8qfL9PNac'));
-    f.add(files(name: 'java', url:'https://drive.google.com/file/d/16fg8BFsiy1lZNyTYVJI6eN40wNaGLTb4/view?usp=sharing'));
+    f.add(files(name: 'python', url:'https://www.youtube.com/watch?v=gs8qfL9PNac', idfile: 1));
+    f.add(files(name: 'java', url:'https://drive.google.com/file/d/16fg8BFsiy1lZNyTYVJI6eN40wNaGLTb4/view?usp=sharing', idfile: 1));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Translation Test Page',

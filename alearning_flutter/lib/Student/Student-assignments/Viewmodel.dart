@@ -65,9 +65,9 @@ class Studentassign extends ChangeNotifier{
     }
   }
   void Fetch(){
-    assignments.add(assignment(pwid: '1785', pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',course_id: 1,submissiondeadline: DateTime.now().add(Duration(days: 0))));
-    assignments.add(assignment(pwid: '1785', pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',course_id: 1,submissiondeadline: DateTime.now().add(Duration(days: 1))));
-    assignments.add(assignment(pwid: '1785', pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',course_id: 1,submissiondeadline: DateTime.now().add(Duration(days: 5))));
+    assignments.add(assignment(pwid: 1785, pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',submissiondeadline: DateTime.now().add(Duration(days: 0))));
+    assignments.add(assignment(pwid: 1785, pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',submissiondeadline: DateTime.now().add(Duration(days: 1))));
+    assignments.add(assignment(pwid: 1785, pwname: 'Intro to Python', steps:'add me',objectives: 'Learn basics of python',submissiondeadline: DateTime.now().add(Duration(days: 5))));
     isloadingass=false;
     notifyListeners();
   }

@@ -76,7 +76,7 @@ class Details extends ChangeNotifier{
        .map((path) => files(
     name: path!.split('/').last, // Extract file name
     url: '', // URL can be updated after upload
-    file: File(path), // Store the File object in the `file` attribute
+    file: File(path), idfile: 2, // Store the File object in the `file` attribute
    ))
        .toList();
 

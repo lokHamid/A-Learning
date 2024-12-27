@@ -67,8 +67,8 @@ Future<void> Fetchdatat() async {
 
 
   await Future.delayed(Duration(seconds: 2)); // Simulate a small delay
-  assign.add(assignment(pwid: "100", pwname: "Introduction to Python", steps: "ghfg", objectives: "to learn basic concepts in python", course_id: 1));
-  assign.add(assignment(pwid: "1010", pwname: "Data Structures in C++", steps: "ghfg", course_id: 1));
+  assign.add(assignment(pwid: 100, pwname: "Introduction to Python", steps: "ghfg", objectives: "to learn basic concepts in python", ));
+  assign.add(assignment(pwid: 1010, pwname: "Data Structures in C++", steps: "ghfg", ));
 
   // Stop the loading state and notify listeners
   isloading = false;

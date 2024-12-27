@@ -48,7 +48,7 @@ class Assignmentsfiles extends StatelessWidget {
               Container(
                 constraints: BoxConstraints(maxHeight: 100),
                 child: ListView.builder(
-                  itemCount:detail.assign.pw?.length,
+                  itemCount:detail.assign.file?.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
                       children: [
@@ -66,7 +66,7 @@ class Assignmentsfiles extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                    detail.determinIcon(detail.assign.pw?[index].url),
+                    detail.determinIcon(detail.assign.file?[index].url),
                                   SizedBox(width: 12,),
                                   Expanded(
                                     child: Column(
@@ -74,7 +74,7 @@ class Assignmentsfiles extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                      Text(detail.assign.pw![index].name,style: TextStyle(
+                                      Text(detail.assign.file![index].name,style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
 
@@ -85,7 +85,7 @@ class Assignmentsfiles extends StatelessWidget {
                                   ),
                                   SizedBox(height: 12,),
                                   ElevatedButton(onPressed: (){
-                                    detail.launchurl(detail.assign.pw![index].url);
+                                    detail.launchurl(detail.assign.file![index].url);
                                   },
                                    style: ElevatedButton.styleFrom(
                                     backgroundColor: Color.fromRGBO(75, 57,239,1),

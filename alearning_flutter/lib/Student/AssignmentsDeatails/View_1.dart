@@ -17,7 +17,7 @@ class AssignmentsDetails1 extends StatelessWidget {
       create: (_) {
         final details = Details();
         details.setassign(asign1);
-        details.Fetchfeedback(asign1.pwid);// Set the assignment data here
+        details.Fetchfeedback(asign1.pwid.toString());// Set the assignment data here
         return details; // Return the same instance of Details
       },
       child: Material(
