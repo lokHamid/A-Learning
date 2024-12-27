@@ -1,5 +1,7 @@
 package com.example.A_Learning_Springboot.services;
 
+import com.example.A_Learning_Springboot.entities.FileClass;
+import com.example.A_Learning_Springboot.entities.Pw;
 import com.example.A_Learning_Springboot.entities.Solution;
 import com.example.A_Learning_Springboot.repositories.SolutionRepository;
 import org.springframework.stereotype.Service;
@@ -11,21 +13,40 @@ import java.util.Optional;
 public class SolutionService {
 
     private final SolutionRepository solutionRepository;
+    private final FileClassService fileClassService;
 
-    public SolutionService(SolutionRepository solutionRepository) {
+    public SolutionService(SolutionRepository solutionRepository, FileClassService fileClassService) {
         this.solutionRepository = solutionRepository;
+        this.fileClassService = fileClassService;
     }
 
     public List<Solution> getAllSolutions(){
         return solutionRepository.findAll();
     }
 
-    public Optional<Solution> getSolutionById(int id){
-        return solutionRepository.findById(id);
+    public Solution getSolutionById(int id){
+        Solution solution = solutionRepository.findByPwId(id);
+        if(solution != null){
+            List<FileClass> files=fileClassService.findBySolutionId(id);
+            System.out.println("Fetched files: " + files);
+            solution.setFiles(files);
+        }
+        return solution;
     }
 
-    public Solution saveSolution(Solution solution){
-        return solutionRepository.save(solution);
+    public Solution saveSolution(Solution solution) {
+        Solution savedsolution = solutionRepository.save(solution);
+
+        // Handle files separately
+        if (solution.getFiles() != null) {
+            for (FileClass file : solution.getFiles()) {
+
+                file.setRef_solution (savedsolution);
+                fileClassService.save(file); // Save the file
+            }
+
+        }
+        return savedsolution;
     }
 
     public Solution saveSolutionById(int id, Solution solution) {
@@ -34,9 +55,7 @@ public class SolutionService {
             Solution newSolution = solutionOptional.get();
             newSolution.setIdSolution(solution.getIdSolution());
             newSolution.setSolution(solution.getSolution());
-            newSolution.setRefStudent(solution.getRefStudent());
-            newSolution.setRefPw(solution.getRefPw());
-            newSolution.setRefFeedback(solution.getRefFeedback());
+
             return solutionRepository.save(newSolution);
         }
         return null;

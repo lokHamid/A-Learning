@@ -26,7 +26,7 @@ public class FileClass {
     @JoinColumn(name = "id_solution", foreignKey = @ForeignKey(name = "files_id_solution_fkey"))
     private Solution ref_solution;
 
-    // Relationship to the Pw entity
+
     @ManyToOne
     @JoinColumn(name = "id_pw", referencedColumnName = "pwid", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "files_id_pw_fkey"))
     @JsonBackReference // Prevent infinite recursion
@@ -52,13 +52,12 @@ public class FileClass {
         this.url_file = url_file;
     }
 
-   /* public Solution getRef_solution() {
+    public Solution getRef_solution() {
         return ref_solution;
     }
-*/
-    /*public void setRef_solution(Solution ref_solution) {
+    public void setRef_solution(Solution ref_solution) {
         this.ref_solution = ref_solution;
-    }*/
+    }
 
     public Pw getRef_pw() {
         return ref_pw;
@@ -100,4 +99,6 @@ public class FileClass {
     public void setRole(String role) {
         this.role = role;
     }
+
+
 }

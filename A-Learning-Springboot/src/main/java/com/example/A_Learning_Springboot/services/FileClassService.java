@@ -25,7 +25,9 @@ public class FileClassService {
     public List<FileClass> findByPwId(int pwId) {
         return fileClassRepository.findByIdPw(pwId);
     }
-
+ public List<FileClass> findBySolutionId(int id) {
+return fileClassRepository.findBySolutionId(id);
+ }
     public void delete(FileClass fileClass) {
         fileClassRepository.delete(fileClass);
     }

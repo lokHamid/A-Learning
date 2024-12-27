@@ -30,7 +30,8 @@ public class Pw {
     @OneToMany(mappedBy = "ref_pw", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<FileClass> files;
-
+    @OneToMany(mappedBy = "ref_pw", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Solution> solutions;
     // Additional files related to practical work
 
 

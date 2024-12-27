@@ -13,7 +13,7 @@ public class Solution {
     private int id_solution;
     private String solution;
     @ManyToOne
-    @JoinColumn(name = "id_user", foreignKey = @ForeignKey(name = "solutions_id_student_fkey"))
+    @JoinColumn(name = "id_student", foreignKey = @ForeignKey(name = "solutions_id_student_fkey"))
     private User ref_student;
     @ManyToOne
     @JoinColumn(name = "id_pw", foreignKey = @ForeignKey(name = "pwsolutions_id_pw_fkey"))
@@ -49,26 +49,24 @@ public class Solution {
         this.solution = solution;
     }
 
-    public User getRefStudent() {
+   /* public User getRefStudent() {
         return ref_student;
-    }
-
+    }*/
     public void setRefStudent(User ref_student) {
         this.ref_student = ref_student;
     }
 
-    public Pw getRefPw() {
+   /* public Pw getRefPw() {
         return ref_pw;
-    }
-
+    }*/
     public void setRefPw(Pw ref_pw) {
         this.ref_pw = ref_pw;
     }
 
-    public Feedback getRefFeedback() {
+    /*public Feedback getRefFeedback() {
         return ref_feedback;
     }
-
+*/
     public void setRefFeedback(Feedback ref_feedback) {
         this.ref_feedback = ref_feedback;
     }
@@ -81,28 +79,34 @@ public class Solution {
         this.id_solution = id_solution;
     }
 
-    public User getRef_student() {
+    /*public User getRef_student() {
         return ref_student;
     }
-
+*/
     public void setRef_student(User ref_student) {
         this.ref_student = ref_student;
     }
 
-    public Pw getRef_pw() {
-        return ref_pw;
-    }
+
 
     public void setRef_pw(Pw ref_pw) {
         this.ref_pw = ref_pw;
     }
 
-    public Feedback getRef_feedback() {
+   /* public Feedback getRef_feedback() {
         return ref_feedback;
     }
-
+*/
     public void setRef_feedback(Feedback ref_feedback) {
         this.ref_feedback = ref_feedback;
+    }
+
+    public List<FileClass> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<FileClass> files) {
+        this.files = files;
     }
 }
 
