@@ -29,7 +29,7 @@ public class SolutionController {
 
     //read by id:
     @GetMapping("/all/{id}")
-    public ResponseEntity<Solution> getSolutionById(@PathVariable int id){
+    public ResponseEntity<Solution> getSolutionById(@PathVariable  int id){
         Solution solution = solutionService.getSolutionById(id);
         return solution == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(solution);
     }

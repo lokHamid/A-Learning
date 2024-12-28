@@ -27,7 +27,7 @@ public class SolutionService {
     public Solution getSolutionById(int id){
         Solution solution = solutionRepository.findByPwId(id);
         if(solution != null){
-            List<FileClass> files=fileClassService.findBySolutionId(id);
+            List<FileClass> files=fileClassService.findBySolutionId(solution.getId_solution());
             System.out.println("Fetched files: " + files);
             solution.setFiles(files);
         }

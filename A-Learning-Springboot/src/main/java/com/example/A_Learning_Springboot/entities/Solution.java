@@ -10,6 +10,7 @@ public class Solution {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_solution")
     private int id_solution;
     private String solution;
     @ManyToOne
@@ -21,7 +22,7 @@ public class Solution {
     @ManyToOne
     @JoinColumn(name = "id_feedback", foreignKey = @ForeignKey(name = "pwsolutions_id_feedback_fkey"))
     private Feedback ref_feedback;
-    @OneToMany(mappedBy = "ref_solution", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ref_solution", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<FileClass> files;
 
     public Solution(){}

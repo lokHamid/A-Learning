@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface FileClassRepository extends JpaRepository<FileClass, Integer> {
     List<FileClass> findByIdPw(int idPw);
-    @Query("SELECT f FROM FileClass f WHERE f.ref_solution.id_solution = :solutionId")
-    List<FileClass> findBySolutionId(@Param("solutionId") int solutionId);
+
+    List<FileClass> findByIdSolution(Integer idSolution);
 }

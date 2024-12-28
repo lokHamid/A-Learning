@@ -19,11 +19,13 @@ public class FileClass {
     private String url_file;
 
     @Column(name = "id_pw")  // Map to the correct column in your database
-    private int idPw;
-
+    private Integer idPw;
+    @Column(name = "id_solution")
+    private Integer idSolution;
     // Relationship to the Solution entity
     @ManyToOne
-    @JoinColumn(name = "id_solution", foreignKey = @ForeignKey(name = "files_id_solution_fkey"))
+    @JsonBackReference
+    @JoinColumn(name = "id_solution",referencedColumnName = "id_solution", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "files_id_solution_fkey"))
     private Solution ref_solution;
 
 
@@ -75,18 +77,17 @@ public class FileClass {
         this.filename = filename;
     }
 
-    public int getIdPw() {
+    /*public int getIdPw() {
         return idPw;
     }
-
+*/
     public void setIdPw(int idPw) {
         this.idPw = idPw;
     }
 
-    public int getId_solution() {
-        return ref_solution != null ? ref_solution.getId_solution() : -1;  // Return -1 or some default value if ref_solution is null
-    }
-
+   /* public int getId_solution() {
+        return ref_solution != null ? ref_solution.getId_solution() : null;}
+*/
 
     public void setId_solution(int id_solution) {
         this.ref_solution.setId_solution(id_solution);
@@ -101,4 +102,11 @@ public class FileClass {
     }
 
 
+    public Integer getIdSolution() {
+        return idSolution;
+    }
+
+    public void setIdSolution(Integer idSolution) {
+        this.idSolution = idSolution;
+    }
 }
