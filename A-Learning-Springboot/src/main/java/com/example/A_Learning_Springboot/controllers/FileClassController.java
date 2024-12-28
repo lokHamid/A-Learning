@@ -51,10 +51,12 @@ public class FileClassController {
             return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
         }
     }
+
     @GetMapping("/files/{idSolution}")
     public List<FileClass> getFilesBySolutionId(@PathVariable Integer idSolution ) {
         return fileClassService.findBySolutionId(idSolution);
     }
+
     @PutMapping("/update")
     public ResponseEntity<String> updateFile(@RequestParam("file") MultipartFile file, @RequestParam String url) {
         try {

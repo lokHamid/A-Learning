@@ -29,9 +29,9 @@ public class SolutionController {
 
     //read by id:
     @GetMapping("/all/{id}")
-    public ResponseEntity<Solution> getSolutionById(@PathVariable  int id){
-        Solution solution = solutionService.getSolutionById(id);
-        return solution == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(solution);
+    public ResponseEntity<List<Solution>> getSolutionById(@PathVariable  int id){
+        List<Solution> solutions = solutionService.getSolutionById(id);
+        return solutions == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(solutions);
     }
 
     //create

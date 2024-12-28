@@ -24,14 +24,16 @@ public class SolutionService {
         return solutionRepository.findAll();
     }
 
-    public Solution getSolutionById(int id){
-        Solution solution = solutionRepository.findByPwId(id);
-        if(solution != null){
-            List<FileClass> files=fileClassService.findBySolutionId(solution.getId_solution());
-            System.out.println("Fetched files: " + files);
-            solution.setFiles(files);
+    public List<Solution> getSolutionById(int id){
+        List<Solution> solutions = solutionRepository.findByPwId(id);
+        if(solutions != null){
+            for(Solution solution : solutions){
+                List<FileClass> files=fileClassService.findBySolutionId(solution.getId_solution());
+                System.out.println("Fetched files: " + files);
+                solution.setFiles(files);
+            }
         }
-        return solution;
+        return solutions;
     }
 
     public Solution saveSolution(Solution solution) {
@@ -53,7 +55,7 @@ public class SolutionService {
         Optional<Solution> solutionOptional = solutionRepository.findById(id);
         if(solutionOptional.isPresent()){
             Solution newSolution = solutionOptional.get();
-            newSolution.setIdSolution(solution.getIdSolution());
+            newSolution.setId_solution(solution.getId_solution());
             newSolution.setSolution(solution.getSolution());
 
             return solutionRepository.save(newSolution);

@@ -13,5 +13,5 @@ public interface SolutionRepository extends JpaRepository<Solution , Integer> {
 
 
     @Query("SELECT s FROM Solution s WHERE s.ref_pw.pw_id = :pwId")
-    Solution findByPwId(@Param("pwId") int pwId);
+    List<Solution> findByPwId(@Param("pwId") int pwId);
 }
