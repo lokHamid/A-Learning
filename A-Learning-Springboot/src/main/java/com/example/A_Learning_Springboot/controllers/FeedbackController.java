@@ -33,6 +33,13 @@ public class FeedbackController {
         return ResponseEntity.ok(feedback.orElse(null));
     }
 
+    //read by pw id + user id:
+    @GetMapping("/get-by-pw-user/{pwid}/{userid}")
+    public ResponseEntity<List<Feedback>> getFeedbackByUser(@PathVariable int pwid, @PathVariable int userid){
+        List<Feedback> list = feedbackService.getFeedbackByUser(pwid,userid);
+        return ResponseEntity.ok(list);
+    }
+
     //create
     @PostMapping("/add")
     public Feedback addFeedback(@RequestBody Feedback feedback){

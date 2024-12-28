@@ -28,15 +28,11 @@ public class PwService {
 
     public List<Pw> getPwById(String id) {
         List<Pw> pwList = pwRepository.findByCourse_IdCourse(id);
-
-        System.out.println(pwList.size());
         if (!pwList.isEmpty()) {
             for(Pw pw : pwList) {
                 List<FileClass> files = fileClassService.findByPwId(pw.getPwId());
-                System.out.println( "list of files for pw " + pw.getPwname() + " :  \n" + files.size());
                 pw.setFiles(files);
             }
-
             return pwList;
         }else{
             return null;
