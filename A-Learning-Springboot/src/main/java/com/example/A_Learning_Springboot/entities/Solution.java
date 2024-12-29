@@ -1,5 +1,8 @@
 package com.example.A_Learning_Springboot.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -14,15 +17,19 @@ public class Solution {
     private int id_solution;
     private String solution;
     @ManyToOne
+    @JsonBackReference(value = "user-reference")
     @JoinColumn(name = "id_student", foreignKey = @ForeignKey(name = "solutions_id_student_fkey"))
     private User ref_student;
     @ManyToOne
     @JoinColumn(name = "id_pw", foreignKey = @ForeignKey(name = "pwsolutions_id_pw_fkey"))
+    @JsonIgnore
     private Pw ref_pw;
     @ManyToOne
     @JoinColumn(name = "id_feedback", foreignKey = @ForeignKey(name = "pwsolutions_id_feedback_fkey"))
+    @JsonIgnore
     private Feedback ref_feedback;
     @OneToMany(mappedBy = "ref_solution", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
     private List<FileClass> files;
 
     public Solution(){}

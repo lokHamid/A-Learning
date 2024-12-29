@@ -1,6 +1,10 @@
 package com.example.A_Learning_Springboot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -19,6 +23,10 @@ public class User {
     private Role role;
     @Enumerated(EnumType.STRING)
     private Level level;
+    @OneToMany(mappedBy = "ref_student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore  // For serializing solutions related to the User
+    private List<Solution> solutions;
+
     public User(){}
 
     public String getEmail() {

@@ -28,11 +28,11 @@ public class Pw {
 
     // List of files related to the practical work
     @OneToMany(mappedBy = "ref_pw", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+
     private List<FileClass> files;
-   /* @OneToMany(mappedBy = "ref_pw", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Solution> solutions;*/
-    // Additional files related to practical work
+    @OneToMany(mappedBy = "ref_pw", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore  // To prevent circular references, you can add this here as well for solutions if needed
+    private List<Solution> solutions;
 
 
     public Pw() {}
@@ -101,5 +101,9 @@ public class Pw {
 
     public void setCourse_id(Course course_id) {
         this.course = course_id;
+    }
+
+    public void setSolutions(List<Solution> solutions) {
+        this.solutions = solutions;
     }
 }

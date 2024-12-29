@@ -1,6 +1,7 @@
 package com.example.A_Learning_Springboot.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -24,14 +25,14 @@ public class FileClass {
     private Integer idSolution;
     // Relationship to the Solution entity
     @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "id_solution",referencedColumnName = "id_solution", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "files_id_solution_fkey"))
+    @JsonIgnore
+    @JoinColumn(name = "id_solution", referencedColumnName = "id_solution", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "files_id_solution_fkey"))
     private Solution ref_solution;
 
 
     @ManyToOne
     @JoinColumn(name = "id_pw", referencedColumnName = "pwid", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "files_id_pw_fkey"))
-    @JsonBackReference // Prevent infinite recursion
+    @JsonIgnore
     private Pw ref_pw;
 
     // Constructors, getters, and setters
