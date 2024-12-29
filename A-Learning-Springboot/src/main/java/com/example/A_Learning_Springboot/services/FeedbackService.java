@@ -36,7 +36,7 @@ public class FeedbackService {
         feedbackRepository.deleteById(id);
     }
 
-    public List<Feedback> getFeedbackByUser(int pwid,int userid){
+    public Feedback getFeedbackByUser(int pwid,int userid){
         return feedbackRepository.findFeedbackByUserPwId(pwid,userid);
     }
 }
