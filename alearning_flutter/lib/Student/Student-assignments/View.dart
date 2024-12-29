@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../Pages/Detailedassignments.dart';
 class Studentassi extends StatelessWidget {
-  final String studentID;
+  final  int studentID;
   final String courseid;
   const Studentassi({super.key, required this.studentID, required this.courseid});
 
@@ -79,7 +79,7 @@ class Studentassi extends StatelessWidget {
                                         assign.assigndeadline(assign.assignments[index].submissiondeadline),
                                         SizedBox(height: 12,),
                                         ElevatedButton(onPressed: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailedassignments(assign:assign.assignments[index],)));
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailedassignments(assign:assign.assignments[index],iduser: studentID,)));
                                         },
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor: Color.fromRGBO(75, 57,239,1),

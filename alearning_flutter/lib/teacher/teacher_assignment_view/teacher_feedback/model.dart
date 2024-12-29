@@ -1,16 +1,20 @@
 class Feedbacka{
 double? grade;
 String message;
-Feedbacka( {this.grade,required this.message});
+int id_feedback;
+Feedbacka( {required this.id_feedback,this.grade,required this.message});
 factory Feedbacka.fromJson(Map<String,dynamic> json){
-  return Feedbacka(message: json['message'],
+  return Feedbacka(
+      id_feedback: json['id_feedback'],
+      message: json['comment'],
   grade: json['grade']
   );
 
 }
 Map<String,dynamic> toJson(){
   return{
-    'message':message,
+      'id_feedback':id_feedback,
+    'comment':message,
     'grade':grade
   };
 }

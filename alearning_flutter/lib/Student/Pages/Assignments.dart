@@ -27,7 +27,7 @@ class Courseassignments extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Studentassi(studentID: studentID.toString(),courseid: courseid,),
+                Studentassi(studentID: studentID,courseid: courseid,),
 
                 SizedBox(height: 20,)
               ],

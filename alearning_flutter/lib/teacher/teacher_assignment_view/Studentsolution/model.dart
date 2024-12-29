@@ -25,7 +25,7 @@ class solution {
       ref_feedback: json['ref_feedback'],
       ref_pw: json['ref_pw'],
       pdf: List<files>.from(
-        json['pdf'].map((x) => files.fromJson(x)),
+        json['files'].map((x) => files.fromJson(x)),
       ),
     );
   }

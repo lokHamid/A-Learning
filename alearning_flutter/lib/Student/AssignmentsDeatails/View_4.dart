@@ -26,6 +26,7 @@ class Feedbackdetails extends StatelessWidget {
           ),),
           SizedBox(height: 12,),
           Consumer<Details>(builder: (BuildContext context,detail,child){
+
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,

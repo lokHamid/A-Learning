@@ -9,7 +9,8 @@ import 'View_4.dart';
 import 'Viewmodel.dart';
 class AssignmentsDetails1 extends StatelessWidget {
   final assignment asign1;
-  const AssignmentsDetails1({super.key, required this.asign1});
+  final int iduser;
+  const AssignmentsDetails1({super.key, required this.asign1, required this.iduser});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class AssignmentsDetails1 extends StatelessWidget {
       create: (_) {
         final details = Details();
         details.setassign(asign1);
-        details.Fetchfeedback(asign1.pwid.toString());// Set the assignment data here
+        details.Fetchfeedback(asign1.pwid,iduser);// Set the assignment data here
         return details; // Return the same instance of Details
       },
       child: Material(

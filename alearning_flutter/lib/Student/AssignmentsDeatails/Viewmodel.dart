@@ -151,29 +151,37 @@ Future<void> sendsolution() async{
     print('failed');
    }
 }
- Future<void> Fetchfeedback(String pwid) async{
-  final url=Uri.parse('https://localhost:8080/student/solution');
-try{
- final status=await http.get(url,
- headers: {
-  'Accept':'application/json'
+ Future<void> Fetchfeedback(int pwid, int iduser) async {
+  print('Fetching feedback for pwid: $pwid, iduser: $iduser');
+
+  final url = Uri.parse(
+      'http://localhost:8080/api/feedback/get-by-pw-user/$pwid/$iduser'); // Replace with your IP
+
+  print('Constructed URL: $url');
+
+  try {
+   final response = await http.get(url, headers: {
+    'Accept': 'application/json',
+   });
+
+   print('HTTP Status: ${response.statusCode}');
+   print('Response Body: ${response.body}');
+
+   if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    print('Decoded Data: $data');
+    feedback = Feedbacka.fromJson(data);
+    isloading = true;
+   } else {
+    print('Failed to fetch feedback: ${response.statusCode}');
+    isloading = false;
+   }
+  } catch (e) {
+   print('Error occurred: $e');
+   isloading = false;
+  } finally {
+   notifyListeners();
+  }
  }
- );
- if(status.statusCode==200){
- final data=jsonDecode(status.body);
- feedback=Feedbacka.fromJson(data);
- isloading=true;
- notifyListeners();
- }else{
-isloading=false;
-notifyListeners();
- }
-}catch(e){
-print('error');
-isloading=false;
-  notifyListeners();
-}
-  feedback = Feedbacka(grade: 12, message: 'shit');
-  notifyListeners();
- }
+
 }

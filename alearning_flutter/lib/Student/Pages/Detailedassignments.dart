@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 import '../AssignmentsDeatails/View_1.dart';
 class Detailedassignments extends StatelessWidget {
  final assignment assign;
-  const Detailedassignments({super.key, required this.assign});
+ final int iduser;
+  const Detailedassignments({super.key, required this.assign, required this.iduser});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class Detailedassignments extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AssignmentsDetails1(asign1: assign,)
+              AssignmentsDetails1(asign1: assign,iduser: iduser,)
             ],
           ),
         ),

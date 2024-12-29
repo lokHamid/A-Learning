@@ -81,7 +81,7 @@ class Recent extends StatelessWidget {
                       assign.assigndeadline(assign.assignments[index].submissiondeadline),
                       SizedBox(height: 12,),
                       ElevatedButton(onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailedassignments(assign:assign.assignments[index],)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Detailedassignments(assign:assign.assignments[index],iduser: studentID,)));
 
                       },
                           style: ElevatedButton.styleFrom(
