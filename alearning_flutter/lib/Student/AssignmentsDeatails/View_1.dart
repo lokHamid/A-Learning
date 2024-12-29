@@ -156,7 +156,7 @@ class AssignmentsDetails1 extends StatelessWidget {
               SizedBox(height: 16,),
               Assignmentsfiles(),
               SizedBox(height: 16,),
-              AssignmentDetails2(),
+              AssignmentDetails2(idpw: asign1.pwid,idstudent:iduser,),
               SizedBox(height: 16,),
               Feedbackdetails()
 

@@ -36,7 +36,7 @@ class solution {
       'id_solution': id_solution,
       'ref_feedback': ref_feedback,
       'ref_pw': ref_pw,
-      'pdf': pdf.map((file) => file.toJson()).toList(),
+      'files': pdf.map((file) => file.toJson()).toList(),
     };
   }
 }
@@ -49,6 +49,7 @@ class files {
   String? Role;
   final String url;
    File? file;
+  int? idSolution;
   files({
     required this.idfile,
     required this.name,
@@ -56,7 +57,8 @@ class files {
     this.file,
     this.Role,
     this.id_pw,
-    this.id_solution
+    this.id_solution,
+    this.idSolution
   });
 
   factory files.fromJson(Map<String, dynamic> json) {
@@ -67,7 +69,7 @@ class files {
       Role: json['role']?? '',
       id_pw: json['idPw'],
       id_solution: json['id_solution'],
-
+      idSolution: json['idSolution']
     );
   }
   Map<String, dynamic> toJson() {

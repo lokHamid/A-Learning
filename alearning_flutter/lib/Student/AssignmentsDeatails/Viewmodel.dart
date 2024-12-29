@@ -138,10 +138,10 @@ class Details extends ChangeNotifier{
   }
  }
 Future<void> sendsolution() async{
-   final url=Uri.parse('https://localhost:8080/student/solution');
+   final url=Uri.parse('http://localhost:8080/api/solution/add');
    final status= await http.post(url,
    headers: {
-    'ContentType':'application/json'
+    'Content-Type': 'application/json',
    },
     body: jsonEncode(s1?.toJson())
    );

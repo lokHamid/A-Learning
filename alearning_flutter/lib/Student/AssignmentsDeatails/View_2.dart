@@ -1,8 +1,11 @@
 import 'package:a_learning/Student/AssignmentsDeatails/Viewmodel.dart';
+import 'package:a_learning/teacher/teacher_assignment_view/Studentsolution/model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class AssignmentDetails2 extends StatelessWidget {
-  const AssignmentDetails2({super.key});
+  final int idstudent;
+  final int idpw;
+  const AssignmentDetails2({super.key, required this.idstudent, required this.idpw});
 
   @override
   Widget build(BuildContext context) {
@@ -113,8 +116,11 @@ class AssignmentDetails2 extends StatelessWidget {
                     SizedBox(width: 10,),
                     ElevatedButton(onPressed: (){
                       detail.s1?.solution1=detail.t1.text;
-                      detail.s1?.ref_student=9;
+                      detail.s1?.ref_student=idstudent;
                       detail.s1?.id_solution=145;
+                      detail.s1?.ref_feedback=4;
+                      detail.s1?.ref_pw=idpw;
+                      detail.s1?.pdf.add(files(idfile: 99, name:'file', url: 'http',Role: 'none'));
                       //assign other values too here . missing!
                       detail.sendsolution();
                     },
