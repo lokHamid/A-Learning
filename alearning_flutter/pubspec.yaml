@@ -41,6 +41,7 @@ dependencies:
   http: ^1.2.2
   intl: ^0.20.1
   file_picker: ^8.1.6
+  http_parser: ^4.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -114,15 +114,42 @@ class AssignmentDetails2 extends StatelessWidget {
 
                     ),)),
                     SizedBox(width: 10,),
-                    ElevatedButton(onPressed: (){
-                      detail.s1?.solution1=detail.t1.text;
-                      detail.s1?.ref_student=idstudent;
-                      detail.s1?.id_solution=145;
-                      detail.s1?.ref_feedback=4;
-                      detail.s1?.ref_pw=idpw;
-                      detail.s1?.pdf.add(files(idfile: 99, name:'file', url: 'http',Role: 'none'));
-                      //assign other values too here . missing!
-                      detail.sendsolution();
+                    ElevatedButton(onPressed: () async {
+                      // Initialize solution if it's null
+                      if (detail.s1 == null) {
+                        detail.s1 = solution(
+                          solution1: detail.t1.text,
+                          ref_student: idstudent,
+                          ref_pw: idpw,
+                          id_solution: 145,
+                          pdf: [], // Initialize empty pdf list
+                          ref_feedback: null,
+                        );
+                      }
+
+                      // Ensure pdf is initialized and files are added
+                      if (detail.s1?.pdf == null) {
+                        detail.s1?.pdf = [];
+                      }
+
+                      // Log the pdf list to check if it's populated
+                      if (detail.s1!.pdf.isEmpty) {
+                        print("No files to upload.");
+                      } else {
+                        // Iterate over the pdf list and print file names
+                        for (int i = 0; i < detail.s1!.pdf.length; i++) {
+                          print('Uploading file: ${detail.s1!.pdf[i].name}'); // Print file name
+                          //await detail.uploadFileToBackend(detail.s1!.pdf[i].file);
+                        }
+                      }
+
+                      // Assign solution and ref_pw
+                      detail.s1?.solution1 = detail.t1.text;
+                      detail.s1?.ref_pw = idpw;
+                      detail.s1?.ref_student = idstudent;
+
+                      // Send solution after file upload
+                      await detail.sendsolution();
                     },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromRGBO(75,57,239,1),

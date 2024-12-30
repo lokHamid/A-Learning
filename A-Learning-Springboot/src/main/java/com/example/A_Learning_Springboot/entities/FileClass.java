@@ -19,9 +19,9 @@ public class FileClass {
     @Column(name = "url_file")
     private String url_file;
 
-    @Column(name = "id_pw")  // Map to the correct column in your database
+    @Column(name = "id_pw",nullable = true)  // Map to the correct column in your database
     private Integer idPw;
-    @Column(name = "id_solution")
+    @Column(name = "id_solution",nullable = true)
     private Integer idSolution;
     // Relationship to the Solution entity
     @ManyToOne
@@ -60,14 +60,24 @@ public class FileClass {
     }
     public void setRef_solution(Solution ref_solution) {
         this.ref_solution = ref_solution;
-    }
+        if (ref_solution != null) {
+            this.idSolution = ref_solution.getId_solution();  // Automatically set id_solution when setting ref_solution
+        } else {
+            this.idSolution = null;  // Set id_solution to null when ref_solution is null
+        }  // Automatically set id_solution when setting ref_solution
 
+    }
     public Pw getRef_pw() {
         return ref_pw;
     }
 
     public void setRef_pw(Pw ref_pw) {
         this.ref_pw = ref_pw;
+        if (ref_pw != null) {
+            this.idPw = ref_pw.getPwId();  // Automatically set id_pw when setting ref_pw
+        } else {
+            this.idPw = null;  // Set id_pw to null when ref_pw is null
+        }
     }
 
     public String getFilename() {

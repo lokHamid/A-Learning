@@ -5,10 +5,14 @@ import 'package:a_learning/teacher/teacher_assignment_view/Studentsolution/model
 import 'package:a_learning/teacher/teacher_assignment_view/teacher_feedback/model.dart';
 import 'package:a_learning/teacher/teacherassignmantsmnage/model.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:path/path.dart'; // Import path package
+
 class Details extends ChangeNotifier{
  late assignment assign;
   TextEditingController t1=TextEditingController();
@@ -63,31 +67,102 @@ class Details extends ChangeNotifier{
     }
    }
   }
-  Future<void>pickfile() async{
-  final result= await FilePicker.platform.pickFiles(
-  allowMultiple: true,
-   type: FileType.custom,
-   allowedExtensions: ['jpg', 'pdf', 'doc'],
+ Future<void> pickfile() async {
+  try {
+   final result = await FilePicker.platform.pickFiles(
+    allowMultiple: true,
+    type: FileType.custom,
+    allowedExtensions: ['jpg', 'pdf', 'doc'],
+   );
+
+   if (result != null) {
+    if (kIsWeb) {
+     // Web-specific handling
+     final selectedFiles = result.files
+         .where((file) => file.bytes != null) // Ensure file has byte data
+         .map((file) => files(
+      name: file.name,
+      url: '', // You can update this with the upload URL later
+      file: File(''), // You might not need to use a physical file on Web
+      idfile: 2,
+     ))
+         .toList();
+
+     print('Selected files: ${selectedFiles.map((f) => f.name).toList()}');
+
+     s1?.pdf = selectedFiles;
+     print(s1?.pdf.length);
+
+
+
+
+     notifyListeners();
+
+    } else {
+     // Mobile-specific handling (using paths)
+     final selectedFiles = result.paths
+         .where((path) => path != null)
+         .map((path) => files(
+      name: path!.split('/').last,
+      url: '', // URL can be updated after upload
+      file: File(path),
+      idfile: 2,
+     ))
+         .toList();
+
+     print('Selected files: ${selectedFiles.map((f) => f.name).toList()}');
+     s1?.pdf = [];
+     s1?.pdf = selectedFiles;
+     print(selectedFiles.length);
+     for(int i=0;i<s1!.pdf.length;i++){
+      print(s1?.pdf[i].name);
+     // uploadFileToBackend(s1?.pdf[i].file);
+     }
+     notifyListeners();
+
+    }
+   } else {
+    print('No files selected');
+   }
+  } catch (e) {
+   print('Error picking files: $e');
+  }
+ }
+ Future<void> uploadFileToBackend(File file) async {
+  String apiUrl = "http://localhost:8080/api/files/upload"; // Backend API URL
+
+  var uri = Uri.parse(apiUrl);
+  var request = http.MultipartRequest('POST', uri);
+
+  // Get file details
+  String? fileName = basename(file.path);
+  var fileBytes = await file.readAsBytes();
+
+  // Attach file to the request
+  var multipartFile = http.MultipartFile.fromBytes(
+   'file', // The form field name (it should match the backend's expected field name)
+   fileBytes ,
+   filename: fileName,
+   contentType: MediaType('text', 'plain'), // Adjust content type as needed
   );
-  if (result != null) {
-   // Convert the result to a list of Files objects
-   final selectedFiles = result.paths
-       .where((path) => path != null) // Exclude null paths
-       .map((path) => files(
-    name: path!.split('/').last, // Extract file name
-    url: '', // URL can be updated after upload
-    file: File(path), idfile: 2, // Store the File object in the `file` attribute
-   ))
-       .toList();
 
-   print('Selected files: ${selectedFiles.map((f) => f.name).toList()}');
-    s1?.pdf=selectedFiles;
+  request.files.add(multipartFile);
 
+  // Send the request
+  var response = await request.send();
+
+  if (response.statusCode == 200) {
+   var responseBody = await response.stream.bytesToString();
+   print('File uploaded successfully. Response: $responseBody');
+
+   // Assuming the response body contains the URL, you can extract it
+   var data = jsonDecode(responseBody);
+   String fileUrl = data['url']; // Assuming the server response includes the 'url' field
+   print('File URL: $fileUrl');
   } else {
-   print('No files selected');
-
+   print('Failed to upload file. Status code: ${response.statusCode}');
   }
-  }
+ }
  Widget assigndeadline(DateTime? t){
 
   DateTime now=DateTime.now();
@@ -137,20 +212,42 @@ class Details extends ChangeNotifier{
    return Icon(Icons.book, size: 24, color: Color.fromRGBO(238, 139, 96, 1));
   }
  }
-Future<void> sendsolution() async{
-   final url=Uri.parse('http://localhost:8080/api/solution/add');
-   final status= await http.post(url,
-   headers: {
-    'Content-Type': 'application/json',
-   },
-    body: jsonEncode(s1?.toJson())
+ Future<void> sendsolution() async {
+  if (s1 == null) {
+   s1 = solution(
+    solution1: "akram zennad abdelmouaiz", // Replace with appropriate data
+    ref_student: 35,
+    ref_pw: 2,
+    id_solution: 145,
+    pdf: [], // Initialize with an empty list or existing file objects
+    ref_feedback: null,
    );
-   if(status.statusCode==200){
-   print('succeed');
-   }else{
-    print('failed');
-   }
-}
+  }
+
+  // Add a file for demonstration (ensure `files` class is used correctly)
+
+
+
+  // Convert the `solution` object to JSON
+  final jsonBody = jsonEncode(s1?.toJson());
+  print('Sending JSON: $jsonBody');
+
+  // Send the HTTP POST request
+  final url = Uri.parse('http://localhost:8080/api/solution/add');
+  final response = await http.post(
+   url,
+   headers: {'Content-Type': 'application/json'},
+   body: jsonBody,
+  );
+
+  if (response.statusCode == 200) {
+   print('Success');
+  } else {
+   print('Failed: ${response.statusCode}');
+   print('Response Body: ${response.body}');
+  }
+ }
+
  Future<void> Fetchfeedback(int pwid, int iduser) async {
   print('Fetching feedback for pwid: $pwid, iduser: $iduser');
 
