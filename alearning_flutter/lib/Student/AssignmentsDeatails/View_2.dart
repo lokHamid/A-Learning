@@ -1,5 +1,6 @@
 import 'package:a_learning/Student/AssignmentsDeatails/Viewmodel.dart';
 import 'package:a_learning/teacher/teacher_assignment_view/Studentsolution/model.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class AssignmentDetails2 extends StatelessWidget {
@@ -98,8 +99,8 @@ class AssignmentDetails2 extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    ElevatedButton(onPressed: (){
-                      detail.pickfile();
+                    ElevatedButton(onPressed: () async {
+                     detail.pickedFiles= await detail.pickfile();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromRGBO(57,210,192,1),
@@ -115,32 +116,32 @@ class AssignmentDetails2 extends StatelessWidget {
                     ),)),
                     SizedBox(width: 10,),
                     ElevatedButton(onPressed: () async {
-                      // Initialize solution if it's null
+                     detail.s1?.solution1=detail.t1.text;
+                     detail.s1?.ref_pw=idpw;
+                     detail.s1?.ref_student=idstudent;
                       if (detail.s1 == null) {
-                        detail.s1 = solution(
-                          solution1: detail.t1.text,
-                          ref_student: idstudent,
-                          ref_pw: idpw,
-                          id_solution: 145,
-                          pdf: [], // Initialize empty pdf list
-                          ref_feedback: null,
-                        );
+                       print('empty');
                       }
-
-                      // Ensure pdf is initialized and files are added
+                     for (int i = 0; i < detail.s1!.pdf.length; i++) {
+                       print('Detail for index $i: ${detail.s1!.pdf[i]}');
+                     }
                       if (detail.s1?.pdf == null) {
-                        detail.s1?.pdf = [];
+                        print('null');
                       }
 
                       // Log the pdf list to check if it's populated
                       if (detail.s1!.pdf.isEmpty) {
                         print("No files to upload.");
                       } else {
-                        // Iterate over the pdf list and print file names
-                        for (int i = 0; i < detail.s1!.pdf.length; i++) {
-                          print('Uploading file: ${detail.s1!.pdf[i].name}'); // Print file name
-                          //await detail.uploadFileToBackend(detail.s1!.pdf[i].file);
+                       for(int i=0;i<detail.pickedFiles!.length;i++){
+                        String s=await detail.uploadFileToBackendWeb(detail.pickedFiles![i]);
+                        if(s==''){
+
+                        }else{
+                          detail.s1?.pdf[i].url=s;
                         }
+                       }
+
                       }
 
                       // Assign solution and ref_pw

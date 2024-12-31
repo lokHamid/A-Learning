@@ -5,6 +5,7 @@ import com.example.A_Learning_Springboot.entities.Pw;
 import com.example.A_Learning_Springboot.entities.Solution;
 import com.example.A_Learning_Springboot.repositories.SolutionRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,19 +37,20 @@ public class SolutionService {
         return solutions;
     }
 
-    public Solution saveSolution(Solution solution) {
-        Solution savedsolution = solutionRepository.save(solution);
 
-        // Handle files separately
+    public Solution saveSolution(Solution solution) {
+        // Step 1: Save the Solution first to get the id_solution
+        Solution savedSolution = solutionRepository.save(solution);
+
+        // Step 2: Handle files separately and link them to the saved solution
         if (solution.getFiles() != null) {
             for (FileClass file : solution.getFiles()) {
-
-                file.setRef_solution (savedsolution);
-                fileClassService.save(file); // Save the file
+                file.setRef_solution(savedSolution);  // Link the file to the saved solution
+                file.setIdSolution(savedSolution.getId_solution());  // Set the id_solution in the file
+                fileClassService.save(file);  // Save the file
             }
-
         }
-        return savedsolution;
+        return savedSolution;
     }
 
     public Solution saveSolutionById(int id, Solution solution) {

@@ -45,9 +45,9 @@ class files {
   int? id_pw;
   int idfile;
   int? id_solution;
-  final String name;
+   String name;
   String? Role;
-  final String url;
+   String url;
    File? file;
   int? idSolution;
   files({

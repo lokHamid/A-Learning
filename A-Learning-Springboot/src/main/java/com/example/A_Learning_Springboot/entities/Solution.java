@@ -14,7 +14,7 @@ public class Solution {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_solution")
-    private int id_solution;
+    private Integer id_solution;
     private String solution;
     @ManyToOne
     @JsonBackReference(value = "user-reference")

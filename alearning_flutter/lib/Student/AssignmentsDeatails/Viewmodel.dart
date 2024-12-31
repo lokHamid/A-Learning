@@ -15,8 +15,9 @@ import 'package:path/path.dart'; // Import path package
 
 class Details extends ChangeNotifier{
  late assignment assign;
+ List<PlatformFile>? pickedFiles =[];
   TextEditingController t1=TextEditingController();
-   solution? s1;
+   solution? s1=solution(solution1: 'solution1', ref_student: 8, ref_pw: 8, id_solution: 1, pdf: []);
   Feedbacka? feedback;
   bool isloading=true;
   void controle(TextEditingController t){
@@ -67,7 +68,7 @@ class Details extends ChangeNotifier{
     }
    }
   }
- Future<void> pickfile() async {
+ Future<List<PlatformFile>?> pickfile() async {
   try {
    final result = await FilePicker.platform.pickFiles(
     allowMultiple: true,
@@ -75,94 +76,92 @@ class Details extends ChangeNotifier{
     allowedExtensions: ['jpg', 'pdf', 'doc'],
    );
 
-   if (result != null) {
+   if (result != null && result.files.isNotEmpty) {
+    List<PlatformFile> selectedFiles = [];
+
     if (kIsWeb) {
-     // Web-specific handling
-     final selectedFiles = result.files
+     // Web-specific handling (using bytes)
+     selectedFiles = result.files
          .where((file) => file.bytes != null) // Ensure file has byte data
-         .map((file) => files(
-      name: file.name,
-      url: '', // You can update this with the upload URL later
-      file: File(''), // You might not need to use a physical file on Web
-      idfile: 2,
-     ))
          .toList();
 
-     print('Selected files: ${selectedFiles.map((f) => f.name).toList()}');
-
-     s1?.pdf = selectedFiles;
-     print(s1?.pdf.length);
-
-
-
-
-     notifyListeners();
-
+     print('Selected files for web: ${selectedFiles.map((f) => f.name).toList()}');
     } else {
      // Mobile-specific handling (using paths)
-     final selectedFiles = result.paths
-         .where((path) => path != null)
-         .map((path) => files(
-      name: path!.split('/').last,
-      url: '', // URL can be updated after upload
-      file: File(path),
-      idfile: 2,
-     ))
+     selectedFiles = result.files
+         .where((file) => file.path != null) // Ensure file has a valid path
          .toList();
 
-     print('Selected files: ${selectedFiles.map((f) => f.name).toList()}');
-     s1?.pdf = [];
-     s1?.pdf = selectedFiles;
-     print(selectedFiles.length);
-     for(int i=0;i<s1!.pdf.length;i++){
-      print(s1?.pdf[i].name);
-     // uploadFileToBackend(s1?.pdf[i].file);
-     }
-     notifyListeners();
-
+     print('Selected files for mobile: ${selectedFiles.map((f) => f.name).toList()}');
     }
+
+    // Now, if you need to map the selected files to `files` objects
+    s1?.pdf = selectedFiles.map((platformFile) {
+     if (kIsWeb) {
+      // For web, we can't create a File from path, but we can handle bytes
+      return files(
+       name: platformFile.name,
+       url: '', // You can add the URL after uploading
+       file: null, // No File object for web, as we handle bytes
+       idfile: 2,
+      );
+     } else {
+      // For mobile, create a File object using the path
+      return files(
+       name: platformFile.name,
+       url: '', // You can add the URL after uploading
+       file: File(platformFile.path!), // Mobile uses path to create a File
+       idfile: 2,
+      );
+     }
+    }).toList();
+
+    notifyListeners(); // Notify listeners if you're using ChangeNotifier
+    return selectedFiles; // Return the PlatformFile list
    } else {
     print('No files selected');
+    return null; // No files selected, return null
    }
   } catch (e) {
    print('Error picking files: $e');
+   return null; // Return null in case of error
   }
  }
- Future<void> uploadFileToBackend(File file) async {
+
+ Future<String> uploadFileToBackendWeb(PlatformFile file) async {
   String apiUrl = "http://localhost:8080/api/files/upload"; // Backend API URL
 
-  var uri = Uri.parse(apiUrl);
-  var request = http.MultipartRequest('POST', uri);
+  // On web, use the byte data available in the `file.bytes`
+  if (file.bytes != null) {
+   var fileBytes = file.bytes!;
 
-  // Get file details
-  String? fileName = basename(file.path);
-  var fileBytes = await file.readAsBytes();
+   var uri = Uri.parse(apiUrl);
+   var request = http.MultipartRequest('POST', uri);
 
-  // Attach file to the request
-  var multipartFile = http.MultipartFile.fromBytes(
-   'file', // The form field name (it should match the backend's expected field name)
-   fileBytes ,
-   filename: fileName,
-   contentType: MediaType('text', 'plain'), // Adjust content type as needed
-  );
+   var multipartFile = http.MultipartFile.fromBytes(
+    'file', // The form field name (it should match the backend's expected field name)
+    fileBytes,
+    filename: file.name,
+    contentType: MediaType('application', 'octet-stream'), // Use a generic content type for files
+   );
 
-  request.files.add(multipartFile);
+   request.files.add(multipartFile);
 
-  // Send the request
-  var response = await request.send();
+   var response = await request.send();
 
-  if (response.statusCode == 200) {
-   var responseBody = await response.stream.bytesToString();
-   print('File uploaded successfully. Response: $responseBody');
+   if (response.statusCode == 200) {
+    var responseBody = await response.stream.bytesToString();
+    print('File uploaded successfully. Response: $responseBody');
+    return responseBody;
+   } else {
 
-   // Assuming the response body contains the URL, you can extract it
-   var data = jsonDecode(responseBody);
-   String fileUrl = data['url']; // Assuming the server response includes the 'url' field
-   print('File URL: $fileUrl');
-  } else {
-   print('Failed to upload file. Status code: ${response.statusCode}');
+    print('Failed to upload file. Status code: ${response.statusCode}');
+    return '';
+   }
   }
+  return '';
  }
+
  Widget assigndeadline(DateTime? t){
 
   DateTime now=DateTime.now();

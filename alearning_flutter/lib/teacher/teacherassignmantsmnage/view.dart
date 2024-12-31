@@ -180,6 +180,44 @@ class Teacheraddassignment extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 16,),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(240, 240, 240, 1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  constraints: BoxConstraints(
+                    maxHeight: 100,
+                  ),
+                  child: TextField(
+                    controller: viewmodel.t2,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    onChanged: (value) {
+                      if (value.endsWith('\n')) {
+                        viewmodel.addBulletPoint(viewmodel.t2);
+                      }},
+                    decoration: InputDecoration(
+                        labelText: 'Materials',
+                        labelStyle: TextStyle(fontWeight: FontWeight.w400,fontSize: 14),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(224, 224, 224,1),
+
+                          ),
+
+                        ),
+                        fillColor:  Color.fromRGBO(224, 224, 224,1),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color.fromRGBO(224, 224, 224,1),
+                            ),
+                            borderRadius: BorderRadius.circular(8)
+                        )
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16,),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
