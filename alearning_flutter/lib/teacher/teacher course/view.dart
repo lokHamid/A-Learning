@@ -5,12 +5,13 @@ import 'package:provider/provider.dart';
 import '../pages/Teacherpages/teacherassignmentsm.dart';
 
 class Viewt extends StatelessWidget {
-  const Viewt({super.key});
+  final int id;
+  const Viewt({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => Teachercourseviewmodel()..Fetchdata(),
+      create: (_) => Teachercourseviewmodel()..Fetchdata(id),
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -87,7 +88,7 @@ class Viewt extends StatelessWidget {
                                                 CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    courseview.courses[index].id_course,
+                                                    courseview.courses[index].courseID,
                                                     style: const TextStyle(
                                                       fontWeight: FontWeight.w600,
                                                       fontSize: 16,
@@ -96,7 +97,7 @@ class Viewt extends StatelessWidget {
                                                   ),
                                                   const SizedBox(height: 4), // Spacing
                                                   Text(
-                                                    "${courseview.courses[index].description} | ${courseview.courses[index].studentsnumber} students",
+                                                    " students",
                                                     style: const TextStyle(
                                                       color: Color.fromRGBO(87, 99, 108, 1),
                                                       fontSize: 12,

@@ -15,6 +15,7 @@ class Course{
   required this.teacher,
     required this.teacherID
   });
+
   factory Course.fromJson(Map<String,dynamic> json){
     return Course(
         coursename:json['course_name'],
@@ -24,8 +25,8 @@ class Course{
               (e) => e.toString() == 'Level.' + json['level'],
           orElse: () => Level.NONE, // Default to NONE if role is unknown
         ),
-      teacher: json['teacher_name'],
-      teacherID: json['teacherID']
+      teacher: json['teacher_name']??'',
+      teacherID: json['teacherID']?? 0
     );
   }
   Map<String,dynamic> toJson(){

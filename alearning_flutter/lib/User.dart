@@ -1,3 +1,5 @@
+import 'Student/Studentdashboard/course.dart';
+
 enum Role { TEACHER, STUDENT, ADMIN, NONE }
 enum Level {
   NONE,ING1,ING2,ING3GL,ING3SEC,ING4GL,ING4SEC,ING5GL,ING5SEC,DEFAULT
@@ -11,6 +13,7 @@ class User {
   String? pass_salt;
   String last_name;
 Level level;
+  List<Course>? coursesTeaching;
   User({
     required this.fullname,
     required this.email,
@@ -19,7 +22,8 @@ Level level;
     required this.userid,
     this.pass_salt,
     required this.last_name,
-    required this.level
+    required this.level,
+    this.coursesTeaching,
   });
 
   // JSON -> User conversion
@@ -39,6 +43,7 @@ Level level;
             (e) => e.toString() == 'Level.' + json['level'],
         orElse: () => Level.NONE, // Default to NONE if role is unknown
       ),
+
     );
   }
   // User -> JSON conversion

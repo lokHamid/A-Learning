@@ -3,7 +3,9 @@ import 'package:a_learning/teacher/teachersubmision/view.dart';
 import 'package:a_learning/widgets/dashboardcontainer.dart';
 import 'package:flutter/material.dart';
 class teacherdachbord extends StatelessWidget {
-  const teacherdachbord({super.key});
+  final int id;
+  final String name;
+  const teacherdachbord({super.key, required this.id, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class teacherdachbord extends StatelessWidget {
           children: [
             dashboardcontainer(title: "Teacher Dashboard", description: "Manage your  and student submissions"),
             SizedBox(height: 15,),
-            Viewt(),
+            Viewt(id: id,),
             SizedBox(height: 15,),
             Viewsubmit(),
           ],
