@@ -26,7 +26,18 @@ public class User {
     @OneToMany(mappedBy = "ref_student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore  // For serializing solutions related to the User
     private List<Solution> solutions;
+    @ManyToMany(mappedBy = "teachers", fetch = FetchType.LAZY)
+    @JsonIgnore // Prevent infinite recursion during serialization
+    private List<Course> coursesTeaching;
 
+    // Add getter and setter
+    public List<Course> getCoursesTeaching() {
+        return coursesTeaching;
+    }
+
+    public void setCoursesTeaching(List<Course> coursesTeaching) {
+        this.coursesTeaching = coursesTeaching;
+    }
     public User(){}
 
     public String getEmail() {

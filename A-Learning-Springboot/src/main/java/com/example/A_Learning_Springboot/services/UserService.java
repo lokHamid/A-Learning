@@ -13,6 +13,9 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    public Optional<User> getUserById(int id) {
+        return userRepository.findById(id);
+    }
     public Optional<User> validateCredentials(String email, String password) {
         // Find user by email
         Optional<User> userOptional = userRepository.findByEmail(email);

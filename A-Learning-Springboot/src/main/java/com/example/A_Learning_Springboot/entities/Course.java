@@ -1,7 +1,11 @@
 package com.example.A_Learning_Springboot.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name="courses")
@@ -11,13 +15,30 @@ public class Course {
     @Column(name = "id_course")
     private String idCourse;
     private String course_name;
-    private String teacher_name;
+
     private int coefficient;
     @Enumerated(EnumType.STRING)
     private Level level;
 
     // change to foreign key relation after:
-    private int teacherID;
+
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(
+            name = "course_teacher",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_id")
+    )
+
+    private List<User> teachers;
+    // Add getter and setter
+   /* public List<User> getTeachers() {
+        return teachers;
+    }*/
+    public void setTeachers(List<User> teachers) {
+        this.teachers = teachers;
+    }
+
 
     public Course() {
     }
@@ -50,13 +71,6 @@ public class Course {
         this.level = level;
     }
 
-    public int getTeacherID() {
-        return teacherID;
-    }
-
-    public void setTeacherID(int teacherID) {
-        this.teacherID = teacherID;
-    }
 
     public String getCourse_name() {
         return course_name;
@@ -66,11 +80,5 @@ public class Course {
         this.course_name = course_name;
     }
 
-    public String getTeacher_name() {
-        return teacher_name;
-    }
 
-    public void setTeacher_name(String teacher_name) {
-        this.teacher_name = teacher_name;
-    }
 }
