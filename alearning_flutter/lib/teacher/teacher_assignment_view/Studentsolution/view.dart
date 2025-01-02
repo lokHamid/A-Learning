@@ -41,7 +41,7 @@ class Teachersolview extends StatelessWidget {
                     }
 
                     // Ensure the solution is not null
-                    if (techersol.solutions == null) {
+                    if (techersol.solution1 == null) {
                       return Center(child: Text('No solution available'));
                     }
 
@@ -69,7 +69,7 @@ class Teachersolview extends StatelessWidget {
                               ),
                               SizedBox(height: 8),
                               Text(
-                                techersol.solutions?.solution1 ?? 'No solution text',
+                                techersol.solution1?[0].solution1 ?? 'No solution text',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,
@@ -107,12 +107,12 @@ class Teachersolview extends StatelessWidget {
                               SizedBox(
                                 height: 100,
                                 child: ListView.builder(
-                                  itemCount: techsol.solutions?.pdf.length ?? 0,
+                                  itemCount: techsol.solution1?[0].pdf.length ?? 0,
                                   itemBuilder: (context, i) {
                                     return GestureDetector(
                                       onTap: () {
                                         techsol.launchURL(
-                                            techsol.solutions?.pdf[i].url ??
+                                            techsol.solution1?[0].pdf[i].url ??
                                                 '');
                                       },
                                       child: Row(
@@ -130,7 +130,7 @@ class Teachersolview extends StatelessWidget {
                                           ),
                                           SizedBox(width: 8),
                                           Text(
-                                            techsol.solutions?.pdf[i].name ??
+                                            techsol.solution1?[0].pdf[i].name ??
                                                 '',
                                             style: TextStyle(
                                                 fontSize: 12,

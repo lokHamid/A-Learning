@@ -6,6 +6,7 @@ import 'package:a_learning/Student/Pages/dashboard.dart';
 import 'package:a_learning/teacher/pages/Teacherpages/dashboardpage.dart';
 import 'package:a_learning/teacher/pages/Teacherpages/teacherview.dart';
 import 'package:a_learning/teacher/pages/Teacherpages/teacherassignmentsm.dart';
+import 'package:a_learning/teacher/teacher%20course/viewmodel.dart';
 import 'package:a_learning/teacher/teacher.dart';
 import 'package:a_learning/teacher/teacher_assignment_view/Studentsolution/model.dart';
 import 'package:a_learning/teacher/teacherassignmantsmnage/model.dart';
@@ -21,7 +22,8 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => teacherassignmanag()),
-      ],
+
+        ],
       child: MyApp(),
     ),
   );

@@ -1,14 +1,17 @@
 import 'dart:convert';
+import 'package:a_learning/teacher/teacherassignmantsmnage/model.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:a_learning/teacher/teacher_assignment_view/Studentsolution/model.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 class Teachersolvm extends ChangeNotifier {
-   solution? _solution;
+  List<solution>? solution1;
+  List<assignment> assignments=[];
+  bool isloadingass=false;
   bool _isLoading = true; // Add loading state
 
-  solution? get solutions => _solution;
+
   bool get isLoading => _isLoading;
 
   Future<void> launchURL(String fileId) async {
@@ -36,7 +39,8 @@ class Teachersolvm extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        _solution = solution.fromJson(data);
+        solution1 = (data as List).map((solutio) => solution.fromJson(solutio)).toList();
+
         _isLoading = false;
         notifyListeners();
       } else {
