@@ -9,7 +9,7 @@ class Teachersolvm extends ChangeNotifier {
   solution? solution1;
   List<assignment> assignments=[];
   bool isloadingass=false;
-  bool _isLoading = true; // Add loading state
+  bool _isLoading = false; // Add loading state
 
 
   bool get isLoading => _isLoading;

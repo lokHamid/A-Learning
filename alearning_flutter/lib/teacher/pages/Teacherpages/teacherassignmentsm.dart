@@ -28,7 +28,7 @@ class teacherassignm extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Teacheraddassignment(),
+                Teacheraddassignment(coursename: modid,),
                  SizedBox(height: 16,),
                 teachersassignui(),
                 SizedBox(height: 16,)
