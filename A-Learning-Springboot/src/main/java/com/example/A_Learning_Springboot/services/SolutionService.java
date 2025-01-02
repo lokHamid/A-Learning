@@ -24,7 +24,9 @@ public class SolutionService {
     public List<Solution> getAllSolutions(){
         return solutionRepository.findAll();
     }
-
+public Solution getSolutionByid_solution(int id){
+       return solutionRepository.findById_solution(id);
+}
     public List<Solution> getSolutionById(int id){
         List<Solution> solutions = solutionRepository.findByPwId(id);
         if(solutions != null){

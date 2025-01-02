@@ -109,6 +109,24 @@ public class SolutionController {
         Solution newSolution = solutionService.saveSolutionById(id, solution);
         return new ResponseEntity<>(newSolution, org.springframework.http.HttpStatus.OK);
     }
+    @PutMapping("/update-feedback/{id_solution}")
+    public ResponseEntity<Solution> updateFeedback(
+            @PathVariable int id_solution,
+            @RequestBody Feedback newFeedback) {
+        // Find the solution by id_solution
+        Solution solution = solutionService.getSolutionByid_solution(id_solution);// Assuming getSolutionById returns a list
+                System.out.println("Solution fetched: " + solution.getSolution());
+
+        // Save the new feedback to the database
+        Feedback savedFeedback = feedbackRepository.save(newFeedback);
+
+        // Associate the saved feedback with the solution
+        solution.setRef_feedback(savedFeedback);
+
+        Solution updatedSolution = solutionService.saveSolution(solution);
+
+        return ResponseEntity.ok(updatedSolution);
+    }
 
     //delete
     @DeleteMapping("/delete")

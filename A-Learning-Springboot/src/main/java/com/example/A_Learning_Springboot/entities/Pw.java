@@ -21,7 +21,7 @@ public class Pw {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "id_course", insertable = false, updatable = false)
+    @JoinColumn(name = "course_id", referencedColumnName = "id_course")
     private Course course;
     @Temporal(TemporalType.TIMESTAMP)
     private Date submissiondeadline;

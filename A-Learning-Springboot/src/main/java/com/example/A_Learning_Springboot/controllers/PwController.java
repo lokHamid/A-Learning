@@ -66,7 +66,9 @@ public class PwController {
             if (fileDTO.getId_solution() != null) {
                 file.setIdPw(fileDTO.getIdPw());
             }
+            fileClasses.add(file); // This line was already in place.
         }
+
         pw.setFiles(fileClasses);
        Pw savedpw = pwService.savePw(pw);
 
