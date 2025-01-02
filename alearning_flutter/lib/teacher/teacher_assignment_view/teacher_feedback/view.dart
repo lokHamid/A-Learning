@@ -1,13 +1,16 @@
+import 'package:a_learning/teacher/teacher_assignment_view/teacher_feedback/model.dart';
 import 'package:a_learning/teacher/teacher_assignment_view/teacher_feedback/viewmodel.dart';
 import 'package:flutter/material.dart';
 class Teacherfeedbackview extends StatefulWidget {
-  const Teacherfeedbackview({super.key});
+  final int idsolution;
+  const Teacherfeedbackview({super.key, required this.idsolution});
 
   @override
   State<Teacherfeedbackview> createState() => _TeacherfeedbackviewState();
 }
 
 class _TeacherfeedbackviewState extends State<Teacherfeedbackview> {
+
   TextEditingController solution=TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -108,7 +111,9 @@ class _TeacherfeedbackviewState extends State<Teacherfeedbackview> {
                       SizedBox(width: 10,),
                       ElevatedButton(onPressed: (){
                         Techerfeedmv feed=Techerfeedmv();
-                        feed.feedbacksave(solution.text, null);
+                        print(widget.idsolution);
+                        Feedbacka feedback=Feedbacka(id_feedback: 4, message: solution.text,grade: 12);
+                        feed.updateFeedback(widget.idsolution, feedback);
                       },
 
                           style: ElevatedButton.styleFrom(

@@ -27,7 +27,7 @@ class Teacherview extends StatelessWidget {
             SizedBox(height: 8,),
             Teachersolview(solution1: solution1),
             SizedBox(height: 8,),
-            Teacherfeedbackview(),
+            Teacherfeedbackview(idsolution: solution1.id_solution,),
           ],
         ),
       ),
