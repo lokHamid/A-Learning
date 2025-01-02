@@ -48,6 +48,7 @@ public class PwController {
     @PostMapping("/add")
     public Pw addPw(@RequestBody PWDTO pwdto){
         Course course=courseRepository.getReferenceById(pwdto.getCourseName());
+        System.out.println("Course fetched: " + course.getCourse_name());
         Pw pw=new Pw();
         pw.setPwname(pwdto.getPwname());
         pw.setMaterials(pwdto.getMaterials());

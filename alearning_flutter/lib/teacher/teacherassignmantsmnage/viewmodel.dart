@@ -14,9 +14,8 @@ class teacherassignmanag extends ChangeNotifier{
  TextEditingController t2=TextEditingController();
  TextEditingController t3=TextEditingController();
  TextEditingController t4=TextEditingController();
-
 List<PlatformFile>? pickedFiles =[];
-assignment? s1;
+assignment? s1=assignment(pwid: 1, pwname: 'if', steps: '',file: []);
 void updateField1(String value) {
   t1.text = value;
   notifyListeners();
@@ -122,15 +121,15 @@ Future<List<PlatformFile>?> pickfile() async {
     return null; // Return null in case of error
   }
 }
-  Future<void> sendAssignment(assignment assignment,Teacherassignments tech) async {
+  Future<void> sendAssignment(assignment? assignments) async {
 
 
   // URL to send the POST request to
-    final url = Uri.parse('https://your-api-endpoint.com/assignments');
+    final url = Uri.parse('http://localhost:8080/api/pw/add');
 
     // Convert the assignment object to JSON
     final body = jsonEncode(s1?.toJson());
-
+    print(body);
     // Send POST request
     try {
       final response = await http.post(

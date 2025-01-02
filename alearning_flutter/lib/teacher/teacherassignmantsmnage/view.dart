@@ -7,7 +7,8 @@ import 'package:provider/provider.dart';
 import '../teachersassignments/viewmodel.dart';
 import 'model.dart';
 class Teacheraddassignment extends StatelessWidget {
-  const Teacheraddassignment({super.key});
+ final String coursename;
+  const Teacheraddassignment({super.key, required this.coursename});
   @override
   Widget build(BuildContext context) {
     final viewmodel=Provider.of<teacherassignmanag>(context);
@@ -241,12 +242,36 @@ class Teacheraddassignment extends StatelessWidget {
 
                       child: Consumer<Teacherassignments>(
                         builder: (BuildContext context, techass, Widget? child) {
-                          return ElevatedButton(onPressed: (){
-                            print(viewmodel.t1.text);
-                            print(viewmodel.t2.text);
-                            print(viewmodel.t3.text);
+                          return ElevatedButton(onPressed: () async {
 
-                            viewmodel.sendAssignment(assignment(pwid: 1521, pwname: viewmodel.t1.text, steps:viewmodel.t3.text ,objectives: viewmodel.t3.text),techass);
+                            if (viewmodel.s1?.file != null) {
+                              if (viewmodel.s1?.file?.isEmpty ?? true) {
+                                print("No files to upload.");
+                              } else {
+                                if (viewmodel.pickedFiles != null && viewmodel.pickedFiles!.isNotEmpty) {
+                                  for (int i = 0; i < viewmodel.pickedFiles!.length; i++) {
+                                    String s = await viewmodel.uploadFileToBackendWeb(viewmodel.pickedFiles![i]);
+                                    if (s.isEmpty) {
+                                      print("File upload failed for file ${viewmodel.pickedFiles![i]}");
+                                    } else {
+                                      viewmodel.s1!.file?[i].url=s;
+                                    }
+                                  }
+                                } else {
+                                  print("No files selected for upload.");
+                                }
+                              }
+                            } else {
+                              print("No file found in s1.");
+                            }
+                             viewmodel.s1?.coursename=viewmodel.t1.text;
+                            viewmodel.s1?.materials=viewmodel.t4.text;
+                            viewmodel.s1?.objectives=viewmodel.t3.text;
+                            viewmodel.s1?.steps=viewmodel.t2.text;
+                            viewmodel.s1?.coursename=coursename;
+                            viewmodel.s1?.pwid=4;
+                            viewmodel.sendAssignment(viewmodel.s1);
+
                           }, child:Text("Publish",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 14,color: Colors.white),),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color.fromRGBO(75, 57, 239, 1),
