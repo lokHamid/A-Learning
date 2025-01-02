@@ -47,7 +47,7 @@ public class PwService {
         // Handle files separately
         if (pw.getFiles() != null) {
             for (FileClass file : pw.getFiles()) {
-                // Assign this file to the current Pw object
+                 file.setIdPw( savedPw.getPwId());
                 file.setRef_pw(savedPw);
                 fileClassService.save(file); // Save the file
             }

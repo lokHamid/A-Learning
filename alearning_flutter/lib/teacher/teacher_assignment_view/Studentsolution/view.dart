@@ -5,12 +5,13 @@ import 'package:provider/provider.dart';
 import 'package:a_learning/teacher/teacher_assignment_view/Studentsolution/viewmodel.dart';
 
 class Teachersolview extends StatelessWidget {
-  const Teachersolview({super.key});
+  final solution solution1;
+  const Teachersolview({super.key, required this.solution1});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => Teachersolvm()..fetchSolution(), // Fetch solution during provider initialization
+      create: (_) => Teachersolvm()..fetchSolution(solution1), // Fetch solution during provider initialization
       child: Padding(
         padding: EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 16),
         child: Material(
@@ -69,7 +70,7 @@ class Teachersolview extends StatelessWidget {
                               ),
                               SizedBox(height: 8),
                               Text(
-                                techersol.solution1?[0].solution1 ?? 'No solution text',
+                                techersol.solution1?.solution1 ?? 'No solution text',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 12,
@@ -107,12 +108,12 @@ class Teachersolview extends StatelessWidget {
                               SizedBox(
                                 height: 100,
                                 child: ListView.builder(
-                                  itemCount: techsol.solution1?[0].pdf.length ?? 0,
+                                  itemCount: techsol.solution1?.pdf.length ?? 0,
                                   itemBuilder: (context, i) {
                                     return GestureDetector(
                                       onTap: () {
                                         techsol.launchURL(
-                                            techsol.solution1?[0].pdf[i].url ??
+                                            techsol.solution1?.pdf[i].url ??
                                                 '');
                                       },
                                       child: Row(
@@ -130,7 +131,7 @@ class Teachersolview extends StatelessWidget {
                                           ),
                                           SizedBox(width: 8),
                                           Text(
-                                            techsol.solution1?[0].pdf[i].name ??
+                                            techsol.solution1?.pdf[i].name ??
                                                 '',
                                             style: TextStyle(
                                                 fontSize: 12,

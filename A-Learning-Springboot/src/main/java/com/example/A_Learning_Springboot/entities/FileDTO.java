@@ -30,11 +30,11 @@ public class FileDTO {
         this.idPw = idPw;
     }
 
-    public int getId_solution() {
+    public Integer getId_solution() {
         return id_solution;
     }
 
-    public void setId_solution(int id_solution) {
+    public void setId_solution(Integer id_solution) {
         this.id_solution = id_solution;
     }
 

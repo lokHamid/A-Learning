@@ -1,13 +1,22 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:a_learning/teacher/teacherassignmantsmnage/model.dart';
 import 'package:flutter/material.dart';
+import 'package:http_parser/http_parser.dart';
 
+import '../teacher_assignment_view/Studentsolution/model.dart';
 import '../teachersassignments/viewmodel.dart';
 class teacherassignmanag extends ChangeNotifier{
-final TextEditingController t1=TextEditingController();
-final TextEditingController t2=TextEditingController();
-final TextEditingController t3=TextEditingController();
+ TextEditingController t1=TextEditingController();
+ TextEditingController t2=TextEditingController();
+ TextEditingController t3=TextEditingController();
+ TextEditingController t4=TextEditingController();
+
+List<PlatformFile>? pickedFiles =[];
+assignment? s1;
 void updateField1(String value) {
   t1.text = value;
   notifyListeners();
@@ -20,14 +29,107 @@ void updateField3(String value) {
   t3.text = value;
   notifyListeners();
 }
+ Future<String> uploadFileToBackendWeb(PlatformFile file) async {
+   String apiUrl = "http://localhost:8080/api/files/upload"; // Backend API URL
+
+   // On web, use the byte data available in the `file.bytes`
+   if (file.bytes != null) {
+     var fileBytes = file.bytes!;
+
+     var uri = Uri.parse(apiUrl);
+     var request = http.MultipartRequest('POST', uri);
+
+     var multipartFile = http.MultipartFile.fromBytes(
+       'file', // The form field name (it should match the backend's expected field name)
+       fileBytes,
+       filename: file.name,
+       contentType: MediaType('application', 'octet-stream'), // Use a generic content type for files
+     );
+
+     request.files.add(multipartFile);
+
+     var response = await request.send();
+
+     if (response.statusCode == 200) {
+       var responseBody = await response.stream.bytesToString();
+       print('File uploaded successfully. Response: $responseBody');
+       return responseBody;
+     } else {
+
+       print('Failed to upload file. Status code: ${response.statusCode}');
+       return '';
+     }
+   }
+   return '';
+ }
+
+Future<List<PlatformFile>?> pickfile() async {
+  try {
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'doc'],
+    );
+
+    if (result != null && result.files.isNotEmpty) {
+      List<PlatformFile> selectedFiles = [];
+
+      if (kIsWeb) {
+        // Web-specific handling (using bytes)
+        selectedFiles = result.files
+            .where((file) => file.bytes != null) // Ensure file has byte data
+            .toList();
+
+        print('Selected files for web: ${selectedFiles.map((f) => f.name).toList()}');
+      } else {
+        // Mobile-specific handling (using paths)
+        selectedFiles = result.files
+            .where((file) => file.path != null) // Ensure file has a valid path
+            .toList();
+
+        print('Selected files for mobile: ${selectedFiles.map((f) => f.name).toList()}');
+      }
+
+      // Now, if you need to map the selected files to `files` objects
+      s1?.file = selectedFiles.map((platformFile) {
+        if (kIsWeb) {
+          // For web, we can't create a File from path, but we can handle bytes
+          return files(
+            name: platformFile.name,
+            url: '', // You can add the URL after uploading
+            file: null, // No File object for web, as we handle bytes
+            idfile: 2,
+          );
+        } else {
+          // For mobile, create a File object using the path
+          return files(
+            name: platformFile.name,
+            url: '', // You can add the URL after uploading
+            file: File(platformFile.path!), // Mobile uses path to create a File
+            idfile: 2,
+          );
+        }
+      }).toList();
+
+      notifyListeners(); // Notify listeners if you're using ChangeNotifier
+      return selectedFiles; // Return the PlatformFile list
+    } else {
+      print('No files selected');
+      return null; // No files selected, return null
+    }
+  } catch (e) {
+    print('Error picking files: $e');
+    return null; // Return null in case of error
+  }
+}
   Future<void> sendAssignment(assignment assignment,Teacherassignments tech) async {
-tech.assign.add(assignment);
+
 
   // URL to send the POST request to
     final url = Uri.parse('https://your-api-endpoint.com/assignments');
 
     // Convert the assignment object to JSON
-    final body = jsonEncode(assignment.toJson());
+    final body = jsonEncode(s1?.toJson());
 
     // Send POST request
     try {

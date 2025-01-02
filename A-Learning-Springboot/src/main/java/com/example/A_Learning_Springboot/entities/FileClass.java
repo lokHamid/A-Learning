@@ -92,7 +92,7 @@ public class FileClass {
         return idPw;
     }
 */
-    public void setIdPw(int idPw) {
+    public void setIdPw(Integer idPw) {
         this.idPw = idPw;
     }
 

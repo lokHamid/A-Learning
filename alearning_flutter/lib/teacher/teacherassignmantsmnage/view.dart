@@ -62,6 +62,7 @@ class Teacheraddassignment extends StatelessWidget {
                               );
                             },
                           );
+                          viewmodel.s1?.submissiondeadline=picked;
 
 
                         },color: Color.fromRGBO(75, 57, 239,1), icon:Icon(Icons.edit_calendar_rounded,color: Colors.white,size: 24,),)),
@@ -189,7 +190,7 @@ class Teacheraddassignment extends StatelessWidget {
                     maxHeight: 100,
                   ),
                   child: TextField(
-                    controller: viewmodel.t2,
+                    controller: viewmodel.t4,
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     onChanged: (value) {
@@ -226,7 +227,7 @@ class Teacheraddassignment extends StatelessWidget {
                     SizedBox(
                       width: 150,
                       height: 40,
-                      child: ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
+                      child: ElevatedButton(onPressed: () async {viewmodel.pickedFiles= await viewmodel.pickfile();},style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromRGBO(240, 240, 240,1),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),child:Text("Attach Files",
                       style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: Color.fromRGBO(75, 57, 239, 1)),

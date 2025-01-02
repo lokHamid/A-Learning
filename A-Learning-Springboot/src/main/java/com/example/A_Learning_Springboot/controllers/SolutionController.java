@@ -83,7 +83,7 @@ public class SolutionController {
         }
         solution.setFiles(fileClasses);
 
-        // Save Solution first to generate the id_solution
+
         Solution savedSolution = solutionService.saveSolution(solution);
 
         // Now that the Solution has an id_solution, set the idSolution on the files and save them

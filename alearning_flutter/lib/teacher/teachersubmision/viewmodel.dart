@@ -18,15 +18,38 @@ class Teachersubvm extends ChangeNotifier{
   List<solution> solution1=[];
   List<assignofstudent> get assigns=>_assigns;
   List<assignment> assignments=[];
-  bool isLoding=false;
+  bool isLoding=true;
 
-   Future<void> Fethdata(List<Course> course)async {
-    for(int i=0;i<course.length;i++){
-     await Fetchassign(course[i].courseID);
+  List<Course> courses=[];
+  Future<void> Fetchdata(int id)async {
+    Uri url=Uri.parse('http://localhost:8080/api/course/user/$id');
+    try{
+      final response =await http.get(url,
+          headers: {
+            'Accept':'application/json'
+          }
+      );
+      final data=jsonDecode(response.body);
+      courses=(data as List).map((course) => Course.fromJson(course)).toList();
+
+    }catch(e){
+      print(e);
+    }
+    notifyListeners();
+  }
+   Future<void> Fethdata(int id)async {
+   await Fetchdata(id);
+    for(int i=0;i<courses.length;i++){
+     await Fetchassign(courses[i].courseID);
     }
     if(assignments.isNotEmpty){
       for(int i=0;i<assignments.length;i++){
+        print(assignments[i].pwid);
        await fetchSolution(assignments[i].pwid);
+      }
+      for(int i=0;i<solution1.length;i++){
+        print(solution1[i].solution1);
+        print(solution1[i].pwname);
       }
     }
      notifyListeners();
@@ -48,9 +71,19 @@ class Teachersubvm extends ChangeNotifier{
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
 
-        if (data is Map && data['data'] is List) {
-          List<solution> fetchedSolutions =
-          (data['data'] as List).map((item) => solution.fromJson(item)).toList();
+        // Case 1: If the response body is empty or an unexpected format
+        if (data is List && data.isEmpty) {
+          print("No solutions available or the response body is empty.");
+          isLoding = false;
+          notifyListeners();
+          return;  // Early return if the list is empty
+        }
+
+        // Case 2: If the response body contains valid solution data
+        if (data is List) {
+          List<solution> fetchedSolutions = data
+              .map((item) => solution.fromJson(item))
+              .toList();
 
           // Append the new solutions to the existing list
           solution1.addAll(fetchedSolutions);
@@ -72,6 +105,7 @@ class Teachersubvm extends ChangeNotifier{
       print('Error fetching solution: $e');
     }
   }
+
 
   Future<void> Fetchassign(String courseid) async{
     final urla =Uri.parse("http://localhost:8080/api/pw/$courseid");

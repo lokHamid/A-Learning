@@ -1,12 +1,16 @@
+import 'package:a_learning/teacher/teacher_assignment_view/Studentsolution/model.dart';
 import 'package:a_learning/teacher/teacher_assignment_view/Studentsolution/view.dart';
 import 'package:a_learning/teacher/teacher_assignment_view/teacher_feedback/view.dart';
 import 'package:a_learning/widgets/dashboardcontainer.dart';
 import 'package:flutter/material.dart';
+
+import '../../teacher_assignment_view/Studentsolution/model.dart';
 class Teacherview extends StatelessWidget {
   final String student;
   final int id;
   final String course;
-  const Teacherview({super.key,required this.student,required this.id, required this.course});
+  final solution solution1;
+  const Teacherview({super.key,required this.student,required this.id, required this.course, required this.solution1});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class Teacherview extends StatelessWidget {
           children: [
             dashboardcontainer(title: student, description:course ),
             SizedBox(height: 8,),
-            Teachersolview(),
+            Teachersolview(solution1: solution1),
             SizedBox(height: 8,),
             Teacherfeedbackview(),
           ],

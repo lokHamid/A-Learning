@@ -1,11 +1,14 @@
 package com.example.A_Learning_Springboot.controllers;
 
-import com.example.A_Learning_Springboot.entities.Pw;
+import com.example.A_Learning_Springboot.entities.*;
+import com.example.A_Learning_Springboot.repositories.CourseRepository;
+import com.example.A_Learning_Springboot.services.FileClassService;
 import com.example.A_Learning_Springboot.services.PwService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +18,10 @@ public class PwController {
 
     @Autowired
     private final PwService pwService;
-
+    @Autowired
+    private CourseRepository courseRepository;
+    @Autowired
+    FileClassService fileClassService;
     public PwController(PwService pwService) {
         this.pwService = pwService;
     }
@@ -40,9 +46,37 @@ public class PwController {
 
     //create
     @PostMapping("/add")
-    public Pw addPw(@RequestBody Pw pw){
+    public Pw addPw(@RequestBody PWDTO pwdto){
+        Course course=courseRepository.getReferenceById(pwdto.getCourseName());
+        Pw pw=new Pw();
+        pw.setPwname(pwdto.getPwname());
+        pw.setMaterials(pwdto.getMaterials());
+        pw.setObjectives(pwdto.getObjectives());
+        pw.setSteps(pwdto.getSteps());
+        pw.setCourse_id(course);
+        pw.setSubmissiondeadline(pwdto.getSubmissiondeadline());
 
-        return pwService.savePw(pw);
+        List<FileClass> fileClasses = new ArrayList<>();
+        for (FileDTO fileDTO : pwdto.getFiles()) {
+            FileClass file = new FileClass();
+            file.setFilename(fileDTO.getFilename());
+            file.setUrl_file(fileDTO.getUrl_file());
+            file.setRole(fileDTO.getRole());
+            if (fileDTO.getId_solution() != null) {
+                file.setIdPw(fileDTO.getIdPw());
+            }
+        }
+        pw.setFiles(fileClasses);
+       Pw savedpw = pwService.savePw(pw);
+
+       if(!pwdto.getFiles().isEmpty()) {
+            for (FileClass file : savedpw.getFiles()) {
+                file.setIdPw(savedpw.getPwId());
+                fileClassService.save(file);  // Save file with the correct idSolution
+            }
+        }
+
+       return savedpw;
     }
 
     //update

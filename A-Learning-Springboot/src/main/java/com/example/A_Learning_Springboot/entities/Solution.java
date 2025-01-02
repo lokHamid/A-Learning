@@ -52,7 +52,19 @@ public class Solution {
    /* public Pw getRefPw() {
         return ref_pw;
     }*/
+   public Integer getStudentId() {
+       return ref_student != null ? ref_student.getIdUser() : null; // assuming `getId()` is the method in `User` to get the student ID
+   }
+    public String getStudentFirstName() {
+        return ref_student != null ? ref_student.getFirstName() : null;
+    }
 
+    public String getStudentLastName() {
+        return ref_student != null ? ref_student.getLastName() : null;
+    }
+    public String getPwName() {
+        return ref_pw != null ? ref_pw.getPwname() : null;  // Assuming Pw class has a getName() method
+    }
     public void setRefPw(Pw ref_pw) {
         this.ref_pw = ref_pw;
     }
