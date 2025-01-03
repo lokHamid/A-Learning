@@ -4,6 +4,7 @@ import com.example.A_Learning_Springboot.entities.*;
 import com.example.A_Learning_Springboot.repositories.CourseRepository;
 import com.example.A_Learning_Springboot.services.FileClassService;
 import com.example.A_Learning_Springboot.services.PwService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -91,10 +92,26 @@ public class PwController {
 
     //update by id
     @PutMapping("/update/{id}")
-    public ResponseEntity<Pw> updatePwById(@PathVariable int id, @RequestBody Pw pw){
-        Pw newPw = pwService.savePwById(id, pw);
-        return new ResponseEntity<>(newPw, org.springframework.http.HttpStatus.OK);
+    public ResponseEntity<Pw> updatePwById(@PathVariable int id, @RequestBody Pw pw) {
+
+        Pw existingPw = pwService.getPwById(id);
+      System.out.println("existingPw fetched: " + existingPw.getPwname());
+        // Update fields of the existing Pw entity with the incoming Pw object
+        existingPw.setObjectives(pw.getObjectives());
+        existingPw.setMaterials(pw.getMaterials());
+        existingPw.setSteps(pw.getSteps());
+        existingPw.setPwname(pw.getPwname());
+        existingPw.setSubmissiondeadline(pw.getSubmissiondeadline());
+        existingPw.setFiles(pw.getFiles());
+
+
+        // Save the updated entity
+        Pw updatedPw = pwService.savePw(existingPw);
+
+        // Return the updated entity
+        return ResponseEntity.ok(updatedPw);
     }
+
 
     //delete
     @DeleteMapping("/delete")

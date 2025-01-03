@@ -3,11 +3,12 @@ import 'package:a_learning/teacher/teachersassignments/viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class teachersassignui extends StatelessWidget {
-  const teachersassignui({super.key});
+  final String courseid;
+  const teachersassignui({super.key, required this.courseid});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (_)=>Teacherassignments()..Fetchdatat(),
+    return ChangeNotifierProvider(create: (_)=>Teacherassignments()..Fetchassign(courseid),
     child: Material(
         elevation: 2,
       borderRadius: BorderRadius.circular(16),
@@ -29,7 +30,7 @@ class teachersassignui extends StatelessWidget {
               if(teachass.isloading){
                 return Center(child: CircularProgressIndicator(color:Color.fromRGBO(75, 57, 239,1) ,),);
               }
-              if(teachass.assign==null){
+              if(teachass.assign.isEmpty){
                 return Center(child: Text("Nothing to show",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w400),),);
               }else{
                return SizedBox(
@@ -81,6 +82,7 @@ class teachersassignui extends StatelessWidget {
                                     teachass.change(teachass.t1, teachass.assign[index].pwname);
                                     teachass.change(teachass.t2, teachass.assign[index].objectives?? "");
                                     teachass.change(teachass.t3, teachass.assign[index].steps);
+                                    teachass.change(teachass.t4, teachass.assign[index].materials??"");
                                     showDialog(context: context, builder:(BuildContext context){
                                       return AlertDialog(
                                        insetPadding: EdgeInsets.zero,
@@ -108,36 +110,7 @@ class teachersassignui extends StatelessWidget {
                                               ],
                                             ),
                                             ),
-                                            SizedBox(height: 16,),
-                                            Container(
-                                              width: double.infinity,
-                                              decoration:  BoxDecoration(
-                                                color: Color.fromRGBO(224, 227, 231,1),
-                                                borderRadius: BorderRadius.circular(8)
-                                              ),
-                                              child: Padding(padding: EdgeInsets.all(12),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  TextButton(onPressed: (){}, child:Row(
-                                                    children: [
-                                                      Icon(Icons.attach_file_rounded,size: 24,color: Color.fromRGBO(87, 99, 108, 1),),
-                                                      SizedBox(width: 10,),
-                                                      Text(teachass.assign[index].pwname,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),),
 
-                                                    ],
-                                                  )
-                                                  ),
-                                                  IconButton(onPressed: (){}, icon: Icon(Icons.close_rounded,size: 16,color: Color.fromRGBO(87, 99, 108,1),))
-                                                ],
-
-                                              ),
-
-                                              ),
-
-                                            ),
                                             SizedBox(height: 16,),
                                             Container(
                                               width: double.infinity,
@@ -244,6 +217,41 @@ class teachersassignui extends StatelessWidget {
                                             ),
                                             SizedBox(height: 16,),
                                             Container(
+                                              width: double.infinity,
+                                              decoration: BoxDecoration(
+                                                color: Color.fromRGBO(224, 227, 231,1),
+                                                borderRadius: BorderRadius.circular(8),
+                                              ),
+
+                                              child: TextField(
+                                                decoration: InputDecoration(
+                                                    enabledBorder: OutlineInputBorder(
+                                                      borderRadius: BorderRadius.circular(8),
+                                                      borderSide: BorderSide(
+                                                        color: Color.fromRGBO(224, 227, 231,1),
+                                                      ),
+
+                                                    ),
+                                                    focusedBorder: OutlineInputBorder(
+                                                      borderRadius: BorderRadius.circular(8),
+                                                      borderSide: BorderSide(
+                                                        color: Color.fromRGBO(224, 227, 231,1),
+                                                      ),
+
+                                                    ),
+                                                    labelText: 'Materials',
+                                                    labelStyle: TextStyle(
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 14
+                                                    )
+                                                ),
+                                                maxLines: null,
+                                                controller: teachass.t4,
+
+                                              ),
+                                            ),
+                                            SizedBox(height: 16,),
+                                            Container(
                                               height: 48,
                                               width: double.infinity,
                                               decoration: BoxDecoration(
@@ -278,7 +286,7 @@ class teachersassignui extends StatelessWidget {
                               SizedBox(width: 10,),
                               ElevatedButton(
                                 onPressed: () {
-                                  teachass.Removedata(teachass.assign[index].pwid.toString(), index);
+                                  teachass.Removedata(teachass.assign[index].pwid, index);
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color.fromRGBO(255, 89, 99, 1),

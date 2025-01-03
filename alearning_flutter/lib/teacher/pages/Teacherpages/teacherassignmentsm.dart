@@ -30,7 +30,7 @@ class teacherassignm extends StatelessWidget {
               children: [
                 Teacheraddassignment(coursename: modid,),
                  SizedBox(height: 16,),
-                teachersassignui(),
+                teachersassignui(courseid:modid),
                 SizedBox(height: 16,)
               ],
             ),

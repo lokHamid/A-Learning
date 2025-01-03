@@ -39,6 +39,7 @@ public class Solution {
         this.ref_student = ref_student;
         this.ref_pw = ref_pw;
         this.ref_feedback = ref_feedback;
+
     }
 
     public String getSolution() {
@@ -73,7 +74,7 @@ public class Solution {
         return id_solution;
     }
 
-    public void setId_solution(int id_solution) {
+    public void setId_solution(Integer id_solution) {
         this.id_solution = id_solution;
     }
 

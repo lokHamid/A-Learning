@@ -70,7 +70,7 @@ class ManageUsers extends StatelessWidget {
                        ),
                         controller: users.search,
                         onChanged: (value){
-                          users.filter(value);
+                          users.filter(value,users.search);
 
                         },
                       ),

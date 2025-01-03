@@ -39,4 +39,7 @@ public class FeedbackService {
     public Feedback getFeedbackByUser(int pwid,int userid){
         return feedbackRepository.findFeedbackByUserPwId(pwid,userid);
     }
+    public long countAllFeedbacks() {
+        return feedbackRepository.count();
+    }
 }

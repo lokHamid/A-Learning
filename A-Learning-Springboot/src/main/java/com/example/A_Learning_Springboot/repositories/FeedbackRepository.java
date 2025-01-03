@@ -11,4 +11,6 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Integer> {
 
     @Query("SELECT DISTINCT s.ref_feedback FROM Solution s WHERE s.ref_student.id_user =:userId AND s.ref_pw.pw_id =:pwId")
     Feedback findFeedbackByUserPwId(@Param("pwId") int pwId, @Param("userId") int userId);
+
+    long count();
 }

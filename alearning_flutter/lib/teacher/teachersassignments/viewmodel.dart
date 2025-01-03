@@ -8,26 +8,49 @@ List<assignment> assign=[];
 TextEditingController t1=TextEditingController();
 TextEditingController t2=TextEditingController();
 TextEditingController t3=TextEditingController();
+TextEditingController t4=TextEditingController();
 void change(TextEditingController t,String s){
   t.text=s;
   notifyListeners();
 }
-Future<void>changes(String id,int index)async {
-  assign[index].pwname=t1.text;
-  assign[index].objectives=t2.text;
-  assign[index].steps=t3.text;
-  notifyListeners();
+Future<void> changes(String id, int index) async {
+  // Update the local state first
+  assign[index].pwname = t1.text;
+  assign[index].objectives = t2.text;
+  assign[index].steps = t3.text;
+  assign[index].materials = t4.text;
+  assign[index].file=[];
+  Map<String, dynamic> updatedPw = assign[index].toJson();
+   // or some other date// Example update
 
-}
-  bool isloading=true;
-  Future<void> Removedata(String id,int index) async{
-    final url=Uri.parse("http://fuck/$id");
-    assign.removeAt(index);
+  // Send the PUT request to the backend API
+  final response = await http.put(
+    Uri.parse('http://localhost:8080/api/pw/update/$id'),
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode(updatedPw),
+
+  );
+
+  if (response.statusCode == 200) {
+    print('Pw updated successfully');
     notifyListeners();
+
+  } else {
+    print('Failed to update Pw: ${response.statusCode}');
+  }
+}
+
+  bool isloading=true;
+  Future<void> Removedata(int id,int index) async{
+    final url=Uri.parse("http://localhost:8080/api/pw/delete/$id");
+
     try{
       final response=await http.delete(url);
       if (response.statusCode == 200 || response.statusCode == 204) {
+
         print('Resource deleted successfully.');
+        assign.removeAt(index);
+        notifyListeners();
       } else {
         print('Failed to delete resource. Status code: ${response.statusCode}');
         print('Response body: ${response.body}');
@@ -36,30 +59,32 @@ Future<void>changes(String id,int index)async {
       print('An error occurred: $e');
     }
   }
- Future<void> Fetchdata() async{
-   final Uri url=Uri.parse("http://endpoint");
-   try{
-final response=await http.get(url,
-  headers: {
-  'Accept':'application/json'
-  }
+Future<void> Fetchassign(String courseid) async{
+  final urla =Uri.parse("http://localhost:8080/api/pw/$courseid");
 
-);
-if(response.statusCode==200){
-  final data=jsonDecode(response.body);
-  notifyListeners();
-  isloading=false;
+  try{
+    final status=await http.get(urla,
+        headers: {
+          'Accept':'application/json'
+        }
+    );
+    if (status.statusCode==200) {
+      final data=jsonDecode(status.body);
+      print("succsess: $data");
+      assign=(data as List).map((assignmen)=>assignment.fromJson(assignmen)).toList();
+
+      isloading=false;
+      notifyListeners();
+    }else{
+      isloading=false;
+      notifyListeners();
+    }
+  }catch(e){
+    print("1error"+e.toString());
+    isloading=false;
+    notifyListeners();
+  }
 }
-print('field');
-isloading=false;
-notifyListeners();
-throw Exception('Failed to load solution');
-   }catch(e){
-     isloading = false;
-     notifyListeners();
-     print('Error fetching solution: $e');
-   }
- }
 Future<void> Fetchdatat() async {
   // Simulate a loading state
   isloading = true;

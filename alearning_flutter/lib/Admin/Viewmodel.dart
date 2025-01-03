@@ -1,20 +1,29 @@
 import 'dart:convert';
 
 import 'package:a_learning/User.dart';
+import 'package:a_learning/widgets/Chipchoice/View.dart';
 import 'package:a_learning/widgets/Chipchoice/model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
+import '../widgets/Chipchoice/Viewmodel.dart';
 class Adminmanager extends ChangeNotifier {
   List<User> users = [];
   late User newuser;
   int? studentsnumber;
   int? feedn;
+  String? selectedLevel;
+  void setSelectedLevel(String level) {
+    selectedLevel = level;
+    notifyListeners(); // Notify listeners about the change
+  }
   int? sub;
   TextEditingController t1 = TextEditingController();
   TextEditingController t2 = TextEditingController();
   TextEditingController t3 = TextEditingController();
   TextEditingController t4 = TextEditingController();
-
+bool teacher=true;
   bool isloadingn = true;
   bool isloadingf = true;
   bool isloadings = true;
@@ -22,15 +31,21 @@ class Adminmanager extends ChangeNotifier {
   List<User> felters = [];
   final List<String> roles = ['TEACHER', 'STUDENT'];
   final List<String> Assigns = ['TEACHER', 'STUDENT', 'ADMIN'];
+  final List<String> levels=['NONE','ING1','ING2','ING3','L1','L2','L3'];
 
   Fetch() async{
    await Studentnum();
-    feedn = 108;
-    sub = 57;
+   await feed();
+   await subm();
+
     await Fetchuser();
 
     notifyListeners();
   }
+
+
+
+
 
   void filteru(List<Choice> choice) {
     // Start by resetting the users to the full list of felters
@@ -118,51 +133,45 @@ class Adminmanager extends ChangeNotifier {
 
 
   Future<void> feed() async {
-    final url = Uri.parse('http://localhost/8080');
+    final url = Uri.parse('http://localhost:8080/api/feedback/count');
     try {
-      final status = await http.get(url,
-          headers: {
-            'Accept': 'application/json'
-          }
-      );
+      final status = await http.get(url, headers: {'Accept': 'application/json'});
+
       if (status.statusCode == 200) {
-        final data = jsonDecode(status.body);
-        feedn = data['feedbacknumber'];
+        // Directly parse the response body to an integer
+        feedn = int.parse(status.body); // Parse directly as an integer
         isloadingf = false;
         notifyListeners();
       } else {
-        print('failed');
+        print('Failed with status: ${status.statusCode}');
         isloadingf = false;
         notifyListeners();
       }
     } catch (e) {
       isloadingf = false;
-      print('error');
+      print('Error: $e');
       notifyListeners();
     }
   }
 
   Future<void> subm() async {
-    final url = Uri.parse('http://localhost/8080');
+    final url = Uri.parse('http://localhost:8080/api/solution/submission/count');
     try {
-      final status = await http.get(url,
-          headers: {
-            'Accept': 'application/json'
-          }
-      );
+      final status = await http.get(url, headers: {'Accept': 'application/json'});
+
       if (status.statusCode == 200) {
-        final data = jsonDecode(status.body);
-        feedn = data['submissionnumber'];
+        // Directly parse the response body to an integer
+        sub = int.parse(status.body); // Parse directly as an integer
         isloadings = false;
         notifyListeners();
       } else {
-        print('failed');
+        print('Failed with status: ${status.statusCode}');
         isloadings = false;
         notifyListeners();
       }
     } catch (e) {
       isloadings = false;
-      print('error');
+      print('Error: $e');
       notifyListeners();
     }
   }
@@ -221,14 +230,16 @@ class Adminmanager extends ChangeNotifier {
   }
 
 
-  void filter(String value) {
-    users.clear();
-    if (value.isEmpty) {
-      users = felters;
+  void filter(String value,TextEditingController s) {
+   users=List.from(felters);
+    felters.clear();
+    if (s.text.isEmpty) {
+       Fetchuser();
+       notifyListeners();
     } else {
-      for (int i = 0; i < felters.length; i++) {
-        if (felters[i].fullname.contains(value)) {
-          users.add(felters[i]);
+      for (int i = 0; i < users.length; i++) {
+        if (users[i].fullname.contains(value)) {
+          felters.add(users[i]);
         }
       }
     }

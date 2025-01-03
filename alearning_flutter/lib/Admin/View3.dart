@@ -190,19 +190,54 @@ class Adduser extends StatelessWidget {
                       )
                     ),
                     child: Padding(padding: EdgeInsets.all(12),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text('Role',style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
-        
-                        ),),
-                        Consumer<Chipchoicemanager>(builder:(BuildContext context,choice,child){
-                          return Chips();
-                        }),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('Role',style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+
+                            ),),
+                            Consumer<Chipchoicemanager>(builder:(BuildContext context,choice,child){
+                              return Chips();
+                            }),
+
+
+                          ],
+                        ),
+                        user.teacher
+                            ? Container(  // Wrap DropdownButton in a Container
+                          padding: EdgeInsets.all(12),  // Add padding to the dropdown
+                          child: DropdownButton<String>(
+                            value: user.selectedLevel,
+                            hint: const Text('Select Level'),
+                            items: [
+                              'NONE',
+                              'ING1',
+                              'ING2',
+                              'ING3',
+                              'L1',
+                              'L2',
+                              'L3'
+                            ]
+                                .map(
+                                  (level) => DropdownMenuItem<String>(
+                                value: level,
+                                child: Text(level),
+                              ),
+                            )
+                                .toList(),
+                            onChanged: (value) {
+                              user.setSelectedLevel(value!);
+                            },
+                          ),
+                        )
+                            : const SizedBox.shrink(),
                       ],
                     ),
                     ),

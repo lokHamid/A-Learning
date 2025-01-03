@@ -127,7 +127,10 @@ public class SolutionController {
 
         return ResponseEntity.ok(updatedSolution);
     }
-
+    @GetMapping("submission/count")
+    public long getallsubmission() {
+        return solutionService.count_all();
+    }
     //delete
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteSolution(@RequestBody Solution solution){

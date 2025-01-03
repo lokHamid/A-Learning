@@ -39,7 +39,10 @@ public class FeedbackController {
         Feedback feedback = feedbackService.getFeedbackByUser(pwid,userid);
         return ResponseEntity.ok(feedback);
     }
-
+    @GetMapping("/count")
+    public long getTotalFeedbacks() {
+        return feedbackService.countAllFeedbacks();
+    }
     //create
     @PostMapping("/add")
     public Feedback addFeedback(@RequestBody Feedback feedback){

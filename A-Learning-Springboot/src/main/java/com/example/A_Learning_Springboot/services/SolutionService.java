@@ -15,6 +15,8 @@ public class SolutionService {
 
     private final SolutionRepository solutionRepository;
     private final FileClassService fileClassService;
+public long count_all(){
+    return solutionRepository.count();}
 
     public SolutionService(SolutionRepository solutionRepository, FileClassService fileClassService) {
         this.solutionRepository = solutionRepository;

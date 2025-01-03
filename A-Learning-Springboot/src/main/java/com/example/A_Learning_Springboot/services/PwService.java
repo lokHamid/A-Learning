@@ -55,6 +55,9 @@ public class PwService {
 
         return savedPw;
     }
+    public Pw getPwById(int id){
+        return pwRepository.findByPwId(id);
+    }
 
     @Transactional
     public Pw savePwById(int id, Pw pw) {
