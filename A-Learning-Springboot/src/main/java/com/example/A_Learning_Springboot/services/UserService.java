@@ -17,7 +17,7 @@ public class UserService {
         return userRepository.findById(id);
     }
     public Optional<User> validateCredentials(String email, String password) {
-        // Find user by email
+
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
