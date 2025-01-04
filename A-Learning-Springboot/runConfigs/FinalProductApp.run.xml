@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="FinalProductApp" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="dev" />
+    <envs>
+      <env name="DATABASE_URL" value="jdbc:postgresql://aws-0-eu-west-3.pooler.supabase.com:5432/postgres" />
+      <env name="DATABASE_USERNAME" value="postgres.wfhyukhjkramokvqronp" />
+      <env name="DATABASE_PASSWORD" value="OepdrS0kSwwneztA" />
+      <env name="SUPABASE_URL" value="https://wfhyukhjkramokvqronp.supabase.co" />
+      <env name="SUPABASE_SECRET_KEY" value="eyJhbGciOiJIUzI1N  iIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmaHl1a2hqa3JhbW9rdnFyb25wIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczMzI0NTMzMCwiZXhwIjoyMDQ4ODIxMzMwfQ.uJ1TWA4jwhX-cNuAX7PBw9sjEVjxMz6JrG7aOCdH8To" />
+      <env name="SUPABASE_FILE_BUCKET" value="files_bucket" />
+    </envs>
+    <module name="A-Learning-Springboot" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.A_Learning_Springboot.ALearningSpringbootApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
