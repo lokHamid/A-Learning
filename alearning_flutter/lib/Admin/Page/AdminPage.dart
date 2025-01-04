@@ -5,6 +5,8 @@ import 'package:a_learning/Admin/view2.dart';
 import 'package:a_learning/widgets/dashboardcontainer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../view1.02.dart';
 class Adminpage extends StatelessWidget {
   const Adminpage({super.key});
 
@@ -22,7 +24,20 @@ class Adminpage extends StatelessWidget {
           children: [
             dashboardcontainer(title: 'Welcome, Admin', description: 'Your learning journey starts here'),
             SizedBox(height: 24,),
-            Statistics(),
+            LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                // Access constraints.maxWidth and constraints.maxHeight
+                if (constraints.maxWidth < 600) {
+                  // Build a layout for small screens
+                  return  Statistic();
+                } else {
+                  // Build a layout for large screens
+                  return  Statistics();
+                }
+              },
+            ),
+
+
             SizedBox(height: 24,),
             ManageUsers(),
             SizedBox(height: 24,),

@@ -34,10 +34,12 @@ class Loginpage extends StatelessWidget {
                   ),
                   child: Padding(padding: EdgeInsets.all(24),
                   child: Column(
+
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     children: [
+                     SizedBox(height: 100,),
                       Container(
                         padding: EdgeInsets.only(left: 16,
                         right: 16),
@@ -47,10 +49,10 @@ class Loginpage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.school,size: 90,color: Color.fromRGBO(255, 255,255,1),),
+                            Icon(Icons.school,size: 150,color: Color.fromRGBO(255, 255,255,1),),
                             Text('A learning',style: TextStyle(
                               fontWeight: FontWeight.w700,
-                              fontSize: 25,
+                              fontSize: 40,
                               color: Color.fromRGBO(255, 255,255,1),
                             ),),
                           ],
@@ -60,7 +62,7 @@ class Loginpage extends StatelessWidget {
             
                       Padding(padding: EdgeInsets.only(left: 16,right: 16),
                       child: Text('Welcome Back',style: TextStyle(
-                        fontSize: 35,
+                        fontSize: 50,
                         fontWeight: FontWeight.w700,
                         color: Color.fromRGBO(255, 255,255,1),
             
@@ -70,7 +72,7 @@ class Loginpage extends StatelessWidget {
                       child: Text('Sign in to continue',style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 23,color: Color.fromRGBO(224,224,224,1),
-            
+
                       ),),
                       ),
             

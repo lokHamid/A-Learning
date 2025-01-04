@@ -29,6 +29,7 @@ final String description;
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+
                 Text(title,style: TextStyle(fontSize: 28,fontWeight: FontWeight.bold,color: Colors.white),),
                 Text(description,style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Color.fromRGBO(224, 224, 224, 1)),)
               ],

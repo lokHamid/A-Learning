@@ -26,14 +26,14 @@ class Loginmanager extends ChangeNotifier {
   void checktest(BuildContext context) {
     if (login!=null) {
       if (login?.role==Role.ADMIN) {
-        Navigator.push(
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Adminpage()));
       } else {
         if (login?.role==Role.TEACHER) {
-          Navigator.push(context,
+          Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => teacherdachbord(id: login!.userid, name: login!.fullname,)));
         } else {
-          Navigator.push(context, MaterialPageRoute(
+          Navigator.pushReplacement(context, MaterialPageRoute(
               builder: (context) => Dashboards(studentID: login!.userid,level: login!.level,)));
         }
       }

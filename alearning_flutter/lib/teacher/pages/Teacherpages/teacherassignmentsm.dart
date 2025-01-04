@@ -1,6 +1,7 @@
 import 'package:a_learning/widgets/dashboardcontainer.dart';
 import 'package:flutter/material.dart';
 
+import '../../../widgets/container2.dart';
 import '../../teacherassignmantsmnage/view.dart';
 import '../../teachersassignments/view.dart';
 class teacherassignm extends StatelessWidget {
@@ -18,7 +19,8 @@ class teacherassignm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            dashboardcontainer(title: module, description:'Assignments'),
+
+            dashboardcontainer1(title: module, description:'Assignments'),
             SizedBox(
               height:24 ,
             ),
@@ -28,6 +30,7 @@ class teacherassignm extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
+
                 Teacheraddassignment(coursename: modid,),
                  SizedBox(height: 16,),
                 teachersassignui(courseid:modid),

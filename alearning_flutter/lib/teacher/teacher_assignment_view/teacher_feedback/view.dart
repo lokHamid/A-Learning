@@ -144,7 +144,7 @@ class _TeacherfeedbackviewState extends State<Teacherfeedbackview> {
                    value: vm.slider,
                    min: 0.0, // Minimum value
                    max: 20.0, // Maximum value
-                   divisions: 20, // Number of divisions (optional)
+                   divisions: 80, // Number of divisions (optional)
 
                    onChanged: (double value) {
                    setState(() {
@@ -217,6 +217,10 @@ class _TeacherfeedbackviewState extends State<Teacherfeedbackview> {
                         print(widget.idsolution);
                         Feedbacka feedback=Feedbacka(id_feedback: 4, message: solution.text,grade: slider);
                         feed.updateFeedback(widget.idsolution, feedback);
+                        setState(() {
+                          solution.clear();
+                        });
+
                       },
 
                           style: ElevatedButton.styleFrom(

@@ -141,6 +141,12 @@ Future<List<PlatformFile>?> pickfile() async {
       );
 
       if (response.statusCode == 200) {
+        t1.clear();
+        t2.clear();
+        t3.clear();
+        t4.clear();
+
+        notifyListeners();
         // If the server returns a success status code (200)
         print('Assignment sent successfully!');
       } else {

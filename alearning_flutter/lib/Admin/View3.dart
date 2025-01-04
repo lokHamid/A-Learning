@@ -190,19 +190,63 @@ class Adduser extends StatelessWidget {
                       )
                     ),
                     child: Padding(padding: EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Column(
+
+
+                      child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text('Role',style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text('Role',style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
 
-                            ),),
+                                ),),
+                                user.teacher
+                                    ? Container(
+                                  height: 38,
+                                  // Wrap DropdownButton in a Container
+                                  padding: EdgeInsets.only(left: 10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color:  Color.fromRGBO(57, 210, 192, 1),
+                                  ),// Add padding to the dropdown
+                                  child: DropdownButton<String>(
+                                    value: user.selectedLevel,
+                                    hint: const Text('Select Level'),
+                                    items: [
+                                      'NONE',
+                                      'ING1',
+                                      'ING2',
+                                      'ING3',
+                                      'L1',
+                                      'L2',
+                                      'L3',
+                                      'M1',
+                                      'M2'
+
+                                    ]
+                                        .map(
+                                          (level) => DropdownMenuItem<String>(
+                                        value: level,
+                                        child: Text(level),
+                                      ),
+                                    )
+                                        .toList(),
+                                    onChanged: (value) {
+                                      user.setSelectedLevel(value!);
+                                    },
+                                  ),
+                                )
+                                    : const SizedBox.shrink(),
+
+                              ],
+                            ),
                             Consumer<Chipchoicemanager>(builder:(BuildContext context,choice,child){
                               return Chips();
                             }),
@@ -210,36 +254,8 @@ class Adduser extends StatelessWidget {
 
                           ],
                         ),
-                        user.teacher
-                            ? Container(  // Wrap DropdownButton in a Container
-                          padding: EdgeInsets.all(12),  // Add padding to the dropdown
-                          child: DropdownButton<String>(
-                            value: user.selectedLevel,
-                            hint: const Text('Select Level'),
-                            items: [
-                              'NONE',
-                              'ING1',
-                              'ING2',
-                              'ING3',
-                              'L1',
-                              'L2',
-                              'L3'
-                            ]
-                                .map(
-                                  (level) => DropdownMenuItem<String>(
-                                value: level,
-                                child: Text(level),
-                              ),
-                            )
-                                .toList(),
-                            onChanged: (value) {
-                              user.setSelectedLevel(value!);
-                            },
-                          ),
-                        )
-                            : const SizedBox.shrink(),
-                      ],
-                    ),
+
+
                     ),
                   ),
                   SizedBox(height: 16,),
@@ -250,16 +266,50 @@ class Adduser extends StatelessWidget {
                     children: [
                       Consumer<Chipchoicemanager>(
                         builder: (BuildContext context, choce, Widget? child) {
-
-                         return ElevatedButton(onPressed: () async {
+    for(int j=0;j<choce.Choices.length;j++) {
+      if (choce.Choices[j].selected == 1) {
+        if (choce.Choices[j].choice == 'STUDENT') {
+          user.teacher = true;
+        }else{
+          user.teacher=false;
+        }
+      }
+    }
+    return ElevatedButton(onPressed: () async {
                            Role role=Role.NONE;
                            for(int i=0;i<choce.Choices.length;i++){
                              if(choce.Choices[i].selected==1){
+                               if(choce.Choices[i].choice=='STUDENT'){
+                                 user.teacher=true;
+                               }
                                 role = Role.values.firstWhere((e) => e.toString().split('.').last == choce.Choices[i].choice);
 
                              }
                            }
-                          user.newuser=User(fullname: user.t1.text, email: user.t3.text, password: user.t4.text, role:role, userid: 5, last_name: user.t2.text, level: Level.ING1);
+                           print(user.selectedLevel);
+                           print('halowa');
+                           if(user.selectedLevel!=null) {
+                             user.newuser = User(fullname: user.t1.text,
+                                 email: user.t3.text,
+                                 password: user.t4.text,
+                                 role: role,
+                                 userid: 5,
+                                 last_name: user.t2.text,
+                                 level: Level.values.firstWhere((e) =>
+                                 e
+                                     .toString()
+                                     .split('.')
+                                     .last == user.selectedLevel));
+                           }else{
+                             user.newuser = User(fullname: user.t1.text,
+                                 email: user.t3.text,
+                                 password: user.t4.text,
+                                 role: role,
+                                 userid: 5,
+                                 last_name: user.t2.text,
+                                 level: Level.NONE);
+
+                           }
                            await  user.addUser();
                           }, child:Text('Save User',style: TextStyle(
                           fontSize: 16,

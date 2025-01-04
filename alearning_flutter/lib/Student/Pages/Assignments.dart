@@ -1,6 +1,8 @@
 import 'package:a_learning/Student/Student-assignments/View.dart';
 import 'package:a_learning/widgets/dashboardcontainer.dart';
 import 'package:flutter/material.dart';
+
+import '../../widgets/container2.dart';
 class Courseassignments extends StatelessWidget {
   final String coursename;
   final int studentID;
@@ -18,7 +20,7 @@ class Courseassignments extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            dashboardcontainer(title: coursename, description:'Assignments'),
+            dashboardcontainer1(title: coursename, description:'Assignments'),
             SizedBox(height: 24,),
             Padding(padding: EdgeInsets.only(left: 24,
             right: 24),

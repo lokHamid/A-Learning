@@ -4,6 +4,7 @@ import 'package:a_learning/teacher/teacher_assignment_view/teacher_feedback/view
 import 'package:a_learning/widgets/dashboardcontainer.dart';
 import 'package:flutter/material.dart';
 
+import '../../../widgets/container2.dart';
 import '../../teacher_assignment_view/Studentsolution/model.dart';
 class Teacherview extends StatelessWidget {
   final String student;
@@ -23,7 +24,7 @@ class Teacherview extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            dashboardcontainer(title: student, description:course ),
+            dashboardcontainer1(title: student, description:course ),
             SizedBox(height: 8,),
             Teachersolview(solution1: solution1),
             SizedBox(height: 8,),

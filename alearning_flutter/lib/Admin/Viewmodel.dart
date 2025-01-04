@@ -23,7 +23,7 @@ class Adminmanager extends ChangeNotifier {
   TextEditingController t2 = TextEditingController();
   TextEditingController t3 = TextEditingController();
   TextEditingController t4 = TextEditingController();
-bool teacher=true;
+bool teacher=false;
   bool isloadingn = true;
   bool isloadingf = true;
   bool isloadings = true;
@@ -33,6 +33,10 @@ bool teacher=true;
   final List<String> Assigns = ['TEACHER', 'STUDENT', 'ADMIN'];
   final List<String> levels=['NONE','ING1','ING2','ING3','L1','L2','L3'];
 
+  void change(){
+    teacher=true;
+    notifyListeners();
+  }
   Fetch() async{
    await Studentnum();
    await feed();
@@ -262,6 +266,11 @@ bool teacher=true;
         Fetch();
         studentsnumber=(studentsnumber!+1);
         print('Success for new user');
+        t1.clear();
+        t2.clear();
+        t3.clear();
+        t4.clear();
+        notifyListeners();
       } else {
         print('Failed with status code: ${status.statusCode}');
         print('Response body: ${status.body}');

@@ -25,6 +25,19 @@ class Detailedassignments extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.arrow_back, size: 28),
+                      onPressed: () {
+                        Navigator.pop(context); // Go back to the previous screen
+                      },
+                    ),
+                  ],
+                ),
+              ),
               AssignmentsDetails1(asign1: assign,iduser: iduser,)
             ],
           ),

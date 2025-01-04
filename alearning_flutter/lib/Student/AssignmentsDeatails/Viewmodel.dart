@@ -241,6 +241,8 @@ class Details extends ChangeNotifier{
 
   if (response.statusCode == 200) {
    print('Success');
+   t1.clear();
+   notifyListeners();
   } else {
    print('Failed: ${response.statusCode}');
    print('Response Body: ${response.body}');

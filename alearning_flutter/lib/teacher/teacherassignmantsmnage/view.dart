@@ -264,7 +264,7 @@ class Teacheraddassignment extends StatelessWidget {
                             } else {
                               print("No file found in s1.");
                             }
-                             viewmodel.s1?.coursename=viewmodel.t1.text;
+                             viewmodel.s1?.pwname=viewmodel.t1.text;
                             viewmodel.s1?.materials=viewmodel.t4.text;
                             viewmodel.s1?.objectives=viewmodel.t3.text;
                             viewmodel.s1?.steps=viewmodel.t2.text;
