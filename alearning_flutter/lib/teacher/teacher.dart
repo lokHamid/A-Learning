@@ -2,6 +2,9 @@ import 'package:a_learning/teacher/teacherdektab.dart';
 import 'package:a_learning/teacher/teachermobile.dart';
 import 'package:flutter/material.dart';
 
+import '../Login/View.dart';
+import '../mvc/view.dart';
+
 class Teacher extends StatefulWidget {
   const Teacher({super.key});
 
@@ -16,9 +19,9 @@ class _TeacherState extends State<Teacher> {
    body: LayoutBuilder(
        builder:(context,constraints){
          if(constraints.maxWidth >600){
-           return Teacherdektab();
+           return Loginpage();
          }else{
-          return Teachermobile();
+          return viewmvc();
          }
 
        }

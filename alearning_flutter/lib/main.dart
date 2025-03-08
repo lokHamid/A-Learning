@@ -16,6 +16,8 @@ import 'package:a_learning/tr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'mvc/view.dart';
+
 
 void main() {
   runApp(
@@ -43,7 +45,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:Loginpage()
+      home:Teacher()
+
     );
   }
 }

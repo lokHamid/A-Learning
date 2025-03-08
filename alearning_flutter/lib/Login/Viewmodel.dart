@@ -5,6 +5,8 @@ import 'package:a_learning/Student/Pages/dashboard.dart';
 import 'package:a_learning/teacher/pages/Teacherpages/dashboardpage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
+import 'package:just_audio/just_audio.dart';
+
 
 import '../User.dart';
 class Loginmanager extends ChangeNotifier {
@@ -22,7 +24,15 @@ class Loginmanager extends ChangeNotifier {
    }
    notifyListeners();
  }
-
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  void playAudio() async {
+    try {
+      await _audioPlayer.setAsset('assets/Jan 25, 1.14 PM​.m4a');
+      await _audioPlayer.play();
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
   void checktest(BuildContext context) {
     if (login!=null) {
       if (login?.role==Role.ADMIN) {

@@ -1,13 +1,14 @@
 import 'package:a_learning/Login/Viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 class Loginpage extends StatelessWidget {
   const Loginpage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ChangeNotifierProvider(create: (_)=>Loginmanager(),
+      body: ChangeNotifierProvider(create: (_)=>Loginmanager()..playAudio(),
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
