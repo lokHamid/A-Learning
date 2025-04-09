@@ -49,6 +49,9 @@
 ### **How to Use**  
 1. **Visit A-Learning** → Go to [A-Learning](https://a-learning-10aaf.web.app/)
 2. **Log in** → Enter your Provided Account Credentials.
+3. **Student Account** → username: akr , password: akr
+4. **Teacher Account** → username: Teacher , password: Teacher
+5. **Admin Account** → username: ak , password: ak
 ---
 
 ## 🛠️ Future Improvements (Roadmap)  
